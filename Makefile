@@ -6,14 +6,14 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2021/12/24 13:46:29 by chduong          ###   ########.fr        #
+#    Updated: 2022/05/13 16:45:43 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #########################################
 #				PROGRAMS				#
 #########################################
-SL			=	so_long
+C3D			=	cub3d
 
 #########################################
 #				COMMANDS				#
@@ -44,12 +44,10 @@ BOLD       =   $'\e[1m
 CFLAGS		=	-Wall -Wextra -Werror
 DEBUG		=	-fsanitize=address -g3
 
-INC			= 	-I includes $(INC_MLX) $(INC_LFT)
-INC_LFT		=	-I libft/inc
+INC			= 	-I includes $(INC_MLX)
 INC_MLX		=	-I/usr/include -I mlx_linux
 
-LINK		=	$(LINK_LFT) $(LINK_MLX)
-LINK_LFT	=	-L ./libft -lft
+LINK		=	$(LINK_MLX)
 LINK_MLX	=	-L -lmlx -lXext -lX11
 
 #########################################
@@ -57,37 +55,28 @@ LINK_MLX	=	-L -lmlx -lXext -lX11
 #########################################
 SRC_DIR		=	srcs/
 MLX_DIR		=	mlx_linux/
-LFT_DIR		=	libft/
 OBJ_DIR		=	obj/
 
 #########################################
 #			SOURCES	FILES				#
 #########################################
-LIBFT		=	$(LFT_DIR)libft.a
 MLX			= 	$(MLX_DIR)libmlx.a
 
-SL_SRC		=	main.c				get_map.c		checker_map.c\
-				error_utils.c		handlers.c		parse_display.c\
-				data_init.c			clear_data.c	load_img.c\
-				player_move.c		display.c
+C3D_SRC		=	main.c
 
 #########################################
 #            OBJECT FILES    	        #
 #########################################
-SL_OBJ		=	$(SL_SRC:.c=.o)
-SL_OBJ		:=	$(addprefix $(OBJ_DIR), $(SL_OBJ))
+C3D_OBJ		=	$(C3D_SRC:.c=.o)
+C3D_OBJ		:=	$(addprefix $(OBJ_DIR), $(C3D_OBJ))
 
 #########################################
 #			MAKE	RULES				#
 #########################################
-$(SL): $(MLX) $(LIBFT) $(OBJ_DIR) $(SL_OBJ)
+$(C3D): $(MLX) $(OBJ_DIR) $(C3D_OBJ)
 	@echo "> $(CYAN)Generate objects$(END) : \t\t[$(GREEN)OK$(END)]"
-	@$(CC) -o $@ $(SL_OBJ) $(LIBFT) $(MLX) $(LINK)
+	@$(CC) -o $@ $(C3D_OBJ) $(LIBFT) $(MLX) $(LINK)
 	@echo "> $(WHITE)$(BOLD)So_Long Compilation$(END) : \t[$(YELLOW)COMPLETE$(END)]"
-
-$(LIBFT):
-	@make -s -C $(LFT_DIR)
-	@echo "> $(CYAN)Create LIBFT$(END) : \t\t[$(GREEN)OK$(END)]"
 
 $(MLX):
 	@make -s -C $(MLX_DIR) all
@@ -100,21 +89,18 @@ ${OBJ_DIR}%.o:	${SRC_DIR}%.c
 $(OBJ_DIR):
 	@$(MKDIR) $(OBJ_DIR)
 	
-all: $(SL)
+all: $(C3D)
 
 bonus :	
 	
 clean:
 	@$(RM) $(OBJ_DIR)
-	@make -s -C $(LFT_DIR) clean
 	@echo "> $(PURPLE)Clean objects$(END) : \t\t[$(GREEN)OK$(END)]"
 	
 fclean: clean
 	@make -s -C $(MLX_DIR) clean
 	@echo "> $(PURPLE)Delete MiniLibX$(END) : \t\t[$(GREEN)OK$(END)]"
-	@make -s -C $(LFT_DIR) fclean
-	@echo "> $(PURPLE)Delete LIBFT$(END) : \t\t[$(GREEN)OK$(END)]"
-	@$(RM) $(SL)
+	@$(RM) $(C3D)
 	@echo "> $(PURPLE)Delete Program$(END) : \t\t[$(GREEN)OK$(END)]"
 	
 re: fclean all 
@@ -123,6 +109,6 @@ norm:
 	@norminette ${SRC_DIR} ${INC_DIR} | grep 'Error' ; true
 
 leak:
-	valgrind ./${SL}
+	valgrind ./${C3D}
 
 .PHONY: all clean fclean re
