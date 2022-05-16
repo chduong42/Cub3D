@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/05/13 16:45:43 by chduong          ###   ########.fr        #
+#    Updated: 2022/05/16 19:41:30 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,8 @@ BOLD       =   $'\e[1m
 CFLAGS		=	-Wall -Wextra -Werror
 DEBUG		=	-fsanitize=address -g3
 
-INC			= 	-I includes $(INC_MLX)
-INC_MLX		=	-I/usr/include -I mlx_linux
+INC			= 	-I inc $(INC_MLX)
+INC_MLX		=	-I/usr/inc -I mlx_linux
 
 LINK		=	$(LINK_MLX)
 LINK_MLX	=	-L -lmlx -lXext -lX11

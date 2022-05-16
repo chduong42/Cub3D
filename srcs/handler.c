@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 17:06:21 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/13 17:06:59 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/16 18:42:19 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,21 @@ int	handle_keypress(int keysym, t_data *data)
 	if (keysym == XK_Escape)
 		clear_data(data);
 	else if (keysym == W)
-		data->map.ploc.y -= go_up_down(UP, data);
+
 	else if (keysym == S)
-		data->map.ploc.y += go_up_down(DOWN, data);
+
 	else if (keysym == A)
-		data->map.ploc.x -= go_left_right(LEFT, data);
+
 	else if (keysym == D)
-		data->map.ploc.x += go_left_right(RIGHT, data);
+
+	else if (keysym == ARROW_UP)
+
+	else if (keysym == ARROW_DOWN)
+
+	else if (keysym == ARROW_LEFT)
+
+	else if (keysym == ARROW_RIGHT)
+
 	display_map(data);
 	return (0);
 }
