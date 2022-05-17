@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/05/16 19:41:30 by chduong          ###   ########.fr        #
+#    Updated: 2022/05/17 15:40:38 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,22 +44,26 @@ BOLD       =   $'\e[1m
 CFLAGS		=	-Wall -Wextra -Werror
 DEBUG		=	-fsanitize=address -g3
 
-INC			= 	-I inc $(INC_MLX)
+INC			= 	-I inc $(INC_MLX) $(INC_LFT)
+INC_LFT		=	-I libft/inc
 INC_MLX		=	-I/usr/inc -I mlx_linux
 
-LINK		=	$(LINK_MLX)
+LINK		=	$(LINK_MLX) $(LINK_LFT)
+LINK_LFT	=	-L ./libft -lft
 LINK_MLX	=	-L -lmlx -lXext -lX11
 
 #########################################
 #			DIRECTORIES					#
 #########################################
-SRC_DIR		=	srcs/
-MLX_DIR		=	mlx_linux/
 OBJ_DIR		=	obj/
+SRC_DIR		=	srcs/
+LFT_DIR		=	libft/
+MLX_DIR		=	mlx_linux/
 
 #########################################
 #			SOURCES	FILES				#
 #########################################
+LFT			=	$(LFT_DIR)libft.a
 MLX			= 	$(MLX_DIR)libmlx.a
 
 C3D_SRC		=	main.c
@@ -73,11 +77,15 @@ C3D_OBJ		:=	$(addprefix $(OBJ_DIR), $(C3D_OBJ))
 #########################################
 #			MAKE	RULES				#
 #########################################
-$(C3D): $(MLX) $(OBJ_DIR) $(C3D_OBJ)
+$(C3D): $(MLX) $(LFT) $(OBJ_DIR) $(C3D_OBJ)
 	@echo "> $(CYAN)Generate objects$(END) : \t\t[$(GREEN)OK$(END)]"
 	@$(CC) -o $@ $(C3D_OBJ) $(LIBFT) $(MLX) $(LINK)
 	@echo "> $(WHITE)$(BOLD)So_Long Compilation$(END) : \t[$(YELLOW)COMPLETE$(END)]"
 
+$(LFT):
+	@make -s -C $(LFT_DIR)
+	@echo "> $(CYAN)Libft Compilation$(END) : \t\t[$(GREEN)OK$(END)]"
+	
 $(MLX):
 	@make -s -C $(MLX_DIR) all
 	@echo "> $(CYAN)Create MiniLibX$(END) : \t\t[$(GREEN)OK$(END)]"
@@ -95,9 +103,12 @@ bonus :
 	
 clean:
 	@$(RM) $(OBJ_DIR)
+	@make -s -C $(LIBFT_DIR) clean
 	@echo "> $(PURPLE)Clean objects$(END) : \t\t[$(GREEN)OK$(END)]"
 	
 fclean: clean
+	@make -s -C $(LIBFT_DIR) fclean
+	@echo "> $(PURPLE)Delete LIBFT$(END) : \t\t[$(GREEN)OK$(END)]"
 	@make -s -C $(MLX_DIR) clean
 	@echo "> $(PURPLE)Delete MiniLibX$(END) : \t\t[$(GREEN)OK$(END)]"
 	@$(RM) $(C3D)
