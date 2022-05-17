@@ -6,15 +6,15 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 13:55:22 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/16 19:41:55 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/17 16:16:56 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	create_window(t_data *data, t_dim map)
+void	create_window(t_data *data, t_xy map)
 {
-	t_dim	res;
+	t_xy	res;
 
 	printf("\e[1;37m--> Window Launching !\e[0m");
 	res.x = map.x * PIX;

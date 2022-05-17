@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 15:57:55 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/16 17:59:33 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/17 16:28:56 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,4 @@ void	data_init(t_data *data)
 	data->mlx = mlx_init();
 	check_ptr(data->mlx, data);
 	printf("\t✅\n");
-}
-
-void	clear_data(t_data *data)
-{
-	if (data->win)
-		mlx_destroy_window(data->mlx, data->win);
-	if (data->mlx)
-	{
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-	}
-	if (data->map.tab)
-		free_map(data->map.tab, data->map.dim.y);
-	exit(EXIT_SUCCESS);
 }

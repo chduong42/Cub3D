@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 18:02:16 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/16 18:02:31 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/17 16:29:09 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@ static int	check_file(t_data *data, const char *path_file)
 	size_t	len;
 	char	*ext;
 
-	printf("\e[1;33mChecking map file...\e[0m");
+	printf("\e[1;33mChecking setting file...\e[0m");
 	len = ft_strlen(path_file);
 	if (len < 4)
-		print_error(data, "No \".ber\" extension");
-	ext = ft_strnstr(path_file, ".ber", len);
+		print_error(data, "No \".cub\" extension");
+	ext = ft_strnstr(path_file, ".cub", len);
 	len = ft_strlen(ext);
 	if (len == 0 || len > 4)
-		print_error(data, "No \".ber\" extension");
+		print_error(data, "No \".cub\" extension");
 	if (open(path_file, __O_DIRECTORY) > 0)
-		print_error(data, "Input is a directory, not a file.ber");
+		print_error(data, "Input is a directory, not a file.cub");
 	printf("\t✅\n");
 	return (0);
 }
 
-static t_dim	dim_map(const char *path_file)
+static t_xy	dim_map(const char *path_file)
 {
 	int		fd;
 	char	*line;
-	t_dim	dim;
+	t_xy	dim;
 
 	fd = open(path_file, O_RDONLY);
 	line = NULL;
@@ -48,17 +48,6 @@ static t_dim	dim_map(const char *path_file)
 	free(line);
 	close(fd);
 	return (dim);
-}
-
-void	free_map(char **map, int y)
-{
-	int	i;
-
-	i = 0;
-	while (i < y)
-		free(map[i++]);
-	free(map);
-	map = NULL;
 }
 
 static char	**malloc_map(t_data *data, t_dim dim)

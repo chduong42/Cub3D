@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 13:55:28 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/16 18:01:21 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/17 16:14:55 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 //	MACRO
 # define TITLE "My Cub3D"
-# define PIX 80
+# define PIX 32
 # define UP -1
 # define DOWN 1
 # define LEFT -1
@@ -46,26 +46,31 @@
 # define ARROW_LEFT 65361
 # define ARROW_RIGHT 65363
 
-typedef struct s_dim
+typedef struct s_xy
 {
 	int		x;
 	int		y;
-}			t_dim;
+}			t_xy;
 
 typedef struct s_map
 {
 	char	**tab;
-	t_dim	dim;
-	t_dim	ploc;
+	t_xy	dim;
+	t_xy	p_loc;
 }			t_map;
 
 typedef struct s_data
 {
 	int		width;
 	int		height;
+	int		floor[3];
+	int		ceiling[3];
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
 	void	*mlx;
 	void	*win;
-	char	*move_display;
 	t_map	map;
 }			t_data;
 
