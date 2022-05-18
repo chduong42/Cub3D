@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 13:55:28 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/17 16:14:55 by chduong          ###   ########.fr       */
+/*   Created: 2022/05/09 09:56:08 by jvermeer          #+#    #+#             */
+/*   Updated: 2022/05/18 16:42:55 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# include <mlx.h>
-# include <X11/X.h>
-# include <X11/keysym.h>
 # include <math.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stddef.h>
+# include <string.h>
 # include <unistd.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <stdbool.h>
+# include <sys/types.h> 
+# include <sys/stat.h> 
+# include "libft.h"
+# include <mlx.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
@@ -46,43 +48,48 @@
 # define ARROW_LEFT 65361
 # define ARROW_RIGHT 65363
 
-typedef struct s_xy
+typedef struct s_cube
 {
-	int		x;
-	int		y;
-}			t_xy;
-
-typedef struct s_map
-{
-	char	**tab;
-	t_xy	dim;
-	t_xy	p_loc;
-}			t_map;
-
-typedef struct s_data
-{
-	int		width;
-	int		height;
+	char	**file;
+	char	**map;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
 	int		floor[3];
 	int		ceiling[3];
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
-	void	*mlx;
-	void	*win;
-	t_map	map;
-}			t_data;
+	void	*m_ptr;
+	void	*w_ptr;
+	int		nblines;
+	int		maplen;
+	int		mapwid;
 
-//	UTILS
-double	deg_to_rad(double degrees);
-double	rad_to_deg(double radians);
-void	print_error(t_data *data, const char *msg);
-void	check_ptr(void *ptr, t_data *data);
+	void	*cube_win;
+	void	*cube_ptr;
 
-//	HANDLERS
-int		cross_btn(t_data *data);
-int		handle_display(t_data *data);
-int		handle_keypress(int keysym, t_data *data);
+//	void	*image;
+	int		scope;
+	void	*miniw;
+	void	*minig;
+	void	*minip;
+	float	mnmpos[2];
+	int		pov;
+}				t_cube;
+typedef struct s_gnl
+{
+	int		ret;
+	int		bean;
+	int		size;
+	char	c;
+}				t_gnl;
+char			**get_all_file(t_cube *s, char **av, int *fd);
+int				write_error(char *message);
+void			free_all(t_cube *s);
+void			free_array(char **str);
+char			*get_file_name(char *l);
+int				parsing(t_cube *s, int ac, char **av);
+int				buffcomp(char *str, char *l);
+int				data_collect(t_cube *s);
+float			wall_intersections(t_cube *s, int deg);
 
 #endif
