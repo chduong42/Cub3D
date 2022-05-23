@@ -1,3 +1,4 @@
 *.o
 *.a
 .vscode/c_cpp_properties.json
+cub3D
