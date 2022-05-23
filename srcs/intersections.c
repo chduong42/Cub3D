@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jvermeer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/18 16:45:45 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/20 18:38:58 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 float	rad(float degree)
 {
-	return (degree * 3.141592 / 180);
+	return (degree * M_PI / 180);
 }
 
-int	wall_above(t_cube *s, float y, float x, float *pos)
+///////////////////////////////////////////////////////////////////////
+
+int	wall_above(t_cube *s, float y, float x)
 {
 	int	posy;
 	int	posx;
 
-	posy = (int)(pos[1] - y - 1);
-	posx = (int)(pos[0] + x);
+	posy = (int)(y - 0.5);
+	posx = (int)(x);
 	if (posy < 0 || posx >= s->maplen)
 		return (1);
 	if (s->map[posy][posx] == '1')
@@ -37,11 +39,10 @@ float	hori_zero_ninety(t_cube *s, float radian, float *pos)
 	float	x1;
 	float	xa;
 
-
 	y1 = pos[1] - (int)pos[1];
 	x1 = y1 / tanf(radian);
 	xa = 1 / tanf(radian);
-	while (wall_above(s, y1, x1, pos) == 0)
+	while (wall_above(s, (pos[1] - y1), (pos[0]) + x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
@@ -49,13 +50,13 @@ float	hori_zero_ninety(t_cube *s, float radian, float *pos)
 	return (x1 / cos(radian));
 }
 
-int	wall_right(t_cube *s, float y, float x, float *pos)
+int	wall_right(t_cube *s, float y, float x)
 {
 	int	posy;
 	int	posx;
 
-	posy = (int)(pos[1]) - y;
-	posx = (int)(pos[0]) + x;
+	posy = (int)y;
+	posx = (int)x;
 	if (posy < 0 || posx >= s->maplen)
 		return (1);
 	if (s->map[posy][posx] == '1')
@@ -69,10 +70,10 @@ float	verti_zero_ninety(t_cube *s, float radian, float *pos)
 	float	y1;
 	float	ya;
 
-	x1 = pos[0] - (int)pos[0];
-	y1 = x1 / cos(radian);
-	ya = 1 / cos(radian);
-	while (wall_right(s, y1, x1, pos) == 0)
+	x1 = 1 - (pos[0] - (int)pos[0]);
+	y1 = x1 * tan(radian);
+	ya = 1 * tan(radian);
+	while (wall_right(s, (pos[1] - y1), (pos[0]) + x1) == 0)
 	{
 		y1 = y1 + ya;
 		x1 = x1 + 1;
@@ -97,13 +98,13 @@ float	zero_ninety(t_cube*s, int deg, float *pos)
 }
 /////////////////////////////////////////////////////////////////////////
 
-int	wall_above_noe(t_cube *s, float y, float x, float *pos)
+int	wall_above_noe(t_cube *s, float y, float x)
 {
 	int	posy;
 	int	posx;
 
-	posy = (int)(pos[1] - y - 1);
-	posx = (int)(pos[0] - x);
+	posy = (int)(y - 0.5);
+	posx = (int)x;
 	if (posy < 0 || posx < 0)
 		return (1);
 	if (s->map[posy][posx] == '1')
@@ -117,11 +118,10 @@ float	hori_noe(t_cube *s, float radian, float *pos)
 	float	x1;
 	float	xa;
 
-
 	y1 = pos[1] - (int)pos[1];
 	x1 = tanf(radian) * y1;
 	xa = tanf(radian) * 1;
-	while (wall_above_noe(s, y1, x1, pos) == 0)
+	while (wall_above_noe(s, pos[1] - y1, pos[0] - x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
@@ -129,13 +129,13 @@ float	hori_noe(t_cube *s, float radian, float *pos)
 	return (y1 / cos(radian));
 }
 
-int	wall_left_noe(t_cube *s, float y, float x, float *pos)
+int	wall_left_noe(t_cube *s, float y, float x)
 {
 	int	posy;
 	int	posx;
 
-	posy = (int)(pos[1]) - y;
-	posx = (int)(pos[0]) - x - 1;
+	posy = (int)y;
+	posx = (int)(x - 0.5);
 	if (posy < 0 || posx < 0)
 		return (1);
 	if (s->map[posy][posx] == '1')
@@ -152,7 +152,7 @@ float	verti_noe(t_cube *s, float radian, float *pos)
 	x1 = pos[0] - (int)pos[0];
 	y1 = x1 / tan(radian);
 	ya = 1 / tan(radian);
-	while (wall_left_noe(s, y1, x1, pos) == 0)
+	while (wall_left_noe(s, pos[1] - y1, pos[0] - x1) == 0)
 	{
 		y1 = y1 + ya;
 		x1 = x1 + 1;
@@ -173,14 +173,16 @@ float	ninety_one_eighty(t_cube*s, int deg, float *pos)
 		return (len);
 	return (len2);
 }
+
 //////////////////////////////////////////////////////////////////
-int	wall_under_oets(t_cube *s, float y, float x, float *pos)
+
+int	wall_under_oets(t_cube *s, float y, float x)
 {
 	int	posy;
 	int	posx;
 
-	posy = (int)(pos[1]) + y;
-	posx = (int)(pos[0]) - x;
+	posy = (int)(y + 0.5);
+	posx = (int)x;
 	if (posy >= s->mapwid || posx < 0)
 		return (1);
 	if (s->map[posy][posx] == '1')
@@ -194,11 +196,10 @@ float	hori_oets(t_cube *s, float radian, float *pos)
 	float	x1;
 	float	xa;
 
-
 	y1 = 1 - (pos[1] - (int)pos[1]);
 	x1 = y1 / tanf(radian);
 	xa = 1 / tanf(radian);
-	while (wall_under_oets(s, y1, x1, pos) == 0)
+	while (wall_under_oets(s, pos[1] + y1, pos[0] - x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
@@ -206,13 +207,13 @@ float	hori_oets(t_cube *s, float radian, float *pos)
 	return (x1 / cos(radian));
 }
 
-int	wall_left_oets(t_cube *s, float y, float x, float *pos)
+int	wall_left_oets(t_cube *s, float y, float x)
 {
 	int	posy;
 	int	posx;
 
-	posy = (int)(pos[1]) + y;
-	posx = (int)(pos[0]) - x - 1;
+	posy = (int)y;
+	posx = (int)(x - 0.5);
 	if (posy >= s->mapwid || posx < 0)
 		return (1);
 	if (s->map[posy][posx] == '1')
@@ -229,7 +230,7 @@ float	verti_oets(t_cube *s, float radian, float *pos)
 	x1 = pos[0] - (int)pos[0];
 	y1 = x1 * tan(radian);
 	ya = 1 * tan(radian);
-	while (wall_left_oets(s, y1, x1, pos) == 0)
+	while (wall_left_oets(s, pos[1] + y1, pos[0] - x1) == 0)
 	{
 		y1 = y1 + ya;
 		x1 = x1 + 1;
@@ -250,14 +251,16 @@ float	one_eighty_two_seventy(t_cube*s, int deg, float *pos)
 		return (len);
 	return (len2);
 }
+
 //////////////////////////////////////////////////////////////////
-int	wall_right_tsts(t_cube *s, float y, float x, float *pos)
+
+int	wall_right_tsts(t_cube *s, float y, float x)
 {
 	int	posy;
 	int	posx;
 
-	posy = (int)(pos[1]) + y;
-	posx = (int)(pos[0]) + x;
+	posy = (int)y;
+	posx = (int)x + 0.5;
 	if (posy >= s->mapwid || posx >= s->maplen)
 		return (1);
 	if (s->map[posy][posx] == '1')
@@ -274,7 +277,7 @@ float	verti_tsts(t_cube *s, float radian, float *pos)
 	x1 = 1 - (pos[0] - (int)pos[0]);
 	y1 = x1 / tan(radian);
 	ya = 1 / tan(radian);
-	while (wall_right_tsts(s, y1, x1, pos) == 0)
+	while (wall_right_tsts(s, pos[1] + y1, pos[0] + x1) == 0)
 	{
 		y1 = y1 + ya;
 		x1 = x1 + 1;
@@ -282,13 +285,13 @@ float	verti_tsts(t_cube *s, float radian, float *pos)
 	return (y1 / cos(radian));
 }
 
-int	wall_under_tsts(t_cube *s, float y, float x, float *pos)
+int	wall_under_tsts(t_cube *s, float y, float x)
 {
 	int	posy;
 	int	posx;
 
-	posy = (int)(pos[1]) + y;
-	posx = (int)(pos[0]) + x;
+	posy = (int)y + 0.5;
+	posx = (int)x;
 	if (posy >= s->mapwid || posx >= s->maplen)
 		return (1);
 	if (s->map[posy][posx] == '1')
@@ -302,11 +305,10 @@ float	hori_tsts(t_cube *s, float radian, float *pos)
 	float	x1;
 	float	xa;
 
-
 	y1 = 1 - (pos[1] - (int)pos[1]);
 	x1 = y1 * tanf(radian);
 	xa = 1 * tanf(radian);
-	while (wall_under_tsts(s, y1, x1, pos) == 0)
+	while (wall_under_tsts(s, pos[1] + y1, pos[0] + x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
@@ -325,7 +327,43 @@ float	two_seventy_three_sixty(t_cube*s, int deg, float *pos)
 		return (len);
 	return (len2);
 }
+
 //////////////////////////////////////////////////////////////////
+
+void	draw_view_point(t_cube *s, float px, float py)
+{
+	int	i;
+	int	j;
+
+	i = px - 2;
+	while (i <= px + 2)
+	{
+		j = py - 2;
+		while (j <= py + 2)
+		{
+			if (px < 5 + s->maplen * s->mnm_pix && px > 15
+				&& py < s->mapwid * s->mnm_pix && py > 15)
+			{
+				if (s->map[(j - 10) / s->mnm_pix][(i - 10) / s->mnm_pix] != ' ')
+					my_mlx_pixel_put(s, i, j, 0x00FF0000);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_pov(t_cube *s, float radian)
+{
+	float	dst;
+	float	px;
+	float	py;
+
+	dst = 30;
+	px = 10 + s->mnmpos[0] * s->mnm_pix;
+	py = 10 + s->mnmpos[1] * s->mnm_pix;
+	draw_view_point(s, px + dst * cos(radian), py - dst * sin(radian));
+}
 
 float	wall_intersections(t_cube *s, int deg)
 {
@@ -333,6 +371,7 @@ float	wall_intersections(t_cube *s, int deg)
 	float	pos[2];
 
 	len = 0;
+	draw_pov(s, rad(deg));
 	pos[0] = s->mnmpos[0];
 	pos[1] = s->mnmpos[1];
 	if (deg >= 0 && deg <= 90)

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 10:40:24 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/18 16:18:57 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/20 14:26:05 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,8 @@ int	create_map(t_cube *s, int i)
 		i++;
 	s->maplen = what_len_max(s, i);
 	s->mapwid = hm_lines(s, i);
+	if (s->maplen > 50 || s->mapwid > 50)
+		return (write_error("maximum map size : 50x50\n"));
 	s->map = malloc(sizeof(char *) * (s->mapwid + 1));
 	if (!s->map)
 		return (write_error("malloc: memory allocation failed\n"));
@@ -259,44 +261,13 @@ int	check_elems(t_cube *s)
 		i++;
 	}
 	if (!create_map(s, i))
-		return (write_error("malloc: memory allocation failed\n"));
+		return (0);
 	if (all_elems(tab))
 		return (1);
 	return (0);
 }
 
 ////////////////////////////////////////////   CHECK MAP
-
-/*
-int	check_lines(t_cube *s)
-{
-	int	diver;
-	int	x;
-	int	y;
-
-	y = 0;
-	diver = 1;
-	while (s->map[y])
-	{
-		x = 0;
-		while (s->map[y][x])
-		{
-			if (diver == 1 && s->map[y][x] == '1' && s->map[y][x + 1]
-				&& s->map[y][x + 1] != ' ' && s->map[y][x + 1] !='1')
-				diver = -diver;
-			if (diver == -1 && s->map[y][x] == '1' && s->map[y][x + 1] && s->map[y][x + 1] == ' ')
-				diver = -diver;
-			else if (diver == -1 && s->map[y][x] == '1' && s->map[y][x + 1] == '\0')
-				diver = -diver;
-			x++;
-		}
-		if (diver == -1)
-			return (0);
-		y++;
-	}
-	return (1);
-}
-*/
 
 int	one_or_space(char c)
 {
@@ -318,7 +289,7 @@ int	around_space_ok(t_cube *s, int x, int y)
 		res = res + one_or_space(s->map[y - 1][x]);
 	if (y < s->mapwid - 1)
 		res = res + one_or_space(s->map[y + 1][x]);
-	// Diags:
+//////	Diags ? usefull ? or not /
 	if (x > 0 && y > 0)
 		res = res + one_or_space(s->map[y - 1][x - 1]);
 	if (x < s->maplen - 1 && y > 0)
@@ -424,8 +395,6 @@ int	check_map(t_cube *s)
 		return (write_error("invalid character in the map\n"));
 	if (!check_space(s))
 		return (write_error("all map not surrounded by wall\n"));
-//	if (!check_lines(s))
-//		return (write_error("all map not surrounded by wall\n"));
 	if (!check_tab_edge(s))
 		return (write_error("all map not surrounded by wall\n"));
 	return (1);

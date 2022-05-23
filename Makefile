@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/05/18 16:57:09 by jvermeer         ###   ########.fr        #
+#    Updated: 2022/05/20 16:01:44 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,8 @@ C3D_SRC		=	main.c\
 				parsing.c\
 				collectdata.c\
 				intersections.c\
+				minimap.c\
+				key_control.c\
 
 #########################################
 #            OBJECT FILES    	        #
@@ -85,7 +87,7 @@ C3D_OBJ		:=	$(addprefix $(OBJ_DIR), $(C3D_OBJ))
 $(C3D): $(MLX) $(LFT) $(OBJ_DIR) $(C3D_OBJ)
 	@echo "> $(CYAN)Generate objects$(END) : \t\t[$(GREEN)OK$(END)]"
 	@$(CC) -o $@ $(C3D_OBJ) $(LIBFT) $(MLX) $(LINK)
-	@echo "> $(WHITE)$(BOLD)Cube3D Compilation$(END) : \t[$(YELLOW)COMPLETE$(END)]"
+	@echo "> $(WHITE)$(BOLD)Cube3D Compilation$(END) : \t\t[$(YELLOW)COMPLETE$(END)]"
 
 $(LFT):
 	@make -s -C $(LFT_DIR)

@@ -1,0 +1,13 @@
+F 220,100,0 
+     C 225,30,0     
+                  
+NO ./sprites/f1
+SO ./sprites/f2
+
+WE ./sprites/f3
+EA ./sprites/f4
+
+111
+1N1
+111
+
