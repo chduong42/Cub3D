@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/05/23 14:16:13 by chduong          ###   ########.fr        #
+#    Updated: 2022/05/23 14:35:23 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,20 +45,20 @@ CFLAGS		=	-Wall -Wextra -Werror
 DEBUG		=	-fsanitize=address -g3
 
 INC			= 	-I inc $(INC_MLX) $(INC_LFT)
-INC_LFT		=	-I libft/inc
-INC_MLX		=	-I /usr/inc -I mlx
+INC_LFT		=	-I inc/libft/inc
+INC_MLX		=	-I /usr/inc -I inc/mlx
 
 LINK		=	-lm $(LINK_MLX) $(LINK_LFT)
-LINK_LFT	=	-L ./libft -lft
-LINK_MLX	=	-L ./mlx -lmlx -lXext -lX11
+LINK_LFT	=	-L ./inc/libft -lft
+LINK_MLX	=	-L ./inc/mlx -lmlx -lXext -lX11
 
 #########################################
 #			DIRECTORIES					#
 #########################################
 OBJ_DIR		=	obj/
 SRC_DIR		=	srcs/
-LFT_DIR		=	libft/
-MLX_DIR		=	mlx/
+LFT_DIR		=	inc/libft/
+MLX_DIR		=	inc/mlx/
 
 #########################################
 #			SOURCES	FILES				#
@@ -66,12 +66,14 @@ MLX_DIR		=	mlx/
 LFT			=	$(LFT_DIR)libft.a
 MLX			= 	$(MLX_DIR)libmlx.a
 
-C3D_SRC		=	main.c		collectdata.c		minimap.c		key_control.c\
+C3D_SRC		=	main.c		minimap.c		key_control.c\
 				${addprefix parsing/,\
-					parsing.c}\
+					parsing.c		collectdata.c}\
 				${addprefix utils/,\
-					getnextline.c		intersections.c		utils.c}\
-				${addprefix raycasting/,}
+					getfile.c		getnextline.c		intersections.c\
+					free_utils.c}\
+				${addprefix raycasting/,\
+					raycasting.c}
 
 #########################################
 #            OBJECT FILES    	        #

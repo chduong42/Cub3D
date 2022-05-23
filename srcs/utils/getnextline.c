@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 10:37:49 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/18 16:31:49 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/23 14:24:14 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,32 +122,4 @@ int	get_next_line(int fd, char **line)
 	if (s.ret == 0)
 		return (0);
 	return (1);
-}
-
-char	**get_all_file(t_cube *s, char **av, int *fd)
-{
-	char	**dest;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	s->nblines = 0;
-	while (get_next_line(*fd, &tmp) > 0)
-	{
-		s->nblines = s->nblines + 1;
-		free(tmp);
-	}
-	free(tmp);
-	close(*fd);
-	*fd = open(av[1], O_RDONLY);
-	if (*fd == -1)
-		return (NULL);
-	dest = malloc(sizeof(char *) * (s->nblines + 1));
-	if (!dest)
-		return (NULL);
-	while (get_next_line(*fd, &tmp) > 0)
-		dest[i++] = tmp;
-	free(tmp);
-	dest[i] = NULL;
-	return (dest);
 }

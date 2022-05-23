@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 12:37:37 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/23 14:33:15 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int			write_error(char *message);
 //int		all_keys(int key, t_cube *s);
 int			keypress(int key, t_cube *s);
 int			keyrelease(int key, t_cube *s);
+int			get_next_line(int fd, char **line);
 
 char		**get_all_file(t_cube *s, char **av, int *fd);
 char		*get_file_name(char *l);// avec gnl, pour recup contenue fichier

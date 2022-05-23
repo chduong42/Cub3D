@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:00:27 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/20 18:51:09 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/05/23 14:24:33 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,4 @@ int	write_error(char *message)
 		i++;
 	}
 	return (0);
-}
-
-char	*get_file_name(char *l)
-{
-	char	*dest;
-	int		i;
-
-	i = 0;
-	while (*l && *l == ' ')
-		l++;
-	dest = malloc(sizeof(char) * (ft_strlen(l) + 1));
-	if (!dest)
-		return (NULL);
-	while (*l && *l != ' ')
-	{
-		dest[i] = *l;
-		i++;
-		l++;
-	}
-	dest[i] = '\0';
-	return (dest);
 }
