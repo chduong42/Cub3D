@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 10:40:24 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/20 14:26:05 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:11:25 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -444,7 +444,7 @@ int	parsing(t_cube *s, int ac, char **av)
 		return (write_error("file don't exist or you don't have permission\n"));
 	if (!f_form(av[1], fd) || !file_empty(av, &fd))
 		return (write_error("wrong file format or file empty\n"));
-	s->file = get_all_file(s, av, &fd);
+	s->file = get_file(av, &fd);
 	if (!s->file)
 		return (write_error("malloc: memory allocation failed\n"));
 	close(fd);
