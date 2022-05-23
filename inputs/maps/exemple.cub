@@ -1,7 +1,7 @@
-NO ./sprites/texture1.xpm
-SO ./sprites/texture2.xpm
-WE ./sprites/texture3.xpm
-EA ./sprites/texture4.xpm
+NO ./inputs/sprites/texture1.xpm
+SO ./inputs/sprites/texture2.xpm
+WE ./inputs/sprites/texture3.xpm
+EA ./inputs/sprites/texture4.xpm
 
 F 220,100,0
 C 225,30,0
