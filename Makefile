@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/05/20 16:01:44 by chduong          ###   ########.fr        #
+#    Updated: 2022/05/23 13:51:26 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,14 +66,11 @@ MLX_DIR		=	mlx/
 LFT			=	$(LFT_DIR)libft.a
 MLX			= 	$(MLX_DIR)libmlx.a
 
-C3D_SRC		=	main.c\
-				getnextline.c\
-				utils.c\
-				parsing.c\
-				collectdata.c\
-				intersections.c\
-				minimap.c\
-				key_control.c\
+C3D_SRC		=	main.c		collectdata.c		minimap.c		key_control.c\
+				${addprefix parsing/,\
+					parsing.c}\
+				${addprefix utils/,\
+					getnextline.c		intersections.c		utils.c}\
 
 #########################################
 #            OBJECT FILES    	        #
@@ -98,7 +95,7 @@ $(MLX):
 	@echo "> $(CYAN)Create MiniLibX$(END) : \t\t[$(GREEN)OK$(END)]"
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c
-# @${MKDIR} ${@D}
+	@${MKDIR} ${@D}
 	@${CC} ${CFLAGS} ${INC} -c -o $@ $<
 
 $(OBJ_DIR):
