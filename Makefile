@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/05/23 13:51:26 by chduong          ###   ########.fr        #
+#    Updated: 2022/05/23 14:16:13 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ C3D			=	cub3D
 #########################################
 #				COMMANDS				#
 #########################################
-CC			=	gcc
+CC			=	clang
 MKDIR		=	mkdir -p
 AR			=	ar rcs
 RM			= 	rm -rf
@@ -71,6 +71,7 @@ C3D_SRC		=	main.c		collectdata.c		minimap.c		key_control.c\
 					parsing.c}\
 				${addprefix utils/,\
 					getnextline.c		intersections.c		utils.c}\
+				${addprefix raycasting/,}
 
 #########################################
 #            OBJECT FILES    	        #
