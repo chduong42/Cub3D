@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/05/23 14:35:23 by chduong          ###   ########.fr        #
+#    Updated: 2022/05/24 07:01:53 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,11 +66,12 @@ MLX_DIR		=	inc/mlx/
 LFT			=	$(LFT_DIR)libft.a
 MLX			= 	$(MLX_DIR)libmlx.a
 
-C3D_SRC		=	main.c		minimap.c		key_control.c\
+C3D_SRC		=	main.c			minimap.c		key_control.c\
 				${addprefix parsing/,\
-					parsing.c		collectdata.c}\
+					parsing.c			collectdata.c		create_map.c\
+					check_each_elem.c	check_elems.c		check_map.c}\
 				${addprefix utils/,\
-					getfile.c		getnextline.c		intersections.c\
+					getfile.c			getnextline.c		intersections.c\
 					free_utils.c}\
 				${addprefix raycasting/,\
 					raycasting.c}

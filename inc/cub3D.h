@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 23:48:41 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/24 07:00:36 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,12 @@ typedef struct s_gnl
 
 //	FUNCTIONS
 int		buffcomp(char *str, char *l);
+int		check_each_elem(char *l, int *tab);
+int		check_elems(t_cube *s);
+int		check_map(t_cube *s);
 int		create_map(t_cube *s, int i);
 int		data_collect(t_cube *s);// apres parsing : pour collecter donnees
+int		valid_char(t_cube *s);
 int		parsing(t_cube *s, int ac, char **av);
 
 //	KEY CONTROL
