@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvermeer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:42:47 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/20 14:34:19 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:21:22 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	draw_background(t_cube *s)
 	int	y;	
 
 	y = 0;
-	while (y < s->mapwid)
+	while (y < s->map_height)
 	{
 		x = 0;
-		while (x < s->maplen)
+		while (x < s->map_len)
 		{
 			if (s->map[y][x] == '1')
 				write_big_pixel(s, 10 + x * s->mnm_pix,
@@ -70,10 +70,10 @@ void	draw_player(t_cube *s)
 	int	size;
 
 	size = 10;
-	if (s->maplen > 30 || s->mapwid > 30)
+	if (s->map_len > 30 || s->map_height > 30)
 		size = 5;
-	px = 10 + s->mnmpos[0] * s->mnm_pix;
-	py = 10 + s->mnmpos[1] * s->mnm_pix;
+	px = 10 + s->pos[0] * s->mnm_pix;
+	py = 10 + s->pos[1] * s->mnm_pix;
 	i = px - (s->mnm_pix / size);
 	while (i <= px + (s->mnm_pix / size))
 	{

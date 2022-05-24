@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 19:43:23 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/23 23:40:04 by chduong          ###   ########.fr       */
+/*   Created: 2022/05/23 23:37:38 by chduong           #+#    #+#             */
+/*   Updated: 2022/05/23 23:37:59 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_atoi(const char *str)
+int	ft_isspace(char c)
 {
-	int				sign;
-	unsigned int	nb;
-
-	sign = 1;
-	nb = 0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			sign = -1;
-		++str;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		nb = nb * 10 + *str - 48;
-		++str;
-	}
-	return (sign * nb);
+	if (c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r' || c == ' ')
+		return (1);
+	return (0);
 }

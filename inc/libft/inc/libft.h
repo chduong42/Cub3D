@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 18:09:34 by chduong           #+#    #+#             */
-/*   Updated: 2021/12/15 14:04:46 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/23 23:38:19 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		ft_isalpha(int c);
 int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int c);
+int		ft_isspace(char c);
 int		ft_lstsize(t_list *lst);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 10:40:24 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 21:11:25 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/23 23:49:56 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,91 +109,6 @@ int	check_each_elem(char *l, int *tab)
 	return (1);
 }
 
-/////////////////////////////////////////// CREATE MAP
-
-int	is_empty(char *l)
-{
-	while (*l && *l == ' ')
-		l++;
-	if (*l)
-		return (0);
-	return (1);
-}
-
-int	what_len_max(t_cube *s, int i)
-{
-	int	lenmax;
-	int	lentemp;
-
-	lenmax = 0;
-	while (s->file[i])
-	{
-		lentemp = ft_strlen(s->file[i]);
-		if (lentemp > lenmax)
-			lenmax = lentemp;
-		i++;
-	}
-	return (lenmax);
-}
-
-int	hm_lines(t_cube *s, int i)
-{
-	int	j;
-
-	j = 0;
-	while (s->file[i])
-	{
-		j++;
-		i++;
-	}
-	return (j);
-}
-
-char	*dup_with_space(const char *str, int lenmax)
-{
-	char	*dest;
-	int		x;
-
-	x = 0;
-	dest = malloc(sizeof(char) * lenmax + 1);
-	if (!dest)
-		return (NULL);
-	while (str[x])
-	{
-		dest[x] = str[x];
-		x++;
-	}
-	while (x < lenmax)
-		dest[x++] = ' ';
-	dest[x] = '\0';
-	return (dest);
-}
-
-int	create_map(t_cube *s, int i)
-{
-	int	y;
-
-	y = 0;
-	while (s->file[i] && is_empty(s->file[i]))
-		i++;
-	s->maplen = what_len_max(s, i);
-	s->mapwid = hm_lines(s, i);
-	if (s->maplen > 50 || s->mapwid > 50)
-		return (write_error("maximum map size : 50x50\n"));
-	s->map = malloc(sizeof(char *) * (s->mapwid + 1));
-	if (!s->map)
-		return (write_error("malloc: memory allocation failed\n"));
-	while (y < s->mapwid)
-	{
-		s->map[y] = dup_with_space(s->file[i++], s->maplen);
-		if (!s->map[y])
-			return (write_error("malloc: memory allocation failed\n"));
-		y++;
-	}
-	s->map[y] = NULL;
-	return (1);
-}
-
 //////////////////////////////////////////////// CHECK ELEMS
 
 void	initializetab(int *tab)
@@ -283,20 +198,20 @@ int	around_space_ok(t_cube *s, int x, int y)
 	res = 0;
 	if (x > 0)
 		res = res + one_or_space(s->map[y][x - 1]);
-	if (x < s->maplen - 1)
+	if (x < s->map_len - 1)
 		res = res + one_or_space(s->map[y][x + 1]);
 	if (y > 0)
 		res = res + one_or_space(s->map[y - 1][x]);
-	if (y < s->mapwid - 1)
+	if (y < s->map_height - 1)
 		res = res + one_or_space(s->map[y + 1][x]);
 //////	Diags ? usefull ? or not /
 	if (x > 0 && y > 0)
 		res = res + one_or_space(s->map[y - 1][x - 1]);
-	if (x < s->maplen - 1 && y > 0)
+	if (x < s->map_len - 1 && y > 0)
 		res = res + one_or_space(s->map[y - 1][x + 1]);
-	if (x > 0 && y < s->mapwid - 1)
+	if (x > 0 && y < s->map_height - 1)
 		res = res + one_or_space(s->map[y + 1][x - 1]);
-	if (x < s->maplen - 1 && y < s->mapwid - 1)
+	if (x < s->map_len - 1 && y < s->map_height - 1)
 		res = res + one_or_space(s->map[y + 1][x + 1]);
 	if (res > 0)
 		return (0);
@@ -341,10 +256,10 @@ int	check_tab_edge(t_cube *s)
 			if (y == 0)
 				if (one_or_space(s->map[y][x]))
 					return (0);
-			if (x == 0 || x == (s->maplen - 1))
+			if (x == 0 || x == (s->map_len - 1))
 				if (one_or_space(s->map[y][x]))
 					return (0);
-			if (y == (s->mapwid - 1))
+			if (y == (s->map_height - 1))
 				if (one_or_space(s->map[y][x]))
 					return (0);
 			x++;
@@ -402,7 +317,7 @@ int	check_map(t_cube *s)
 
 //////////////////////////////////////// Parsing
 
-int	f_form(char *file, int fd)
+static int	f_form(char *file, int fd)
 {
 	int		n;
 	char	dir;
@@ -418,7 +333,7 @@ int	f_form(char *file, int fd)
 	return (0);
 }
 
-int	file_empty(char **av, int *fd)
+static int	file_empty(char **av, int *fd)
 {
 	int		ret;
 	char	tmp[1];

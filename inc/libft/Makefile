@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/22 15:57:00 by chduong           #+#    #+#              #
-#    Updated: 2021/12/14 17:07:15 by chduong          ###   ########.fr        #
+#    Updated: 2022/05/23 23:38:36 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRC			=	ft_atoi.c		ft_isalpha.c	ft_memccpy.c\
 				ft_substr.c		ft_strjoin.c	ft_strtrim.c\
 				ft_split.c		ft_itoa.c		ft_strmapi.c\
 				ft_putchar_fd.c	ft_putstr_fd.c	ft_putendl_fd.c\
-				ft_putnbr_fd.c	get_next_line.c	get_next_line_utils.c
+				ft_putnbr_fd.c	get_next_line.c	get_next_line_utils.c\
+				ft_isspace.c
 
 OBJ_DIR		=	obj/
 OBJ			=	$(SRC:.c=.o)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:00:27 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 14:24:33 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/23 21:22:31 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	free_array(char **str)
 void	free_world(t_cube *s)
 {
 	if (s->image)
-		mlx_destroy_image(s->cube_ptr, s->image);
-	if (s->cube_win)
-		mlx_destroy_window(s->cube_ptr, s->cube_win);
-	if (s->cube_ptr)
+		mlx_destroy_image(s->ptr, s->image);
+	if (s->win)
+		mlx_destroy_window(s->ptr, s->win);
+	if (s->ptr)
 	{
-		mlx_destroy_display(s->cube_ptr);
-		free(s->cube_ptr);
+		mlx_destroy_display(s->ptr);
+		free(s->ptr);
 	}
 }
 

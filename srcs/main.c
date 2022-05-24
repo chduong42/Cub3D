@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 08:58:22 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 12:34:26 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/23 21:26:29 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	initializestru(t_cube *s)
 	s->ea = NULL;
 	s->pov = 10;
 	s->image = NULL;
-	s->cube_ptr = NULL;
-	s->cube_win = NULL;
+	s->ptr = NULL;
+	s->win = NULL;
 	initializekeys(s);
 }
 
@@ -43,16 +43,16 @@ void	get_pos_player(t_cube *s)
 	int		y;
 
 	y = 0;
-	while (y < s->mapwid)
+	while (y < s->map_height)
 	{
 		x = 0;
-		while (x < s->maplen)
+		while (x < s->map_len)
 		{
 			if (s->map[y][x] == 'N' || s->map[y][x] == 'S'
 				|| s->map[y][x] == 'E' || s->map[y][x] == 'W')
 			{
-				s->mnmpos[0] = (float)x + 0.5;
-				s->mnmpos[1] = (float)y + 0.5;
+				s->pos[0] = (float)x + 0.5;
+				s->pos[1] = (float)y + 0.5;
 			}
 			x++;
 		}
@@ -71,17 +71,17 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	get_pos_player(&s);
-	s.cube_ptr = mlx_init();
-	s.cube_win = mlx_new_window(s.cube_ptr, WIDTH, LENGTH, TITLE);
-	s.image = mlx_new_image(s.cube_ptr, WIDTH, LENGTH);
+	s.ptr = mlx_init();
+	s.win = mlx_new_window(s.ptr, LENGTH, HEIGHT, TITLE);
+	s.image = mlx_new_image(s.ptr, LENGTH, HEIGHT);
 	s.addr = mlx_get_data_addr(s.image, &s.bpp, &s.sizeline, &s.endian);
 	draw_background(&s);
 	draw_player(&s);
-	mlx_put_image_to_window(s.cube_ptr, s.cube_win, s.image, 0, 0);
-	mlx_hook(s.cube_win, 2, (1L << 0), keypress, (void *)&s);
-	mlx_hook(s.cube_win, 3, (1L << 1), keyrelease, (void *)&s);
-	mlx_hook(s.cube_win, 17, (1L << 17), mlx_loop_end, s.cube_ptr);
-	mlx_loop(s.cube_ptr);
+	mlx_put_image_to_window(s.ptr, s.win, s.image, 0, 0);
+	mlx_hook(s.win, 2, (1L << 0), keypress, (void *)&s);
+	mlx_hook(s.win, 3, (1L << 1), keyrelease, (void *)&s);
+	mlx_hook(s.win, 17, (1L << 17), mlx_loop_end, s.ptr);
+	mlx_loop(s.ptr);
 	free_all(&s);
 	return (0);
 }

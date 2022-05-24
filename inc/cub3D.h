@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 21:12:28 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/23 23:48:41 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # endif
 
 # define TITLE "My Cub3D"
-# define WIDTH 800
-# define LENGTH 800
+# define LENGTH 1280
+# define HEIGHT 800
 
 //	Key Code
 # define A 97
@@ -57,8 +57,8 @@ typedef struct s_keys
 //	TYPE DEF
 typedef struct s_cube
 {
-	void	*cube_win;
-	void	*cube_ptr;
+	void	*win;
+	void	*ptr;
 	void	*image;
 	char	*addr;
 
@@ -70,16 +70,17 @@ typedef struct s_cube
 	char	*ea;
 	int		floor[3];
 	int		ceiling[3];
-	int		maplen;
-	int		mapwid;
+
 	int		bpp;
 	int		sizeline;
 	int		endian;
 	int		mnm_pix;
 
-	float	mnmpos[2];//position personnage : pos[0] = x   pos[1] = y
+	int		map_len;
+	int		map_height;
 	int		pov;
 	float	dist;
+	float	pos[2];//position personnage : pos[0] = x   pos[1] = y
 	t_keys	k;
 }				t_cube;
 
@@ -92,28 +93,29 @@ typedef struct s_gnl
 }				t_gnl;
 
 //	FUNCTIONS
-int			buffcomp(char *str, char *l);
-int			data_collect(t_cube *s);// apres parsing : pour collecter donnees
-int			parsing(t_cube *s, int ac, char **av);
+int		buffcomp(char *str, char *l);
+int		create_map(t_cube *s, int i);
+int		data_collect(t_cube *s);// apres parsing : pour collecter donnees
+int		parsing(t_cube *s, int ac, char **av);
 
 //	KEY CONTROL
-//int		all_keys(int key, t_cube *s);
-int			keypress(int key, t_cube *s);
-int			keyrelease(int key, t_cube *s);
+//int	all_keys(int key, t_cube *s);
+int		keypress(int key, t_cube *s);
+int		keyrelease(int key, t_cube *s);
 
 //	UTILS
-int			get_next_line(int fd, char **line);
-char		**get_file(char **av, int *fd);
-char		*get_file_name(char *l);
-void		free_all(t_cube *s);
-void		free_array(char **str);
-int			write_error(char *message);
-float		wall_intersections(t_cube *s, int deg);//renvoie une distance en fonction du degree et position du joueur
+int		get_next_line(int fd, char **line);
+char	**get_file(char **av, int *fd);
+char	*get_file_name(char *l);
+void	free_all(t_cube *s);
+void	free_array(char **str);
+int		write_error(char *message);
+float	wall_intersections(t_cube *s, int deg);//dist en fonct du degree et pos
 
 //	DISPLAY
-void		draw_player(t_cube *s);
-void		draw_background(t_cube *s);
-void		my_mlx_pixel_put(t_cube *s, int x, int y, int color);
-void		write_big_pixel(t_cube *s, int x, int y, int color);
+void	draw_player(t_cube *s);
+void	draw_background(t_cube *s);
+void	my_mlx_pixel_put(t_cube *s, int x, int y, int color);
+void	write_big_pixel(t_cube *s, int x, int y, int color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:47:25 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 12:37:57 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/23 21:22:31 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,27 @@ void	wasd_keys(int key, t_cube *s, float speed, float dist)
 {
 	if (key == W)
 	{
-		s->mnmpos[1] = s->mnmpos[1] - speed;
-		if (s->map[(int)(s->mnmpos[1] - dist / 2)][(int)s->mnmpos[0]] == '1')
-			s->mnmpos[1] = s->mnmpos[1] + speed;
+		s->pos[1] = s->pos[1] - speed;
+		if (s->map[(int)(s->pos[1] - dist / 2)][(int)s->pos[0]] == '1')
+			s->pos[1] = s->pos[1] + speed;
 	}
 	if (key == S)
 	{
-		s->mnmpos[1] = s->mnmpos[1] + speed;
-		if (s->map[(int)(s->mnmpos[1] + dist / 2)][(int)s->mnmpos[0]] == '1')
-			s->mnmpos[1] = s->mnmpos[1] - speed;
+		s->pos[1] = s->pos[1] + speed;
+		if (s->map[(int)(s->pos[1] + dist / 2)][(int)s->pos[0]] == '1')
+			s->pos[1] = s->pos[1] - speed;
 	}
 	if (key == A)
 	{
-		s->mnmpos[0] = s->mnmpos[0] - speed;
-		if (s->map[(int)s->mnmpos[1]][(int)(s->mnmpos[0] - dist / 2)] == '1')
-			s->mnmpos[0] = s->mnmpos[0] + speed;
+		s->pos[0] = s->pos[0] - speed;
+		if (s->map[(int)s->pos[1]][(int)(s->pos[0] - dist / 2)] == '1')
+			s->pos[0] = s->pos[0] + speed;
 	}
 	if (key == D)
 	{
-		s->mnmpos[0] = s->mnmpos[0] + speed;
-		if (s->map[(int)s->mnmpos[1]][(int)(s->mnmpos[0] + dist / 2)] == '1')
-			s->mnmpos[0] = s->mnmpos[0] - speed;
+		s->pos[0] = s->pos[0] + speed;
+		if (s->map[(int)s->pos[1]][(int)(s->pos[0] + dist / 2)] == '1')
+			s->pos[0] = s->pos[0] - speed;
 	}
 }
 
@@ -48,7 +48,7 @@ int	all_keys(int key, t_cube *s)
 	speed = 0.1;
 	dist = 0.1;
 	if (key == 65307)
-		mlx_loop_end(s->cube_ptr);
+		mlx_loop_end(s->ptr);
 	if (key == W || key == A || key == S || key == D)
 		wasd_keys(key, s, speed, dist);
 	if (key == ARROW_LEFT)
@@ -64,7 +64,7 @@ int	all_keys(int key, t_cube *s)
 	printf("POV:%d\n", s->pov);
 	s->dist = wall_intersections(s, s->pov);
 	printf("DIST:%f\n", s->dist);
-	mlx_put_image_to_window(s->cube_ptr, s->cube_win, s->image, 0, 0);
+	mlx_put_image_to_window(s->ptr, s->win, s->image, 0, 0);
 	return (0);
 }
 */
@@ -72,27 +72,27 @@ void	wasd_keys(t_cube *s, float speed, float dist)
 {
 	if (s->k.keyw == 1)
 	{
-		s->mnmpos[1] = s->mnmpos[1] - speed;
-		if (s->map[(int)(s->mnmpos[1] - dist / 2)][(int)s->mnmpos[0]] == '1')
-			s->mnmpos[1] = s->mnmpos[1] + speed;
+		s->pos[1] = s->pos[1] - speed;
+		if (s->map[(int)(s->pos[1] - dist / 2)][(int)s->pos[0]] == '1')
+			s->pos[1] = s->pos[1] + speed;
 	}
 	if (s->k.keys == 1)
 	{
-		s->mnmpos[1] = s->mnmpos[1] + speed;
-		if (s->map[(int)(s->mnmpos[1] + dist / 2)][(int)s->mnmpos[0]] == '1')
-			s->mnmpos[1] = s->mnmpos[1] - speed;
+		s->pos[1] = s->pos[1] + speed;
+		if (s->map[(int)(s->pos[1] + dist / 2)][(int)s->pos[0]] == '1')
+			s->pos[1] = s->pos[1] - speed;
 	}
 	if (s->k.keya == 1)
 	{
-		s->mnmpos[0] = s->mnmpos[0] - speed;
-		if (s->map[(int)s->mnmpos[1]][(int)(s->mnmpos[0] - dist / 2)] == '1')
-			s->mnmpos[0] = s->mnmpos[0] + speed;
+		s->pos[0] = s->pos[0] - speed;
+		if (s->map[(int)s->pos[1]][(int)(s->pos[0] - dist / 2)] == '1')
+			s->pos[0] = s->pos[0] + speed;
 	}
 	if (s->k.keyd == 1)
 	{
-		s->mnmpos[0] = s->mnmpos[0] + speed;
-		if (s->map[(int)s->mnmpos[1]][(int)(s->mnmpos[0] + dist / 2)] == '1')
-			s->mnmpos[0] = s->mnmpos[0] - speed;
+		s->pos[0] = s->pos[0] + speed;
+		if (s->map[(int)s->pos[1]][(int)(s->pos[0] + dist / 2)] == '1')
+			s->pos[0] = s->pos[0] - speed;
 	}
 }
 
@@ -135,7 +135,7 @@ int	keyrelease(int key, t_cube *s)
 int	keypress(int key, t_cube *s)
 {
 	if (key == ESC)
-		mlx_loop_end(s->cube_ptr);
+		mlx_loop_end(s->ptr);
 	if (key == W)
 		s->k.keyw = 1;
 	if (key == A)
@@ -154,6 +154,6 @@ int	keypress(int key, t_cube *s)
 	printf("POV:%d\n", s->pov);
 	s->dist = wall_intersections(s, s->pov);
 	printf("DIST:%f\n", s->dist);
-	mlx_put_image_to_window(s->cube_ptr, s->cube_win, s->image, 0, 0);
+	mlx_put_image_to_window(s->ptr, s->win, s->image, 0, 0);
 	return (0);
 }

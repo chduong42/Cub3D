@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:22:33 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 21:10:56 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/23 21:21:22 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int	data_collect(t_cube *s)
 
 	i = 0;
 	numb = 0;
-	s->mnm_pix = (int)(400 / s->maplen);
-	if (s->maplen < s->mapwid)
-		s->mnm_pix = (int)(400 / s->mapwid);
+	s->mnm_pix = (int)(400 / s->map_len);
+	if (s->map_len < s->map_height)
+		s->mnm_pix = (int)(400 / s->map_height);
 	while (s->file[i] && numb < 6)
 	{
 		j = 0;

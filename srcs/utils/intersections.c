@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvermeer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/20 18:38:58 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:21:22 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	wall_above(t_cube *s, float y, float x)
 
 	posy = (int)(y - 0.5);
 	posx = (int)(x);
-	if (posy < 0 || posx >= s->maplen)
+	if (posy < 0 || posx >= s->map_len)
 		return (1);
 	if (s->map[posy][posx] == '1')
 		return (1);
@@ -57,7 +57,7 @@ int	wall_right(t_cube *s, float y, float x)
 
 	posy = (int)y;
 	posx = (int)x;
-	if (posy < 0 || posx >= s->maplen)
+	if (posy < 0 || posx >= s->map_len)
 		return (1);
 	if (s->map[posy][posx] == '1')
 		return (1);
@@ -183,7 +183,7 @@ int	wall_under_oets(t_cube *s, float y, float x)
 
 	posy = (int)(y + 0.5);
 	posx = (int)x;
-	if (posy >= s->mapwid || posx < 0)
+	if (posy >= s->map_height || posx < 0)
 		return (1);
 	if (s->map[posy][posx] == '1')
 		return (1);
@@ -214,7 +214,7 @@ int	wall_left_oets(t_cube *s, float y, float x)
 
 	posy = (int)y;
 	posx = (int)(x - 0.5);
-	if (posy >= s->mapwid || posx < 0)
+	if (posy >= s->map_height || posx < 0)
 		return (1);
 	if (s->map[posy][posx] == '1')
 		return (1);
@@ -261,7 +261,7 @@ int	wall_right_tsts(t_cube *s, float y, float x)
 
 	posy = (int)y;
 	posx = (int)x + 0.5;
-	if (posy >= s->mapwid || posx >= s->maplen)
+	if (posy >= s->map_height || posx >= s->map_len)
 		return (1);
 	if (s->map[posy][posx] == '1')
 		return (1);
@@ -292,7 +292,7 @@ int	wall_under_tsts(t_cube *s, float y, float x)
 
 	posy = (int)y + 0.5;
 	posx = (int)x;
-	if (posy >= s->mapwid || posx >= s->maplen)
+	if (posy >= s->map_height || posx >= s->map_len)
 		return (1);
 	if (s->map[posy][posx] == '1')
 		return (1);
@@ -341,8 +341,8 @@ void	draw_view_point(t_cube *s, float px, float py)
 		j = py - 2;
 		while (j <= py + 2)
 		{
-			if (px < 5 + s->maplen * s->mnm_pix && px > 15
-				&& py < s->mapwid * s->mnm_pix && py > 15)
+			if (px < 5 + s->map_len * s->mnm_pix && px > 15
+				&& py < s->map_height * s->mnm_pix && py > 15)
 			{
 				if (s->map[(j - 10) / s->mnm_pix][(i - 10) / s->mnm_pix] != ' ')
 					my_mlx_pixel_put(s, i, j, 0x00FF0000);
@@ -360,8 +360,8 @@ void	draw_pov(t_cube *s, float radian)
 	float	py;
 
 	dst = 30;
-	px = 10 + s->mnmpos[0] * s->mnm_pix;
-	py = 10 + s->mnmpos[1] * s->mnm_pix;
+	px = 10 + s->pos[0] * s->mnm_pix;
+	py = 10 + s->pos[1] * s->mnm_pix;
 	draw_view_point(s, px + dst * cos(radian), py - dst * sin(radian));
 }
 
@@ -372,8 +372,8 @@ float	wall_intersections(t_cube *s, int deg)
 
 	len = 0;
 	draw_pov(s, rad(deg));
-	pos[0] = s->mnmpos[0];
-	pos[1] = s->mnmpos[1];
+	pos[0] = s->pos[0];
+	pos[1] = s->pos[1];
 	if (deg >= 0 && deg <= 90)
 		len = zero_ninety(s, deg, pos);
 	else if (deg > 90 && deg <= 180)
