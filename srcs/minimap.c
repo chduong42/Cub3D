@@ -6,39 +6,13 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:42:47 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 21:21:22 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/24 18:53:21 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	my_mlx_pixel_put(t_cube *s, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = s->addr + (y * s->sizeline + x * s->bpp / 8);
-	*(unsigned int *)dst = color;
-}
-
-void	write_big_pixel(t_cube *s, int x, int y, int color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < s->mnm_pix)
-	{
-		j = 0;
-		while (j < s->mnm_pix)
-		{
-			my_mlx_pixel_put(s, x + j, y + i, color);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw_background(t_cube *s)
+static void	draw_background(t_cube *s)
 {
 	int	x;	
 	int	y;	
@@ -61,7 +35,7 @@ void	draw_background(t_cube *s)
 	}
 }
 
-void	draw_player(t_cube *s)
+static void	draw_player(t_cube *s)
 {
 	int	px;
 	int	py;
@@ -85,4 +59,10 @@ void	draw_player(t_cube *s)
 		}
 		i++;
 	}
+}
+
+void	draw_minimap(t_cube *s)
+{
+	draw_background(s);
+	draw_player(s);
 }

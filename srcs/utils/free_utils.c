@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:00:27 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 21:22:31 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/24 18:03:17 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ void	free_array(char **str)
 	while (tmp && *tmp)
 	{
 		free(*tmp);
-		tmp++;
+		++tmp;
 	}
 	free(str);
 }
 
 void	free_world(t_cube *s)
 {
-	if (s->image)
-		mlx_destroy_image(s->ptr, s->image);
+	if (s->img)
+		mlx_destroy_image(s->mlx, s->img);
 	if (s->win)
-		mlx_destroy_window(s->ptr, s->win);
-	if (s->ptr)
+		mlx_destroy_window(s->mlx, s->win);
+	if (s->mlx)
 	{
-		mlx_destroy_display(s->ptr);
-		free(s->ptr);
+		mlx_destroy_display(s->mlx);
+		free(s->mlx);
 	}
 }
 
@@ -48,8 +48,10 @@ void	free_all(t_cube *s)
 		free(s->we);
 	if (s->ea)
 		free(s->ea);
-	free_array(s->file);
-	free_array(s->map);
+	if (s->file)
+		free_array(s->file);
+	if (s->map)
+		free_array(s->map);
 	free_world(s);
 }
 
@@ -60,9 +62,6 @@ int	write_error(char *message)
 	i = 0;
 	write(2, "Error\n", 6);
 	while (message[i])
-	{
-		write(2, &message[i], 1);
-		i++;
-	}
+		write(2, &message[i++], 1);
 	return (0);
 }

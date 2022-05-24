@@ -6,9 +6,19 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:18:43 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/23 14:19:46 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/24 17:36:15 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+// void	raycasting(t_cube *s)
+// {
+// 	int i;
+// 	int ray;
+
+// 	i = 0;
+// 	while (i < LENGTH)
+// 	{
+// 	}
+// }

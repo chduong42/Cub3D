@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/24 07:10:30 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/24 18:53:46 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@
 # endif
 
 # define TITLE "My Cub3D"
-# define LENGTH 1280
+# define LENGTH 1000
 # define HEIGHT 800
+# define FOV 60
 
 //	Key Code
 # define A 97
@@ -44,22 +45,43 @@
 # define LEFT 65361
 # define RIGHT 65363
 
+//	TYPE DEF
+typedef unsigned int	t_uint;
+
 typedef struct s_keys
 {
-	int	keyw;
-	int	keys;
-	int	keya;
-	int	keyd;
-	int	keyl;
-	int	keyr;
-}				t_keys;
+	int		keyw;
+	int		keys;
+	int		keya;
+	int		keyd;
+	int		keyl;
+	int		keyr;
+}			t_keys;
 
-//	TYPE DEF
+typedef struct s_color
+{
+	int		r;
+	int		g;
+	int		b;
+}			t_color;
+
+typedef struct s_data
+{
+	int		bpp;
+	int		width;
+	int		height;
+	int		endian;
+	int		size_line;
+	int		img_size;
+	char	*img_data;
+	void	*img_ptr;
+}			t_data;
+
 typedef struct s_cube
 {
+	void	*mlx;
 	void	*win;
-	void	*ptr;
-	void	*image;
+	void	*img;
 	char	*addr;
 
 	char	**file;
@@ -82,7 +104,7 @@ typedef struct s_cube
 	float	dist;
 	float	pos[2];//position personnage : pos[0] = x   pos[1] = y
 	t_keys	k;
-}				t_cube;
+}			t_cube;
 
 typedef struct s_gnl
 {
@@ -90,7 +112,7 @@ typedef struct s_gnl
 	int		bean;
 	int		size;
 	char	c;
-}				t_gnl;
+}			t_gnl;
 
 //	PARSING
 int		buffcomp(char *str, char *l);
@@ -117,9 +139,12 @@ int		write_error(char *message);
 float	wall_intersections(t_cube *s, int deg);//dist en fonct du degree et pos
 
 //	DISPLAY
-void	draw_player(t_cube *s);
-void	draw_background(t_cube *s);
+void	draw_minimap(t_cube *s);
+
+//	PIXEL UTILS
 void	my_mlx_pixel_put(t_cube *s, int x, int y, int color);
 void	write_big_pixel(t_cube *s, int x, int y, int color);
+int		create_trgb(int t, int r, int g, int b);
+t_uint	get_pixel_color(t_data *text, int x, int y);
 
 #endif
