@@ -6,23 +6,11 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:36:48 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/24 06:37:48 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/24 21:44:24 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-static void	initializetab(int *tab)
-{
-	int	i;
-
-	i = 0;
-	while (i < 6)
-	{
-		tab[i] = 0;
-		i++;
-	}
-}
 
 static int	all_elems(int *tab)
 {
@@ -63,7 +51,7 @@ int	check_elems(t_cube *s)
 	int		i;
 	int		j;
 
-	initializetab(tab);
+	ft_bzero(tab, sizeof(tab));
 	numb = 0;
 	i = 0;
 	while (s->file[i] && numb < 6)

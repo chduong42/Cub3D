@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/05/24 17:27:07 by chduong          ###   ########.fr        #
+#    Updated: 2022/05/24 21:32:48 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ C3D_SRC		=	main.c			minimap.c		key_control.c\
 					parsing.c			collectdata.c		create_map.c\
 					check_each_elem.c	check_elems.c		check_map.c}\
 				${addprefix utils/,\
-					getfile.c			intersections.c		free_utils.c\
+					getfile.c			intersections.c		utils.c\
 					getnextline.c		pixel_utils.c}\
 				${addprefix raycasting/,\
 					raycasting.c}

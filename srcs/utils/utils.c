@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:00:27 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/24 18:03:17 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/24 21:22:10 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,6 @@ void	free_array(char **str)
 	free(str);
 }
 
-void	free_world(t_cube *s)
-{
-	if (s->img)
-		mlx_destroy_image(s->mlx, s->img);
-	if (s->win)
-		mlx_destroy_window(s->mlx, s->win);
-	if (s->mlx)
-	{
-		mlx_destroy_display(s->mlx);
-		free(s->mlx);
-	}
-}
-
 void	free_all(t_cube *s)
 {
 	if (s->no)
@@ -52,16 +39,20 @@ void	free_all(t_cube *s)
 		free_array(s->file);
 	if (s->map)
 		free_array(s->map);
-	free_world(s);
+	if (s->img)
+		mlx_destroy_image(s->mlx, s->img);
+	if (s->win)
+		mlx_destroy_window(s->mlx, s->win);
+	if (s->mlx)
+	{
+		mlx_destroy_display(s->mlx);
+		free(s->mlx);
+	}
 }
 
 int	write_error(char *message)
 {
-	int	i;
-
-	i = 0;
 	write(2, "Error\n", 6);
-	while (message[i])
-		write(2, &message[i++], 1);
+	ft_putstr_fd(message, 2);
 	return (0);
 }
