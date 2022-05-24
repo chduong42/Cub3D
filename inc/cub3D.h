@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/24 07:00:36 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/24 07:04:23 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct s_gnl
 	char	c;
 }				t_gnl;
 
-//	FUNCTIONS
+//	PARSING
 int		buffcomp(char *str, char *l);
 int		check_each_elem(char *l, int *tab);
 int		check_elems(t_cube *s);
@@ -108,11 +108,11 @@ int		keypress(int key, t_cube *s);
 int		keyrelease(int key, t_cube *s);
 
 //	UTILS
-int		get_next_line(int fd, char **line);
-char	**get_file(char **av, int *fd);
-char	*get_file_name(char *l);
 void	free_all(t_cube *s);
 void	free_array(char **str);
+char	**get_file(char **av, int *fd);
+char	*get_file_name(char *l);
+int		get_next_line(int fd, char **line);
 int		write_error(char *message);
 float	wall_intersections(t_cube *s, int deg);//dist en fonct du degree et pos
 
