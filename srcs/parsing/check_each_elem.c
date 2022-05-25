@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:40:21 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/24 06:42:52 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/25 16:52:30 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static int	check_color(char **l)
 	int	color;
 
 	color = ft_atoi(*l);
-	while (**l && **l == ' ')
+	while (**l && ft_isspace(**l))
 		(*l)++;
 	if (!ft_isdigit(**l))
 		return (0);
 	while (**l && ft_isdigit(**l))
 		(*l)++;
-	while (**l && **l == ' ')
+	while (**l && ft_isspace(**l))
 		(*l)++;
 	if (color < 0 || color > 255)
 		return (0);
@@ -44,31 +44,19 @@ static int	color_line(char *l)
 	return (1);
 }
 
-int	buffcomp(char *str, char *l)
-{
-	while (*l && *str && *str == *l)
-	{
-		str++;
-		l++;
-	}
-	if (*l && *str == '\0' && *l == ' ')
-		return (1);
-	return (0);
-}
-
 static int	direction_line(char *l)
 {
 	char	*filename;
 
 	l = l + 2;
-	while (*l && *l == ' ')
+	while (*l && ft_isspace(*l))
 		l++;
-	filename = get_file_name(l);
+	filename = get_filename(l);
 	if (!filename)
 		return (0);
-	while (*l && *l != ' ')
+	while (*l && !ft_isspace(*l))
 		l++;
-	while (*l && *l == ' ')
+	while (*l && ft_isspace(*l))
 		l++;
 	if (*l)
 	{

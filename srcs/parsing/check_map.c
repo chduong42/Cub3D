@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:43:35 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/24 06:59:59 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/25 15:55:29 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	one_or_space(char c)
 {
-	if (c == '1' || c == ' ')
+	if (c == '1' || ft_isspace(c))
 		return (0);
 	return (1);
 }
@@ -57,7 +57,7 @@ static int	check_space(t_cube *s)
 		x = 0;
 		while (s->map[y][x])
 		{
-			if (s->map[y][x] == ' ')
+			if (ft_isspace(s->map[y][x]))
 			{
 				if (!around_space_ok(s, x, y))
 					return (0);

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 10:40:24 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/24 07:02:56 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/25 16:43:56 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,34 @@ static int	file_empty(char **av, int *fd)
 	if (*fd == -1)
 		return (0);
 	return (1);
+}
+
+static char	**get_file(char **av, int *fd)
+{
+	char			**dest;
+	char			*tmp;
+	int				i;
+	unsigned int	n;
+
+	i = 0;
+	n = 0;
+	while (get_next_line(*fd, &tmp) > 0)
+	{
+		++n;
+		free(tmp);
+	}
+	close(*fd);
+	*fd = open(av[1], O_RDONLY);
+	if (*fd == -1)
+		return (NULL);
+	dest = malloc(sizeof(char *) * (n + 1));
+	if (!dest)
+		return (NULL);
+	while (get_next_line(*fd, &tmp) > 0)
+		dest[i++] = tmp;
+	free(tmp);
+	dest[i] = NULL;
+	return (dest);
 }
 
 int	parsing(t_cube *s, int ac, char **av)

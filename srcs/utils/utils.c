@@ -1,16 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:00:27 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/24 21:22:10 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/25 16:48:07 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	buffcomp(char *str, char *l)
+{
+	while (*l && *str && *str == *l)
+	{
+		str++;
+		l++;
+	}
+	if (*l && *str == '\0' && *l == ' ')
+		return (1);
+	return (0);
+}
+
+char	*get_filename(char *l)
+{
+	char	*dest;
+	int		i;
+
+	i = 0;
+	while (*l && *l == ' ')
+		l++;
+	dest = malloc(sizeof(char) * (ft_strlen(l) + 1));
+	if (!dest)
+		return (NULL);
+	while (*l && *l != ' ')
+	{
+		dest[i] = *l;
+		i++;
+		l++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
 
 void	free_array(char **str)
 {
@@ -23,31 +56,6 @@ void	free_array(char **str)
 		++tmp;
 	}
 	free(str);
-}
-
-void	free_all(t_cube *s)
-{
-	if (s->no)
-		free(s->no);
-	if (s->so)
-		free(s->so);
-	if (s->we)
-		free(s->we);
-	if (s->ea)
-		free(s->ea);
-	if (s->file)
-		free_array(s->file);
-	if (s->map)
-		free_array(s->map);
-	if (s->img)
-		mlx_destroy_image(s->mlx, s->img);
-	if (s->win)
-		mlx_destroy_window(s->mlx, s->win);
-	if (s->mlx)
-	{
-		mlx_destroy_display(s->mlx);
-		free(s->mlx);
-	}
 }
 
 int	write_error(char *message)

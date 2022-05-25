@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:36:48 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/24 21:44:24 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/25 15:55:51 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	check_elems(t_cube *s)
 	while (s->file[i] && numb < 6)
 	{
 		j = 0;
-		while (s->file[i][j] && s->file[i][j] == ' ')
+		while (s->file[i][j] && ft_isspace(s->file[i][j]))
 			j++;
 		if (s->file[i][j])
 			if (help_check_elem(&s->file[i][j], tab, &numb))

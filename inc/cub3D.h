@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/24 18:53:46 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/25 16:49:42 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ typedef struct s_cube
 	void	*win;
 	void	*img;
 	char	*addr;
+	int		bpp;
+	int		sizeline;
+	int		endian;
+	int		mnm_pix;
+	int		map_len;
+	int		map_height;
 
 	char	**file;
 	char	**map;
@@ -93,13 +99,6 @@ typedef struct s_cube
 	int		floor[3];
 	int		ceiling[3];
 
-	int		bpp;
-	int		sizeline;
-	int		endian;
-	int		mnm_pix;
-
-	int		map_len;
-	int		map_height;
 	int		pov;
 	float	dist;
 	float	pos[2];//position personnage : pos[0] = x   pos[1] = y
@@ -115,13 +114,13 @@ typedef struct s_gnl
 }			t_gnl;
 
 //	PARSING
-int		buffcomp(char *str, char *l);
 int		check_each_elem(char *l, int *tab);
 int		check_elems(t_cube *s);
 int		check_map(t_cube *s);
 int		create_map(t_cube *s, int i);
 int		data_collect(t_cube *s);// apres parsing : pour collecter donnees
 int		valid_char(t_cube *s);
+void	get_player_position(t_cube *s);
 int		parsing(t_cube *s, int ac, char **av);
 
 //	KEY CONTROL
@@ -130,18 +129,16 @@ int		keypress(int key, t_cube *s);
 int		keyrelease(int key, t_cube *s);
 
 //	UTILS
+int		buffcomp(char *str, char *l);
 void	free_all(t_cube *s);
 void	free_array(char **str);
-char	**get_file(char **av, int *fd);
-char	*get_file_name(char *l);
+char	*get_filename(char *l);
 int		get_next_line(int fd, char **line);
 int		write_error(char *message);
 float	wall_intersections(t_cube *s, int deg);//dist en fonct du degree et pos
 
 //	DISPLAY
 void	draw_minimap(t_cube *s);
-
-//	PIXEL UTILS
 void	my_mlx_pixel_put(t_cube *s, int x, int y, int color);
 void	write_big_pixel(t_cube *s, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);

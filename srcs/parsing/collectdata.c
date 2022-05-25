@@ -6,44 +6,44 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:22:33 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 21:21:22 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/25 16:47:34 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	get_floor_ceiling(char *l, int tab[])
+static void	get_floor_ceiling(char *l, int tab[])
 {
-	while (*l && *l == ' ')
+	while (*l && ft_isspace(*l))
 		l++;
 	tab[0] = ft_atoi(l);
-	while (*l && *l == ' ')
+	while (*l && ft_isspace(*l))
 		l++;
 	l = l + 1;
 	tab[1] = ft_atoi(l);
-	while (*l && *l == ' ')
+	while (*l && ft_isspace(*l))
 		l++;
 	l = l + 1;
 	tab[2] = ft_atoi(l);
 }
 
-void	get_sprites(t_cube *s, char *l)
+static void	get_sprites(t_cube *s, char *l)
 {
 	if (buffcomp("NO", l))
-		s->no = get_file_name(l + 2);
+		s->no = get_filename(l + 2);
 	else if (buffcomp("SO", l))
-		s->so = get_file_name(l + 2);
+		s->so = get_filename(l + 2);
 	else if (buffcomp("WE", l))
-		s->we = get_file_name(l + 2);
+		s->we = get_filename(l + 2);
 	else if (buffcomp("EA", l))
-		s->ea = get_file_name(l + 2);
+		s->ea = get_filename(l + 2);
 	else if (buffcomp("F", l))
 		get_floor_ceiling(l + 2, s->floor);
 	else if (buffcomp("C", l))
 		get_floor_ceiling(l + 2, s->ceiling);
 }
 
-int	fd_exist(char *file)
+static int	fd_exist(char *file)
 {
 	int		fd;
 	char	dir;
@@ -60,7 +60,7 @@ int	fd_exist(char *file)
 	return (0);
 }
 
-int	sprites_exists(t_cube *s)
+static int	sprites_exists(t_cube *s)
 {
 	if (fd_exist(s->no))
 		return (1);
@@ -87,7 +87,7 @@ int	data_collect(t_cube *s)
 	while (s->file[i] && numb < 6)
 	{
 		j = 0;
-		while (s->file[i][j] && s->file[i][j] == ' ')
+		while (s->file[i][j] && ft_isspace(s->file[i][j]))
 			j++;
 		if (s->file[i][j])
 			get_sprites(s, &s->file[i][j]);
