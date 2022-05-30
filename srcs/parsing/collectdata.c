@@ -6,25 +6,21 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:22:33 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/30 13:09:16 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 16:44:39 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	get_floor_ceiling(char *l, int tab[])
+static void	get_rgb(char *l, int tab[])
 {
-	while (*l && ft_isspace(*l))
-		l++;
-	tab[0] = ft_atoi(l);
-	while (*l && ft_isspace(*l))
-		l++;
-	l = l + 1;
-	tab[1] = ft_atoi(l);
-	while (*l && ft_isspace(*l))
-		l++;
-	l = l + 1;
-	tab[2] = ft_atoi(l);
+	char	**rgb;
+
+	rgb = ft_split(l, ',');
+	tab[0] = ft_atoi(rgb[0]);
+	tab[1] = ft_atoi(rgb[1]);
+	tab[2] = ft_atoi(rgb[2]);
+	free_array(rgb);
 }
 
 static void	get_sprites(t_cube *s, char *l)
@@ -38,9 +34,9 @@ static void	get_sprites(t_cube *s, char *l)
 	else if (buffcomp("EA", l))
 		s->ea = get_filename(l + 2);
 	else if (buffcomp("F", l))
-		get_floor_ceiling(l + 2, s->floor);
+		get_rgb(l + 1, s->floor);
 	else if (buffcomp("C", l))
-		get_floor_ceiling(l + 2, s->ceiling);
+		get_rgb(l + 1, s->ceiling);
 }
 
 static int	fd_exist(char *file)
@@ -94,7 +90,7 @@ int	data_collect(t_cube *s)
 		i++;
 	}
 	if (!s->no || !s->so || !s->we || !s->ea)
-		return (write_error("malloc: memory allocation failed\n"));
+		return (write_error("input data missing\n"));
 	if (sprites_exists(s))
 		return (write_error("sprite file(s) invalid\n"));
 	return (1);

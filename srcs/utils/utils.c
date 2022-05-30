@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:00:27 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/25 16:48:07 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 16:31:20 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	buffcomp(char *str, char *l)
 		str++;
 		l++;
 	}
-	if (*l && *str == '\0' && *l == ' ')
+	if (*l && *str == '\0' && ft_isspace(*l))
 		return (1);
 	return (0);
 }
@@ -30,12 +30,12 @@ char	*get_filename(char *l)
 	int		i;
 
 	i = 0;
-	while (*l && *l == ' ')
+	while (*l && ft_isspace(*l))
 		l++;
 	dest = malloc(sizeof(char) * (ft_strlen(l) + 1));
 	if (!dest)
 		return (NULL);
-	while (*l && *l != ' ')
+	while (*l && !ft_isspace(*l))
 	{
 		dest[i] = *l;
 		i++;

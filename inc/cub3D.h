@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/30 14:42:00 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 16:12:08 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,6 @@ typedef struct s_keys
 	int		keyl;
 	int		keyr;
 }			t_keys;
-
-typedef struct s_color
-{
-	int		r;
-	int		g;
-	int		b;
-}			t_color;
 
 typedef struct s_cube
 {
@@ -127,8 +120,8 @@ float	wall_intersections(t_cube *s, int deg);//dist en fonct du degree et pos
 //	DISPLAY
 int		create_trgb(int t, int r, int g, int b);
 void	draw_minimap(t_cube *s);
+void	draw_player_view(t_cube *s);
 void	my_mlx_pixel_put(t_cube *s, int x, int y, int color);
-void	write_big_pixel(t_cube *s, int x, int y, int color);
 t_uint	get_pixel_color(t_cube *s, int x, int y);
 
 #endif

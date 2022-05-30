@@ -1,30 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_display.c                                     :+:      :+:    :+:   */
+/*   player_view.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:35:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/30 13:25:36 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 16:11:56 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void    draw_background(t_cube *s)
+static void	draw_background(t_cube *s)
 {
-	int	x;	
-	int	y;	
+	int	x;
+	int	y;
+	int	floor;
+	int	sky;
 
+	sky = create_trgb(0, s->ceiling[0], s->ceiling[1], s->ceiling[2]);
+	floor = create_trgb(0, s->floor[0], s->floor[1], s->floor[2]);
 	y = 0;
-	while (y < s->map_h)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < s->map_l)
+		while (x < LENGTH)
 		{
-			x++;
+			if (y < HEIGHT / 2)
+				my_mlx_pixel_put(s, x, y, sky);
+			else
+				my_mlx_pixel_put(s, x, y, floor);
+			++x;
 		}
-		y++;
+		++y;
 	}
+}
+
+// void	draw_wall(t_cube *s)
+// {
+	
+// }
+
+void	draw_player_view(t_cube *s)
+{
+	draw_background(s);
 }

@@ -6,11 +6,29 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:42:47 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/30 13:22:31 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 15:36:52 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+static void	write_big_pixel(t_cube *s, int x, int y, int color)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < s->mnm_pix)
+	{
+		j = 0;
+		while (j < s->mnm_pix)
+		{
+			my_mlx_pixel_put(s, x + j, y + i, color);
+			j++;
+		}
+		i++;
+	}
+}
 
 static void	draw_background(t_cube *s)
 {
