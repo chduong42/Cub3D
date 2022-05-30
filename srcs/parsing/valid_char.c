@@ -1,50 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setting_player.c                                   :+:      :+:    :+:   */
+/*   valid_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 15:09:55 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/30 13:09:16 by chduong          ###   ########.fr       */
+/*   Created: 2022/05/30 12:59:37 by chduong           #+#    #+#             */
+/*   Updated: 2022/05/30 13:00:05 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	get_pov(t_cube *s, char loc)
+static int	is_valid_char(char c)
 {
-	if (loc == 'N')
-		s->pov = 90;
-	else if (loc == 'S')
-		s->pov = 270;
-	else if (loc == 'E')
-		s->pov = 0;
-	else if (loc == 'W')
-		s->pov = 180;
+	if (c == ' ' || c == '1' || c == '0' || c == 'N'
+		|| c == 'S' || c == 'E' || c == 'W')
+		return (0);
+	return (1);
 }
 
-void	get_player_position(t_cube *s)
+int	valid_char(t_cube *s)
 {
-	int		x;
-	int		y;
+	int	x;
+	int	y;
+	int	sum;
 
 	y = 0;
-	while (y < s->map_h)
+	sum = 0;
+	while (s->map[y])
 	{
 		x = 0;
-		while (x < s->map_l)
+		while (s->map[y][x])
 		{
+			if (is_valid_char(s->map[y][x]))
+				return (0);
 			if (s->map[y][x] == 'N' || s->map[y][x] == 'S'
-				|| s->map[y][x] == 'E' || s->map[y][x] == 'W')
-			{
-				get_pov(s, s->map[y][x]);
-				s->pos[0] = (float)x + 0.5;
-				s->pos[1] = (float)y + 0.5;
-				return ;
-			}
+					|| s->map[y][x] == 'E' || s->map[y][x] == 'W')
+				++sum;
 			x++;
 		}
 		y++;
 	}
+	if (sum != 1)
+		return (0);
+	return (1);
 }

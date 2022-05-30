@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:43:35 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/25 15:55:29 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 13:09:16 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ static int	around_space_ok(t_cube *s, int x, int y)
 	res = 0;
 	if (x > 0)
 		res = res + one_or_space(s->map[y][x - 1]);
-	if (x < s->map_len - 1)
+	if (x < s->map_l - 1)
 		res = res + one_or_space(s->map[y][x + 1]);
 	if (y > 0)
 		res = res + one_or_space(s->map[y - 1][x]);
-	if (y < s->map_height - 1)
+	if (y < s->map_h - 1)
 		res = res + one_or_space(s->map[y + 1][x]);
 //////	Diags ? usefull ? or not /
 	if (x > 0 && y > 0)
 		res = res + one_or_space(s->map[y - 1][x - 1]);
-	if (x < s->map_len - 1 && y > 0)
+	if (x < s->map_l - 1 && y > 0)
 		res = res + one_or_space(s->map[y - 1][x + 1]);
-	if (x > 0 && y < s->map_height - 1)
+	if (x > 0 && y < s->map_h - 1)
 		res = res + one_or_space(s->map[y + 1][x - 1]);
-	if (x < s->map_len - 1 && y < s->map_height - 1)
+	if (x < s->map_l - 1 && y < s->map_h - 1)
 		res = res + one_or_space(s->map[y + 1][x + 1]);
 	if (res > 0)
 		return (0);
@@ -84,10 +84,10 @@ static int	check_tab_edge(t_cube *s)
 			if (y == 0)
 				if (one_or_space(s->map[y][x]))
 					return (0);
-			if (x == 0 || x == (s->map_len - 1))
+			if (x == 0 || x == (s->map_l - 1))
 				if (one_or_space(s->map[y][x]))
 					return (0);
-			if (y == (s->map_height - 1))
+			if (y == (s->map_h - 1))
 				if (one_or_space(s->map[y][x]))
 					return (0);
 			x++;

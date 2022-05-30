@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/25 16:49:42 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 13:09:16 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ typedef struct s_cube
 	int		sizeline;
 	int		endian;
 	int		mnm_pix;
-	int		map_len;
-	int		map_height;
+	int		map_l;
+	int		map_h;
 
 	char	**file;
 	char	**map;
@@ -118,7 +118,7 @@ int		check_each_elem(char *l, int *tab);
 int		check_elems(t_cube *s);
 int		check_map(t_cube *s);
 int		create_map(t_cube *s, int i);
-int		data_collect(t_cube *s);// apres parsing : pour collecter donnees
+int		data_collect(t_cube *s);
 int		valid_char(t_cube *s);
 void	get_player_position(t_cube *s);
 int		parsing(t_cube *s, int ac, char **av);
@@ -138,10 +138,10 @@ int		write_error(char *message);
 float	wall_intersections(t_cube *s, int deg);//dist en fonct du degree et pos
 
 //	DISPLAY
+int		create_trgb(int t, int r, int g, int b);
 void	draw_minimap(t_cube *s);
 void	my_mlx_pixel_put(t_cube *s, int x, int y, int color);
 void	write_big_pixel(t_cube *s, int x, int y, int color);
-int		create_trgb(int t, int r, int g, int b);
-t_uint	get_pixel_color(t_data *text, int x, int y);
+t_uint	get_pixel_color(t_cube *s, int x, int y);
 
 #endif

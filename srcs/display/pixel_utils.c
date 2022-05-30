@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 17:10:11 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/24 17:15:34 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 13:06:21 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ int	create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-t_uint	get_pixel_color(t_data *text, int x, int y)
+t_uint	get_pixel_color(t_cube *s, int x, int y)
 {
 	char	*dst;
 
-	dst = text->img_data + (x * (text->bpp / 8) + y * text->size_line);
+	dst = s->addr + (x * (s->bpp / 8) + y * s->sizeline);
 	return ((*(t_uint *)dst));
 }
 
