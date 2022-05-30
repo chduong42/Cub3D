@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:42:47 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/30 13:09:16 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 13:22:31 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	draw_background(t_cube *s)
 			if (s->map[y][x] == '1')
 				write_big_pixel(s, 10 + x * s->mnm_pix,
 					10 + y * s->mnm_pix, 0x00278727);
-			else if (s->map[y][x] != ' ')
+			else if (!ft_isspace(s->map[y][x]))
 				write_big_pixel(s, 10 + x * s->mnm_pix,
 					10 + y * s->mnm_pix, 0x00A7C553);
 			x++;

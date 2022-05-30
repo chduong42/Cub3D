@@ -6,8 +6,25 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:35:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/25 13:35:38 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 13:25:36 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void    draw_background(t_cube *s)
+{
+	int	x;	
+	int	y;	
+
+	y = 0;
+	while (y < s->map_h)
+	{
+		x = 0;
+		while (x < s->map_l)
+		{
+			x++;
+		}
+		y++;
+	}
+}

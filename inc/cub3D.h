@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/30 13:09:16 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:42:00 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,6 @@ typedef struct s_color
 	int		b;
 }			t_color;
 
-typedef struct s_data
-{
-	int		bpp;
-	int		width;
-	int		height;
-	int		endian;
-	int		size_line;
-	int		img_size;
-	char	*img_data;
-	void	*img_ptr;
-}			t_data;
-
 typedef struct s_cube
 {
 	void	*mlx;
@@ -124,7 +112,6 @@ void	get_player_position(t_cube *s);
 int		parsing(t_cube *s, int ac, char **av);
 
 //	KEY CONTROL
-//int	all_keys(int key, t_cube *s);
 int		keypress(int key, t_cube *s);
 int		keyrelease(int key, t_cube *s);
 

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 10:40:24 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/30 12:59:55 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:24:18 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ int	parsing(t_cube *s, int ac, char **av)
 		return (0);
 	if (!check_map(s))
 		return (0);
+	get_player_position(s);
 	return (1);
 }

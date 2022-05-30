@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 08:58:22 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/25 15:08:52 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:52:56 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	main(int ac, char **av)
 	s.addr = mlx_get_data_addr(s.img, &s.bpp, &s.sizeline, &s.endian);
 	draw_minimap(&s);
 	mlx_put_image_to_window(s.mlx, s.win, s.img, 0, 0);
-	mlx_hook(s.win, 2, (1L << 0), keypress, (void *)&s);
-	mlx_hook(s.win, 3, (1L << 1), keyrelease, (void *)&s);
-	mlx_hook(s.win, 17, (1L << 17), mlx_loop_end, s.mlx);
+	mlx_hook(s.win, KeyPress, KeyPressMask, keypress, (void *)&s);
+	mlx_hook(s.win, KeyRelease, KeyReleaseMask, keyrelease, (void *)&s);
+	mlx_hook(s.win, ClientMessage, LeaveWindowMask, mlx_loop_end, s.mlx);
 	mlx_loop(s.mlx);
 	free_all(&s);
 	return (0);
