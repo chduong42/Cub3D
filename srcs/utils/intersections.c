@@ -6,18 +6,11 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/30 13:09:16 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/31 18:34:39 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-float	rad(float degree)
-{
-	return (degree * M_PI / 180);
-}
-
-///////////////////////////////////////////////////////////////////////
 
 int	wall_above(t_cube *s, float y, float x)
 {

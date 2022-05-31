@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pixel_utils.c                                      :+:      :+:    :+:   */
+/*   facing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 17:10:11 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/30 18:07:13 by chduong          ###   ########.fr       */
+/*   Created: 2022/05/31 17:56:21 by chduong           #+#    #+#             */
+/*   Updated: 2022/05/31 18:00:31 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	create_trgb(int t, int r, int g, int b)
+int	isfacedown(double angle)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+	return (angle > 0 && angle < PI);
 }
 
-t_uint	get_pixel_color(t_cube *s, int x, int y)
+int	isfaceup(double angle)
 {
-	char	*dst;
-
-	dst = s->addr + (x * (s->bpp / 8) + y * s->sizeline);
-	return ((*(t_uint *)dst));
+	return (!isfacedown(angle));
 }
 
-void	my_mlx_pixel_put(t_cube *s, int x, int y, int color)
+int	isfaceright(double angle)
 {
-	char	*dst;
+	return (angle < 0.5 * PI || angle > 1.5 * PI);
+}
 
-	dst = s->addr + (y * s->sizeline + x * s->bpp / 8);
-	*(unsigned int *)dst = color;
+int	isfaceleft(double angle)
+{
+	return (!isfaceright(angle));
 }

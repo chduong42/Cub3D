@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/30 16:12:08 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/31 18:35:10 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,12 @@
 # include <X11/keysym.h>
 
 //	MACRO
-# ifndef M_PI
-#  define M_PI 3.14159265358979323846
-# endif
-
 # define TITLE "My Cub3D"
-# define LENGTH 1000
-# define HEIGHT 800
+# define TILE_SIZE 32
+# define LENGTH 1280
+# define HEIGHT 1024
 # define FOV 60
+# define PI 3.14159265358979323846
 
 //	Key Code
 # define A 97
@@ -57,6 +55,20 @@ typedef struct s_keys
 	int		keyl;
 	int		keyr;
 }			t_keys;
+
+typedef struct s_ray
+{
+	float	ray_angle;
+	float	wall_hitx;
+	float	wall_hity;
+	float	dist;
+	int		hit_vert;
+	int		ray_up;
+	int		ray_down;
+	int		ray_left;
+	int		ray_right;
+	int		wall_hits;
+}			t_ray;
 
 typedef struct s_cube
 {
@@ -115,7 +127,11 @@ void	free_array(char **str);
 char	*get_filename(char *l);
 int		get_next_line(int fd, char **line);
 int		write_error(char *message);
-float	wall_intersections(t_cube *s, int deg);//dist en fonct du degree et pos
+
+// MATHS UTILS
+float	rad(float degree);
+float	dist_ab(float x1, float y1, float x2, float y2);
+float	wall_intersections(t_cube *s, int deg);
 
 //	DISPLAY
 int		create_trgb(int t, int r, int g, int b);
