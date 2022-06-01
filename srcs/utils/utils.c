@@ -6,13 +6,13 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:00:27 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 15:41:04 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 17:11:10 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-char	*get_filename(char *l)
+char	*get_fn(char *l)
 {
 	char	*dest;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:40:21 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/01 16:05:22 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 17:14:04 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	check_color(char **l)
 		return (0);
 	while (**l && ft_isdigit(**l))
 		(*l)++;
+	while (**l && ft_isspace(**l))
+		(*l)++;
 	if (color < 0 || color > 255)
 		return (0);
 	return (1);
@@ -42,13 +44,13 @@ static int	check_color(char **l)
 
 static int	color_line(char *l)
 {
-	++l;
+	l++;
 	if (!check_color(&l) || *l != ',')
 		return (0);
-	++l;
+	l++;
 	if (!check_color(&l) || *l != ',')
 		return (0);
-	++l;
+	l++;
 	if (!check_color(&l) || *l)
 		return (0);
 	return (1);
@@ -61,27 +63,22 @@ static int	direction_line(char *l)
 	l = l + 2;
 	while (*l && ft_isspace(*l))
 		l++;
-	filename = get_filename(l);
+	filename = get_fn(l);
 	if (!filename)
 		return (0);
+	free(filename);
 	while (*l && !ft_isspace(*l))
 		l++;
 	while (*l && ft_isspace(*l))
 		l++;
 	if (*l)
-	{
-		free(filename);
+
 		return (0);
-	}
-	free(filename);
 	return (1);
 }
 
 int	check_each_elem(char *l, int *tab)
 {
-	int	count;
-
-	count = 0;
 	if (buffcomp("NO", l) || buffcomp("SO", l)
 		|| buffcomp("WE", l) || buffcomp("EA", l))
 	{

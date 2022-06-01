@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:22:33 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 15:30:12 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 17:41:49 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,17 @@ static int	get_rgb(char *l)
 static void	get_sprites(t_cube *s, char *l)
 {
 	if (buffcomp("NO", l))
-		s->no = get_filename(l + 2);
+		s->no = get_fn(l + 2);
+		// s->no = mlx_xpm_file_to_image(s->mlx, get_fn(l + 2), &s->w, &s->h);
 	else if (buffcomp("SO", l))
-		s->so = get_filename(l + 2);
+		s->so = get_fn(l + 2);
+		// s->so = mlx_xpm_file_to_image(s->mlx, get_fn(l + 2), &s->w, &s->h);
 	else if (buffcomp("WE", l))
-		s->we = get_filename(l + 2);
+		s->we = get_fn(l + 2);
+		// s->we = mlx_xpm_file_to_image(s->mlx, get_fn(l + 2), &s->w, &s->h);
 	else if (buffcomp("EA", l))
-		s->ea = get_filename(l + 2);
+		s->ea = get_fn(l + 2);
+		// s->ea = mlx_xpm_file_to_image(s->mlx, get_fn(l + 2), &s->w, &s->h);
 	else if (buffcomp("F", l))
 		s->floor = get_rgb(l + 1);
 	else if (buffcomp("C", l))

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 15:24:15 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 17:39:53 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct s_cube
 	int		sizeline;
 	int		endian;
 	int		mnm_pix;
+	int		w;
+	int		h;
 	int		map_l;
 	int		map_h;
 
@@ -124,7 +126,7 @@ int		keyrelease(int key, t_cube *s);
 int		buffcomp(char *str, char *l);
 void	free_all(t_cube *s);
 void	free_array(char **str);
-char	*get_filename(char *l);
+char	*get_fn(char *l);
 int		get_next_line(int fd, char **line);
 int		write_error(char *message);
 
