@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 17:45:55 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:10:49 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ typedef struct s_cube
 	char	*so;
 	char	*we;
 	char	*ea;
+	void	*n;
+	void	*s;
+	void	*w;
+	void	*e;
 	int		floor;
 	int		ceiling;
 

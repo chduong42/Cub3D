@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:22:33 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 17:41:49 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 18:03:30 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,12 @@ static void	get_sprites(t_cube *s, char *l)
 {
 	if (buffcomp("NO", l))
 		s->no = get_fn(l + 2);
-		// s->no = mlx_xpm_file_to_image(s->mlx, get_fn(l + 2), &s->w, &s->h);
 	else if (buffcomp("SO", l))
 		s->so = get_fn(l + 2);
-		// s->so = mlx_xpm_file_to_image(s->mlx, get_fn(l + 2), &s->w, &s->h);
 	else if (buffcomp("WE", l))
 		s->we = get_fn(l + 2);
-		// s->we = mlx_xpm_file_to_image(s->mlx, get_fn(l + 2), &s->w, &s->h);
 	else if (buffcomp("EA", l))
 		s->ea = get_fn(l + 2);
-		// s->ea = mlx_xpm_file_to_image(s->mlx, get_fn(l + 2), &s->w, &s->h);
 	else if (buffcomp("F", l))
 		s->floor = get_rgb(l + 1);
 	else if (buffcomp("C", l))
@@ -72,6 +68,10 @@ static int	sprites_exists(t_cube *s)
 		return (1);
 	if (fd_exist(s->ea))
 		return (1);
+	s->n = mlx_xpm_file_to_image(s->mlx, s->no, &s->width, &s->height);
+	s->s = mlx_xpm_file_to_image(s->mlx, s->so, &s->width, &s->height);
+	s->w = mlx_xpm_file_to_image(s->mlx, s->we, &s->width, &s->height);
+	s->e = mlx_xpm_file_to_image(s->mlx, s->ea, &s->width, &s->height);
 	return (0);
 }
 
