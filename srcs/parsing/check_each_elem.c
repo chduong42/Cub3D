@@ -6,11 +6,23 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:40:21 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/25 16:52:30 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 16:05:22 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	buffcomp(char *str, char *l)
+{
+	while (*l && *str && *str == *l)
+	{
+		str++;
+		l++;
+	}
+	if (*l && *str == '\0' && ft_isspace(*l))
+		return (1);
+	return (0);
+}
 
 static int	check_color(char **l)
 {
@@ -23,8 +35,6 @@ static int	check_color(char **l)
 		return (0);
 	while (**l && ft_isdigit(**l))
 		(*l)++;
-	while (**l && ft_isspace(**l))
-		(*l)++;
 	if (color < 0 || color > 255)
 		return (0);
 	return (1);
@@ -32,13 +42,13 @@ static int	check_color(char **l)
 
 static int	color_line(char *l)
 {
-	l++;
+	++l;
 	if (!check_color(&l) || *l != ',')
 		return (0);
-	l++;
+	++l;
 	if (!check_color(&l) || *l != ',')
 		return (0);
-	l++;
+	++l;
 	if (!check_color(&l) || *l)
 		return (0);
 	return (1);
@@ -69,6 +79,9 @@ static int	direction_line(char *l)
 
 int	check_each_elem(char *l, int *tab)
 {
+	int	count;
+
+	count = 0;
 	if (buffcomp("NO", l) || buffcomp("SO", l)
 		|| buffcomp("WE", l) || buffcomp("EA", l))
 	{

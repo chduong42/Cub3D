@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:18:43 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/31 18:29:00 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 15:14:19 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ float	normalize_angle(float angle)
 	return (angle);
 }
 
-void castRay(float ray_angle, int i) {
+/*void castRay(float ray_angle, int i) {
 	float xintercept, yintercept;
 	float xstep, ystep;
 
@@ -140,18 +140,18 @@ void castRay(float ray_angle, int i) {
 	rays[i].isRayFacingUp = isRayFacingUp;
 	rays[i].isRayFacingLeft = isRayFacingLeft;
 	rays[i].isRayFacingRight = isRayFacingRight;
-}
+}*/
 
-void	cast_allrays(t_cube *s)
-{
-	int		i;
-	float	ray_angle;
+// void	cast_allrays(t_cube *s)
+// {
+// 	int		i;
+// 	float	ray_angle;
 
-	i = 0;
-	ray_angle = - (FOV / 2);
-	while (i < LENGTH)
-	{
-		castRay(ray_angle, i++);
-		ray_angle += FOV / LENGTH;
-	}
-}
+// 	i = 0;
+// 	ray_angle = - (FOV / 2);
+// 	while (i < LENGTH)
+// 	{
+// 		castRay(ray_angle, i++);
+// 		ray_angle += FOV / LENGTH;
+// 	}
+// }

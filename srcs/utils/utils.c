@@ -6,23 +6,11 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:00:27 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/30 16:31:20 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 15:41:04 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-int	buffcomp(char *str, char *l)
-{
-	while (*l && *str && *str == *l)
-	{
-		str++;
-		l++;
-	}
-	if (*l && *str == '\0' && ft_isspace(*l))
-		return (1);
-	return (0);
-}
 
 char	*get_filename(char *l)
 {

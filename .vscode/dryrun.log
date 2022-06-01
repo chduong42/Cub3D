@@ -1,0 +1,48 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/mnt/nfs/homes/chduong/Desktop/github'
+make -s -C inc/mlx/ all
+echo "> \033[0;96mCreate MiniLibX\033[0;m : \t\t[\033[0;92mOK\033[0;m]"
+make -s -C inc/libft/
+echo "> \033[0;96mLibft Compilation\033[0;m : \t\t[\033[0;92mOK\033[0;m]"
+mkdir -p obj/
+mkdir -p obj
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/main.o srcs/main.c
+mkdir -p obj
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/key_control.o srcs/key_control.c
+mkdir -p obj/parsing
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/parsing/parsing.o srcs/parsing/parsing.c
+mkdir -p obj/parsing
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/parsing/collectdata.o srcs/parsing/collectdata.c
+mkdir -p obj/parsing
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/parsing/create_map.o srcs/parsing/create_map.c
+mkdir -p obj/parsing
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/parsing/check_each_elem.o srcs/parsing/check_each_elem.c
+mkdir -p obj/parsing
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/parsing/check_elems.o srcs/parsing/check_elems.c
+mkdir -p obj/parsing
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/parsing/check_map.o srcs/parsing/check_map.c
+mkdir -p obj/parsing
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/parsing/valid_char.o srcs/parsing/valid_char.c
+mkdir -p obj/parsing
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/parsing/player_position.o srcs/parsing/player_position.c
+mkdir -p obj/utils
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/utils/getnextline.o srcs/utils/getnextline.c
+mkdir -p obj/utils
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/utils/utils.o srcs/utils/utils.c
+mkdir -p obj/utils
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/utils/maths.o srcs/utils/maths.c
+mkdir -p obj/raycasting
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/raycasting/raycasting.o srcs/raycasting/raycasting.c
+mkdir -p obj/display
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/display/player_view.o srcs/display/player_view.c
+mkdir -p obj/display
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/display/minimap.o srcs/display/minimap.c
+mkdir -p obj/display
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/display/pixel_utils.o srcs/display/pixel_utils.c
+mkdir -p obj/display
+clang -Wall -Wextra -Werror -I inc -I /usr/inc -I inc/mlx -I inc/libft/inc -c -o obj/display/intersections.o srcs/display/intersections.c
+echo "> \033[0;96mGenerate objects\033[0;m : \t\t[\033[0;92mOK\033[0;m]"
+clang -o cub3D obj/main.o obj/key_control.o obj/parsing/parsing.o obj/parsing/collectdata.o obj/parsing/create_map.o obj/parsing/check_each_elem.o obj/parsing/check_elems.o obj/parsing/check_map.o obj/parsing/valid_char.o obj/parsing/player_position.o obj/utils/getnextline.o obj/utils/utils.o obj/utils/maths.o obj/raycasting/raycasting.o obj/display/player_view.o obj/display/minimap.o obj/display/pixel_utils.o obj/display/intersections.o  inc/mlx/libmlx.a -lm -L ./inc/mlx -lmlx -lXext -lX11 -L ./inc/libft -lft
+echo "> \033[0;37m\e[1mCube3D Compilation\033[0;m : \t\t[\033[0;33mCOMPLETE\033[0;m]"
+make: Leaving directory '/mnt/nfs/homes/chduong/Desktop/github'
+ 

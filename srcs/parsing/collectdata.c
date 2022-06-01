@@ -6,21 +6,23 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:22:33 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/30 16:44:39 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 15:30:12 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	get_rgb(char *l, int tab[])
+static int	get_rgb(char *l)
 {
 	char	**rgb;
+	int		tab[3];
 
 	rgb = ft_split(l, ',');
 	tab[0] = ft_atoi(rgb[0]);
 	tab[1] = ft_atoi(rgb[1]);
 	tab[2] = ft_atoi(rgb[2]);
 	free_array(rgb);
+	return (create_trgb(0, tab[0], tab[1], tab[2]));
 }
 
 static void	get_sprites(t_cube *s, char *l)
@@ -34,9 +36,9 @@ static void	get_sprites(t_cube *s, char *l)
 	else if (buffcomp("EA", l))
 		s->ea = get_filename(l + 2);
 	else if (buffcomp("F", l))
-		get_rgb(l + 1, s->floor);
+		s->floor = get_rgb(l + 1);
 	else if (buffcomp("C", l))
-		get_rgb(l + 1, s->ceiling);
+		s->ceiling = get_rgb(l + 1);
 }
 
 static int	fd_exist(char *file)
