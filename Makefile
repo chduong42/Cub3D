@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/06/01 18:04:19 by chduong          ###   ########.fr        #
+#    Updated: 2022/06/01 18:26:14 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ BOLD       =   $'\e[1m
 #			FLAGS COMPILATION			#
 #########################################
 CFLAGS		=	-Wall -Wextra -Werror
-DEBUG		=	-fsanitize=address -g3
+DEBUG		=	-fsanitize=address -g
 
 INC			= 	-I inc $(INC_MLX) $(INC_LFT)
 INC_LFT		=	-I inc/libft/inc
@@ -103,7 +103,7 @@ $(MLX):
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c
 	@${MKDIR} ${@D}
-	@${CC} ${CFLAGS} ${INC} -c -o $@ $<
+	@${CC} ${CFLAGS} ${DEBUG} ${INC} -c $< -o $@ 
 
 $(OBJ_DIR):
 	@$(MKDIR) $(OBJ_DIR)

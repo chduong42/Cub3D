@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 18:10:49 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 18:14:37 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ typedef struct s_cube
 	int		sizeline;
 	int		endian;
 	int		mnm_pix;
-	int		w;
-	int		h;
+	int		width;
+	int		height;
 	int		map_l;
 	int		map_h;
 
