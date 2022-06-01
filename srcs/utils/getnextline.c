@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 10:37:49 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/23 14:24:14 by chduong          ###   ########.fr       */
+/*   Updated: 2022/05/31 10:33:13 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	get_next_line(int fd, char **line)
 		s.ret = read_n_getchar(fd, line, &s);
 	}
 	line[0][i] = '\0';
-	if (s.ret == 0)
+	if (s.ret == 0 && **line == '\0')
 		return (0);
 	return (1);
 }

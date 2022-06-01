@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 17:39:53 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 17:45:55 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_cube
 	int		ceiling;
 
 	int		pov;
+	int		walldir;// N = 1    S = 2      E = 3      W = 4
 	float	dist;
 	float	pos[2];//position personnage : pos[0] = x   pos[1] = y
 	t_keys	k;

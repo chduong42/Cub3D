@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 14:44:06 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/01 18:05:12 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,23 @@ float	zero_ninety(t_cube*s, int deg, float *pos)
 	float	len2;
 
 	if (deg == 90)
+	{
+		s->walldir = 1;
 		return (hori_zero_ninety(s, rad(deg), pos));
+	}
 	else if (deg == 0)
+	{
+		s->walldir = 3;
 		return (verti_zero_ninety(s, rad(deg), pos));
+	}
 	len = hori_zero_ninety(s, rad(deg), pos);
 	len2 = verti_zero_ninety(s, rad(deg), pos);
 	if (len < len2)
+	{
+		s->walldir = 1;
 		return (len);
+	}
+	s->walldir = 3;
 	return (len2);
 }
 /////////////////////////////////////////////////////////////////////////
@@ -159,11 +169,18 @@ float	ninety_one_eighty(t_cube*s, int deg, float *pos)
 	float	len2;
 
 	if (deg == 90)
+	{
+		s->walldir = 4;
 		return (verti_noe(s, rad(deg), pos));
+	}
 	len = hori_noe(s, rad(deg), pos);
 	len2 = verti_noe(s, rad(deg), pos);
 	if (len < len2)
+	{
+		s->walldir = 1;
 		return (len);
+	}
+	s->walldir = 4;
 	return (len2);
 }
 
@@ -237,11 +254,18 @@ float	one_eighty_two_seventy(t_cube*s, int deg, float *pos)
 	float	len2;
 
 	if (deg == 90)
+	{
+		s->walldir = 2;
 		return (hori_oets(s, rad(deg), pos));
+	}
 	len = hori_oets(s, rad(deg), pos);
 	len2 = verti_oets(s, rad(deg), pos);
 	if (len < len2)
+	{
+		s->walldir = 2;
 		return (len);
+	}
+	s->walldir = 4;
 	return (len2);
 }
 
@@ -317,7 +341,11 @@ float	two_seventy_three_sixty(t_cube*s, int deg, float *pos)
 	len = hori_tsts(s, rad(deg), pos);
 	len2 = verti_tsts(s, rad(deg), pos);
 	if (len < len2)
+	{
+		s->walldir = 2;
 		return (len);
+	}
+	s->walldir = 3;
 	return (len2);
 }
 
@@ -339,5 +367,6 @@ float	wall_intersections(t_cube *s, int deg)
 		len = one_eighty_two_seventy(s, deg - 180, pos);
 	else
 		len = two_seventy_three_sixty(s, deg - 270, pos);
+	printf("WALL:%d\n", s->walldir);
 	return (len);
 }
