@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 08:58:22 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/02 16:50:33 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/02 19:09:34 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	free_all(t_cube *s)
 {
 	if (s->no)
-		free(s->no);
+		mlx_destroy_image(s->mlx, s->no);
 	if (s->so)
-		free(s->so);
+		mlx_destroy_image(s->mlx, s->so);
 	if (s->we)
-		free(s->we);
+		mlx_destroy_image(s->mlx, s->we);
 	if (s->ea)
-		free(s->ea);
+		mlx_destroy_image(s->mlx, s->ea);
 	if (s->file)
 		free_array(s->file);
 	if (s->map)
