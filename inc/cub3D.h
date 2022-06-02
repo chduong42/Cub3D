@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/02 17:56:31 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/02 19:52:39 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,8 @@ typedef struct s_cube
 	int		bpp;
 	int		sizeline;
 	int		endian;
-	int		mnm_pix;
 	int		width;
 	int		height;
-	int		map_l;
-	int		map_h;
 
 	char	**file;
 	char	**map;
@@ -94,10 +91,13 @@ typedef struct s_cube
 	int		floor;
 	int		ceiling;
 
+	int		mnm_pix;
+	int		map_l;
+	int		map_h;
 	int		pov;
-	int		walldir;// N = 1    S = 2      E = 3      W = 4
 	float	dist;
 	float	pos[2];//position personnage : pos[0] = x   pos[1] = y
+	t_ray	rays[FOV];
 	t_keys	k;
 }			t_cube;
 
@@ -115,8 +115,9 @@ int		check_elems(t_cube *s);
 int		check_map(t_cube *s);
 int		create_map(t_cube *s, int i);
 int		data_collect(t_cube *s);
-void	get_player_position(t_cube *s);
+int		valid_char(t_cube *s);
 int		parsing(t_cube *s, int ac, char **av);
+void	get_player_position(t_cube *s);
 
 //	KEY CONTROL
 int		keypress(int key, t_cube *s);

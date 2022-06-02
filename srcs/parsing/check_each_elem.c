@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:40:21 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/02 17:50:41 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/02 19:24:01 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	cmp(char *str, char *l)
 	return (0);
 }
 
-static int	check_color(char **l)
+static int	check_rgb(char **l)
 {
 	int	color;
 
@@ -45,18 +45,18 @@ static int	check_color(char **l)
 static int	isrgb_line(char *l)
 {
 	l++;
-	if (!check_color(&l) || *l != ',')
+	if (!check_rgb(&l) || *l != ',')
 		return (0);
 	l++;
-	if (!check_color(&l) || *l != ',')
+	if (!check_rgb(&l) || *l != ',')
 		return (0);
 	l++;
-	if (!check_color(&l) || *l)
+	if (!check_rgb(&l) || *l)
 		return (0);
 	return (1);
 }
 
-static int	isdirection_line(char *l)
+static int	ispath_line(char *l)
 {
 	char	*filename;
 
@@ -89,7 +89,7 @@ int	check_each_elem(char *l, int *tab, int *count)
 			tab[2] = 1;
 		else if (cmp("EA", l))
 			tab[3] = 1;
-		if (!isdirection_line(l))
+		if (!ispath_line(l))
 			return (0);
 	}
 	else

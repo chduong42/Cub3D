@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:18:43 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/01 15:14:19 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/02 19:49:26 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ float	normalize_angle(float angle)
 // 	float	ray_angle;
 
 // 	i = 0;
-// 	ray_angle = - (FOV / 2);
+// 	ray_angle = s->pov - (FOV / 2);
 // 	while (i < LENGTH)
 // 	{
 // 		castRay(ray_angle, i++);
