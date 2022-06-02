@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 10:40:24 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/05/31 10:33:23 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/02 21:32:21 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ static char	**get_file(char **av, int *fd)
 
 	i = 0;
 	n = 0;
+	tmp = NULL;
 	while (get_next_line(*fd, &tmp) > 0)
-	{
 		++n;
-		free(tmp);
-	}
+	free(tmp);
+	tmp = NULL;
 	close(*fd);
 	*fd = open(av[1], O_RDONLY);
 	if (*fd == -1)
@@ -65,7 +65,7 @@ static char	**get_file(char **av, int *fd)
 	if (!dest)
 		return (NULL);
 	while (get_next_line(*fd, &tmp) > 0)
-		dest[i++] = tmp;
+		dest[i++] = ft_strdup(tmp);
 	free(tmp);
 	dest[i] = NULL;
 	return (dest);

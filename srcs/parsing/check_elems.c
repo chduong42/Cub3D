@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:36:48 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/02 17:57:50 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/02 20:37:40 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	valid_char(t_cube *s)
 {
 	int	x;
 	int	y;
-	int	sum;
+	int	nb_player;
 
 	y = 0;
-	sum = 0;
+	nb_player = 0;
 	while (s->map[y])
 	{
 		x = 0;
@@ -37,12 +37,12 @@ int	valid_char(t_cube *s)
 				return (0);
 			if (s->map[y][x] == 'N' || s->map[y][x] == 'S'
 					|| s->map[y][x] == 'E' || s->map[y][x] == 'W')
-				++sum;
+				++nb_player;
 			x++;
 		}
 		y++;
 	}
-	if (sum != 1)
+	if (nb_player != 1)
 		return (0);
 	return (1);
 }

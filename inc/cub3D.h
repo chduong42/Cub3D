@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/02 19:52:39 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/02 20:50:08 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/types.h> 
 # include <sys/stat.h> 
 # include "libft.h"
+# include "get_next_line.h"
 # include <mlx.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
@@ -128,7 +129,7 @@ int		cmp(char *str, char *l);
 void	free_all(t_cube *s);
 void	free_array(char **str);
 char	*get_fn(char *l);
-int		get_next_line(int fd, char **line);
+// int		get_next_line(int fd, char **line);
 int		write_error(char *message);
 
 // MATHS UTILS
