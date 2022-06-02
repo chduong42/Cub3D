@@ -6,13 +6,13 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:40:21 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/01 17:14:04 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/02 17:50:41 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	buffcomp(char *str, char *l)
+int	cmp(char *str, char *l)
 {
 	while (*l && *str && *str == *l)
 	{
@@ -42,7 +42,7 @@ static int	check_color(char **l)
 	return (1);
 }
 
-static int	color_line(char *l)
+static int	isrgb_line(char *l)
 {
 	l++;
 	if (!check_color(&l) || *l != ',')
@@ -56,7 +56,7 @@ static int	color_line(char *l)
 	return (1);
 }
 
-static int	direction_line(char *l)
+static int	isdirection_line(char *l)
 {
 	char	*filename;
 
@@ -72,34 +72,33 @@ static int	direction_line(char *l)
 	while (*l && ft_isspace(*l))
 		l++;
 	if (*l)
-
 		return (0);
 	return (1);
 }
 
-int	check_each_elem(char *l, int *tab)
+int	check_each_elem(char *l, int *tab, int *count)
 {
-	if (buffcomp("NO", l) || buffcomp("SO", l)
-		|| buffcomp("WE", l) || buffcomp("EA", l))
+	*count += 1;
+	if (cmp("NO", l) || cmp("SO", l) || cmp("WE", l) || cmp("EA", l))
 	{
-		if (buffcomp("NO", l))
+		if (cmp("NO", l))
 			tab[0] = 1;
-		else if (buffcomp("SO", l))
+		else if (cmp("SO", l))
 			tab[1] = 1;
-		else if (buffcomp("WE", l))
+		else if (cmp("WE", l))
 			tab[2] = 1;
-		else if (buffcomp("EA", l))
+		else if (cmp("EA", l))
 			tab[3] = 1;
-		if (!direction_line(l))
+		if (!isdirection_line(l))
 			return (0);
 	}
 	else
 	{
-		if (buffcomp("F", l))
+		if (cmp("F", l))
 			tab[4] = 1;
-		else if (buffcomp("C", l))
+		else if (cmp("C", l))
 			tab[5] = 1;
-		if (!color_line(l))
+		if (!isrgb_line(l))
 			return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 18:14:37 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/02 17:56:31 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,10 @@ typedef struct s_cube
 
 	char	**file;
 	char	**map;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	void	*n;
-	void	*s;
-	void	*w;
-	void	*e;
+	void	*no;
+	void	*so;
+	void	*we;
+	void	*ea;
 	int		floor;
 	int		ceiling;
 
@@ -114,12 +110,11 @@ typedef struct s_gnl
 }			t_gnl;
 
 //	PARSING
-int		check_each_elem(char *l, int *tab);
+int		check_each_elem(char *l, int *tab, int *count);
 int		check_elems(t_cube *s);
 int		check_map(t_cube *s);
 int		create_map(t_cube *s, int i);
 int		data_collect(t_cube *s);
-int		valid_char(t_cube *s);
 void	get_player_position(t_cube *s);
 int		parsing(t_cube *s, int ac, char **av);
 
@@ -128,7 +123,7 @@ int		keypress(int key, t_cube *s);
 int		keyrelease(int key, t_cube *s);
 
 //	UTILS
-int		buffcomp(char *str, char *l);
+int		cmp(char *str, char *l);
 void	free_all(t_cube *s);
 void	free_array(char **str);
 char	*get_fn(char *l);

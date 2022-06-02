@@ -1,5 +1,5 @@
 *.o
 *.a
-.vscode/c_cpp_properties.json
+.vscode/
 cub3D
-mlx/test/mlx-test
+inc/mlx/test/mlx-test

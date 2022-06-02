@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:22:33 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 18:03:30 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/02 17:26:46 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,52 +27,25 @@ static int	get_rgb(char *l)
 
 static void	get_sprites(t_cube *s, char *l)
 {
-	if (buffcomp("NO", l))
-		s->no = get_fn(l + 2);
-	else if (buffcomp("SO", l))
-		s->so = get_fn(l + 2);
-	else if (buffcomp("WE", l))
-		s->we = get_fn(l + 2);
-	else if (buffcomp("EA", l))
-		s->ea = get_fn(l + 2);
-	else if (buffcomp("F", l))
-		s->floor = get_rgb(l + 1);
-	else if (buffcomp("C", l))
-		s->ceiling = get_rgb(l + 1);
-}
+	char	*tmp;
 
-static int	fd_exist(char *file)
-{
-	int		fd;
-	char	dir;
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (1);
-	if (read(fd, &dir, 0) == -1)
+	if (cmp("NO", l) || cmp("SO", l) || cmp("WE", l) || cmp("EA", l))
 	{
-		close(fd);
-		return (1);
+		tmp = get_fn(l + 2);
+		if (cmp("NO", l))
+			s->no = mlx_xpm_file_to_image(s->mlx, tmp, &s->width, &s->height);
+		else if (cmp("SO", l))
+			s->so = mlx_xpm_file_to_image(s->mlx, tmp, &s->width, &s->height);
+		else if (cmp("WE", l))
+			s->we = mlx_xpm_file_to_image(s->mlx, tmp, &s->width, &s->height);
+		else if (cmp("EA", l))
+			s->ea = mlx_xpm_file_to_image(s->mlx, tmp, &s->width, &s->height);
+		free(tmp);
 	}
-	close(fd);
-	return (0);
-}
-
-static int	sprites_exists(t_cube *s)
-{
-	if (fd_exist(s->no))
-		return (1);
-	if (fd_exist(s->so))
-		return (1);
-	if (fd_exist(s->we))
-		return (1);
-	if (fd_exist(s->ea))
-		return (1);
-	s->n = mlx_xpm_file_to_image(s->mlx, s->no, &s->width, &s->height);
-	s->s = mlx_xpm_file_to_image(s->mlx, s->so, &s->width, &s->height);
-	s->w = mlx_xpm_file_to_image(s->mlx, s->we, &s->width, &s->height);
-	s->e = mlx_xpm_file_to_image(s->mlx, s->ea, &s->width, &s->height);
-	return (0);
+	else if (cmp("F", l))
+		s->floor = get_rgb(l + 1);
+	else if (cmp("C", l))
+		s->ceiling = get_rgb(l + 1);
 }
 
 int	data_collect(t_cube *s)
@@ -97,7 +70,5 @@ int	data_collect(t_cube *s)
 	}
 	if (!s->no || !s->so || !s->we || !s->ea)
 		return (write_error("input data missing\n"));
-	if (sprites_exists(s))
-		return (write_error("sprite file(s) invalid\n"));
 	return (1);
 }

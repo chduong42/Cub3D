@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/06/01 18:26:14 by chduong          ###   ########.fr        #
+#    Updated: 2022/06/02 18:00:58 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,11 +66,10 @@ MLX_DIR		=	inc/mlx/
 LFT			=	$(LFT_DIR)libft.a
 MLX			= 	$(MLX_DIR)libmlx.a
 
-C3D_SRC		=	main.c		key_control.c\
+C3D_SRC		=	main.c			data_collect.c		key_control.c\
 				${addprefix parsing/,\
-					parsing.c			collectdata.c		create_map.c\
-					check_each_elem.c	check_elems.c		check_map.c\
-					valid_char.c		player_position.c}\
+					player_position.c	parsing.c			create_map.c\
+					check_each_elem.c	check_elems.c		check_map.c}\
 				${addprefix utils/,\
 					getnextline.c		utils.c				maths.c}\
 				${addprefix raycasting/,\
@@ -90,7 +89,7 @@ C3D_OBJ		:=	$(addprefix $(OBJ_DIR), $(C3D_OBJ))
 #########################################
 $(C3D): $(MLX) $(LFT) $(OBJ_DIR) $(C3D_OBJ)
 	@echo "> $(CYAN)Generate objects$(END) : \t\t[$(GREEN)OK$(END)]"
-	@$(CC) $(DEBUG) -o $@ $(C3D_OBJ) $(LIBFT) $(MLX) $(LINK)
+	@$(CC) -o $@ $(C3D_OBJ) $(LIBFT) $(MLX) $(LINK)
 	@echo "> $(WHITE)$(BOLD)Cube3D Compilation$(END) : \t\t[$(YELLOW)COMPLETE$(END)]"
 
 $(LFT):
@@ -103,7 +102,7 @@ $(MLX):
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c
 	@${MKDIR} ${@D}
-	@${CC} ${CFLAGS} ${DEBUG} ${INC} -c $< -o $@ 
+	@${CC} ${CFLAGS} ${INC} -c $< -o $@ 
 
 $(OBJ_DIR):
 	@$(MKDIR) $(OBJ_DIR)
