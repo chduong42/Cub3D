@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/03 16:29:59 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/03 17:34:18 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_keys
 	int			keyr;
 }				t_keys;
 
-typedef	struct s_point
+typedef struct s_point
 {
 	double		x;
 	double		y;
@@ -67,15 +67,9 @@ typedef	struct s_point
 typedef struct s_ray
 {
 	float		angle;
-	float		wall_hitx;
-	float		wall_hity;
 	float		dist;
-	int			hit_vert;
-	int			isup;
-	int			isdown;
-	int			isleft;
-	int			isright;
-	int			wall_hits;
+	bool		hit_hor;
+	t_point		inter;
 }				t_ray;
 
 typedef struct s_cube

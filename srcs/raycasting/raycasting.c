@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:18:43 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/03 16:54:04 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/03 17:37:44 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,30 @@ t_point	vert_inter(t_cube *s, double angle)
 	return (p);
 }
 
-void	raycast(float ray_angle, int i)
+t_ray	new_ray(float angle, t_point inter, double dist, bool hor)
 {
+	t_ray	ray;
 
+	ray.angle = angle;
+	ray.inter = inter;
+	ray.dist = dist;
+	ray.hit_hor = hor;
+	return (ray);
 }
 
-// void	cast_allrays(t_cube *s)
-// {
-// 	int		i;
-// 	float	ray_angle;
+t_ray	raycast(t_cube *s, double angle)
+{
+	t_point		hor_inter;
+	t_point		ver_inter;
+	double		hor_dist;
+	double		ver_dist;
 
-// 	i = 0;
-// 	ray_angle = s->pov - (FOV / 2);
-// 	while (i < LENGTH)
-// 	{
-// 		castRay(ray_angle, i++);
-// 		ray_angle += FOV / LENGTH;
-// 	}
-// }
+	hor_inter = horiz_inter(s, angle);
+	ver_inter = vert_inter(s, angle);
+	hor_dist = dist_ab(s->pos[0], s->pos[1], hor_inter.x, hor_inter.y);
+	ver_dist = dist_ab(s->pos[0], s->pos[1], ver_inter.x, ver_inter.y);
+	if (hor_dist < ver_dist)
+		return (new_ray(angle, hor_inter, hor_dist, 1));
+	else
+		return (new_ray(angle, ver_inter, ver_dist, 0));
+}
