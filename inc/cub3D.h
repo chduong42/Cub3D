@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/03 17:34:18 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/06 20:55:32 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_ray
 	float		angle;
 	float		dist;
 	bool		hit_hor;
+	void		*texture;
 	t_point		inter;
 }				t_ray;
 
