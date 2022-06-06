@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:47:25 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 14:46:10 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/06 18:20:51 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,7 @@ int	keypress(int key, t_cube *s)
 		s->k.keyr = 1;
 	keys_effects(s);
 	draw_minimap(s);
-	printf("POV:%d\n", s->pov);
-	s->dist = wall_intersections(s, s->pov);
-	printf("DIST:%f\n", s->dist);
+	balayage(s);
 	mlx_put_image_to_window(s->mlx, s->win, s->img, 0, 0);
 	return (0);
 }

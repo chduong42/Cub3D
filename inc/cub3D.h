@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/03 17:34:18 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/06 18:21:22 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,11 @@ typedef struct s_cube
 	int			map_l;
 	int			map_h;
 	int			pov;
-	float		dist;
 	float		pos[2];//position personnage : pos[0] = x   pos[1] = y
+	float		dist;//plus besoin ?
+	int			walldir;
+	float		dists[320];
+	int			walls[320];
 	t_keys		k;
 	t_ray		rays[FOV];
 }				t_cube;
@@ -136,7 +139,7 @@ int		write_error(char *message);
 float	rad(float degree);
 float	dist_ab(float x1, float y1, float x2, float y2);
 float	normalize_angle(float angle);
-float	wall_intersections(t_cube *s, int deg);
+float	wall_intersections(t_cube *s, float deg);
 
 //	DISPLAY
 int		create_trgb(int t, int r, int g, int b);
@@ -146,6 +149,7 @@ void	my_mlx_pixel_put(t_cube *s, int x, int y, int color);
 t_uint	get_pixel_color(t_cube *s, int x, int y);
 
 //	RAYCASTING
+void	balayage(t_cube *s);
 int		isfacedown(double angle);
 int		isfaceup(double angle);
 int		isfaceright(double angle);
