@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:44:44 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/30 15:06:20 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/06 17:06:19 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,18 @@ int	create_map(t_cube *s, int i)
 		i++;
 	s->map_l = what_len_max(s, i);
 	s->map_h = hm_lines(s, i);
+	if (!s->map_h)
+		return (write_error("No map\n"));
 	if (s->map_l > 50 || s->map_h > 50)
-		return (write_error("maximum map size : 50x50\n"));
+		return (write_error("Maximum map size : 50x50\n"));
 	s->map = malloc(sizeof(char *) * (s->map_h + 1));
 	if (!s->map)
-		return (write_error("malloc: memory allocation failed\n"));
+		return (write_error("Malloc: memory allocation failed\n"));
 	while (y < s->map_h)
 	{
 		s->map[y] = dup_with_space(s->file[i++], s->map_l);
 		if (!s->map[y])
-			return (write_error("malloc: memory allocation failed\n"));
+			return (write_error("Malloc: memory allocation failed\n"));
 		y++;
 	}
 	s->map[y] = NULL;

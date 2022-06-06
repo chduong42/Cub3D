@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:43:35 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/30 13:09:16 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/06 17:07:10 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,8 @@ static int	check_tab_edge(t_cube *s)
 int	check_map(t_cube *s)
 {
 	if (!valid_char(s))
-		return (write_error("invalid character in the map\n"));
-	if (!check_space(s))
-		return (write_error("all map not surrounded by wall\n"));
-	if (!check_tab_edge(s))
-		return (write_error("all map not surrounded by wall\n"));
+		return (0);
+	if (!check_space(s) || !check_tab_edge(s))
+		return (write_error("All map not surrounded by wall\n"));
 	return (1);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collectdata.c                                      :+:      :+:    :+:   */
+/*   data_collect.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:22:33 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/02 17:26:46 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/06 17:07:28 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ int	data_collect(t_cube *s)
 		i++;
 	}
 	if (!s->no || !s->so || !s->we || !s->ea)
-		return (write_error("input data missing\n"));
+		return (write_error("Bad texture file\n"));
 	return (1);
 }

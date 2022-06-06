@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 10:40:24 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/02 21:32:21 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/06 17:09:58 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,15 @@ int	parsing(t_cube *s, int ac, char **av)
 	int	fd;
 
 	if (ac != 2)
-		return (write_error("usage: ./cub3D file.cub\n"));
+		return (write_error("Usage: ./cub3D file.cub\n"));
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
-		return (write_error("file don't exist or you don't have permission\n"));
+		return (write_error("Can't open file\n"));
 	if (!f_form(av[1], fd) || !file_empty(av, &fd))
-		return (write_error("wrong file format or file empty\n"));
+		return (write_error("Wrong file format or file empty\n"));
 	s->file = get_file(av, &fd);
 	if (!s->file)
-		return (write_error("malloc: memory allocation failed\n"));
+		return (write_error("Malloc: memory allocation failed\n"));
 	close(fd);
 	if (!check_elems(s))
 		return (0);

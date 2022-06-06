@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:40:21 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/02 19:24:01 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/06 16:52:33 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,9 @@ static int	isrgb_line(char *l)
 
 static int	ispath_line(char *l)
 {
-	char	*filename;
-
 	l = l + 2;
 	while (*l && ft_isspace(*l))
 		l++;
-	filename = get_fn(l);
-	if (!filename)
-		return (0);
-	free(filename);
 	while (*l && !ft_isspace(*l))
 		l++;
 	while (*l && ft_isspace(*l))
@@ -82,22 +76,22 @@ int	check_each_elem(char *l, int *tab, int *count)
 	if (cmp("NO", l) || cmp("SO", l) || cmp("WE", l) || cmp("EA", l))
 	{
 		if (cmp("NO", l))
-			tab[0] = 1;
+			tab[0] += 1;
 		else if (cmp("SO", l))
-			tab[1] = 1;
+			tab[1] += 1;
 		else if (cmp("WE", l))
-			tab[2] = 1;
+			tab[2] += 1;
 		else if (cmp("EA", l))
-			tab[3] = 1;
+			tab[3] += 1;
 		if (!ispath_line(l))
 			return (0);
 	}
 	else
 	{
 		if (cmp("F", l))
-			tab[4] = 1;
+			tab[4] += 1;
 		else if (cmp("C", l))
-			tab[5] = 1;
+			tab[5] += 1;
 		if (!isrgb_line(l))
 			return (0);
 	}

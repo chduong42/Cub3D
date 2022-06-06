@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:36:48 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/02 20:37:40 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/06 17:06:43 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	valid_char(t_cube *s)
 		while (s->map[y][x])
 		{
 			if (is_valid_char(s->map[y][x]))
-				return (0);
+				return (write_error("Invalid character(s) in the map\n"));
 			if (s->map[y][x] == 'N' || s->map[y][x] == 'S'
 					|| s->map[y][x] == 'E' || s->map[y][x] == 'W')
 				++nb_player;
@@ -43,7 +43,7 @@ int	valid_char(t_cube *s)
 		y++;
 	}
 	if (nb_player != 1)
-		return (0);
+		return (write_error("Missing or too many players in the map\n"));
 	return (1);
 }
 
@@ -54,8 +54,10 @@ static int	all_elems(int *tab)
 	i = 0;
 	while (i < 6)
 	{
-		if (tab[i] == 0)
-			return (0);
+		if (tab[i] > 1)
+			return (write_error("One or several elements appear twice\n"));
+		else if (tab[i] == 0)
+			return (write_error("Missing element(s)\n"));
 		i++;
 	}
 	return (1);
@@ -78,12 +80,10 @@ int	check_elems(t_cube *s)
 		while (s->file[i][j] && ft_isspace(s->file[i][j]))
 			j++;
 		if (s->file[i][j] && !check_each_elem(&s->file[i][j], tab, &count))
-			return (write_error("invalid element(s)\n"));
+			return (write_error("Input file start with invalid element(s)\n"));
 		i++;
 	}
-	if (!create_map(s, i))
+	if (!create_map(s, i) || !all_elems(tab))
 		return (0);
-	if (!all_elems(tab))
-		return (write_error("missing element(s)\n"));
 	return (1);
 }
