@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/07 16:11:12 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/07 17:21:51 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 //	MACRO
 # define TITLE "My Cub3D"
 # define TILE_SIZE 32
-# define WIDTH 2560
-# define HEIGHT 1440
+# define WIDTH 1280
+# define HEIGHT 720
 # define FOV 60
 # define PI 3.14159265358979323846
 
@@ -100,7 +100,7 @@ typedef struct s_cube
 	int			pov;
 	float		pos[2];
 	float		dist;
-	int			walldir;
+	int			walldir; // 1: Nord  / 2: Sud / 3:East / 4:West
 	t_keys		k;
 	t_ray		rays[FOV];
 }				t_cube;
@@ -133,6 +133,7 @@ float	normalize_angle(float angle);
 float	wall_intersections(t_cube *s, float deg);
 
 //	DISPLAY
+void	draw_background(t_cube *s);
 int		create_trgb(int t, int r, int g, int b);
 void	draw_minimap(t_cube *s);
 void	draw_player_view(t_cube *s);

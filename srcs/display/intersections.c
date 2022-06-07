@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/07 12:46:23 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:25:40 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,27 +371,59 @@ float	wall_intersections(t_cube *s, float deg)
 	return (len);
 }
 
+void	raycasting(t_cube *s, int column)
+{
+	float	resolution_dist;
+	float	pixel_dist;
+	int		size_slice;
+	int		color;
+	int		begin;
+
+	if (s->walldir == 1) // Nord
+		color = 0x00000F00;
+	if (s->walldir == 2) // Sud
+		color = 0x0000F000;
+	if (s->walldir == 3) // East
+		color = 0x00FF0000;
+	if (s->walldir == 4) //West
+		color = 0x000000FF;
+	resolution_dist = WIDTH / 2 / tanf(rad(30));
+	pixel_dist = s->dist * 64;
+	size_slice = (int)((float)64 / pixel_dist * resolution_dist);
+//	printf("dist to proj plane:%f\n", resolution_dist);
+//	printf("pixel dist:%f\n", pixel_dist);
+//	printf("size slice:%d\n", size_slice);
+	begin = 360 - size_slice / 2;
+	for (int i = 0; i < size_slice; i++)
+		my_mlx_pixel_put(s, column, begin + i, color);
+
+//	my_mlx_pixel_put(t_cube *s, int x, int y, int color)
+
+}
+
 void	balayage(t_cube *s, float deg)
 {
-	int		i;
+	int		column;
 	float	gap;
 	float	ray;
 
-	i = 0;
+	column = 0;
 	gap = (float)60 / (float)WIDTH;
 	ray = deg + 30;
 	if (ray > 359)
 		ray = ray - 360;
-	while (i < WIDTH)
+	draw_background(s);
+	while (column < WIDTH)
 	{
 		s->dist = wall_intersections(s, ray);
-											// RAY CASTING
 //		printf("dist:%f\n", s->dist);
 //		printf("wall:%d\n", s->walldir);
+		raycasting(s, column);
+											// RAY CASTING
 		ray = ray - gap;
 		if (ray < 0)
 			ray = ray + 360;
-		i++;
+		column++;
 	}
 //	printf("POV:%d\n", s->pov);
 //	printf("DIST:%f\n", s->dist);

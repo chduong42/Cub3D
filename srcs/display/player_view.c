@@ -6,13 +6,13 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:35:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/07 16:11:01 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/07 17:21:24 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	draw_background(t_cube *s)
+void	draw_background(t_cube *s)
 {
 	int	x;
 	int	y;
