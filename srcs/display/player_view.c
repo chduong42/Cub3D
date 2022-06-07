@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:35:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/01 15:39:27 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/07 12:31:00 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	draw_background(t_cube *s)
 	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < LENGTH)
+		while (x < WIDTH)
 		{
 			if (y < HEIGHT / 2)
 				my_mlx_pixel_put(s, x, y, s->ceiling);

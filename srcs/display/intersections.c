@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/06 18:58:10 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/07 12:46:23 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,7 +359,6 @@ float	wall_intersections(t_cube *s, float deg)
 	len = 0;
 	pos[0] = s->pos[0];
 	pos[1] = s->pos[1];
-//	printf("deg: %f\n", deg);
 	if (deg >= 0 && deg <= 90)
 		len = zero_ninety(s, rad(deg), pos); // OK Here
 	else if (deg > 90 && deg <= 180)
@@ -368,19 +367,34 @@ float	wall_intersections(t_cube *s, float deg)
 		len = one_eighty_two_seventy(s, rad(deg - 180), pos);
 	else
 		len = two_seventy_three_sixty(s, rad(deg - 270), pos);
-	printf("WALL:%d\n", s->walldir);
+//	printf("WALL:%d\n", s->walldir);
 	return (len);
 }
 
-void	balayage(t_cube *s)
+void	balayage(t_cube *s, float deg)
 {
-	float gap;
+	int		i;
+	float	gap;
+	float	ray;
 
-	gap = 0.1875;
-	printf("POV:%d\n", s->pov);
-	s->dist = wall_intersections(s, s->pov);
-	printf("DIST:%f\n", s->dist);
-	(void)gap;
+	i = 0;
+	gap = (float)60 / (float)WIDTH;
+	ray = deg + 30;
+	if (ray > 359)
+		ray = ray - 360;
+	while (i < WIDTH)
+	{
+		s->dist = wall_intersections(s, ray);
+											// RAY CASTING
+//		printf("dist:%f\n", s->dist);
+//		printf("wall:%d\n", s->walldir);
+		ray = ray - gap;
+		if (ray < 0)
+			ray = ray + 360;
+		i++;
+	}
+//	printf("POV:%d\n", s->pov);
+//	printf("DIST:%f\n", s->dist);
 }
 
 

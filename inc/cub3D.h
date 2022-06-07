@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/06 18:21:22 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/07 12:43:16 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 //	MACRO
 # define TITLE "My Cub3D"
 # define TILE_SIZE 32
-# define LENGTH 1280
-# define HEIGHT 1024
+# define HEIGHT 1440
+# define WIDTH 2560
 # define FOV 60
 # define PI 3.14159265358979323846
 
@@ -98,10 +98,8 @@ typedef struct s_cube
 	int			map_h;
 	int			pov;
 	float		pos[2];//position personnage : pos[0] = x   pos[1] = y
-	float		dist;//plus besoin ?
+	float		dist;
 	int			walldir;
-	float		dists[320];
-	int			walls[320];
 	t_keys		k;
 	t_ray		rays[FOV];
 }				t_cube;
@@ -149,7 +147,7 @@ void	my_mlx_pixel_put(t_cube *s, int x, int y, int color);
 t_uint	get_pixel_color(t_cube *s, int x, int y);
 
 //	RAYCASTING
-void	balayage(t_cube *s);
+void	balayage(t_cube *s, float deg);
 int		isfacedown(double angle);
 int		isfaceup(double angle);
 int		isfaceright(double angle);
