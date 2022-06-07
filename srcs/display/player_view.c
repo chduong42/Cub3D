@@ -21,7 +21,7 @@ static void	draw_background(t_cube *s)
 	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < LENGTH)
+		while (x < WIDTH)
 		{
 			if (y < HEIGHT / 2)
 				my_mlx_pixel_put(s, x, y, s->ceiling);
