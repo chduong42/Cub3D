@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:35:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/07 16:11:01 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/07 18:00:16 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,55 +32,6 @@ static void	draw_background(t_cube *s)
 		++y;
 	}
 }
-
-/*void	draw_stripe(int x, t_cube *s, t_ray ray, t_data *text)
-{
-	int		y_off;
-	int		x_off;
-	int		y_start;
-	int		y_end;
-
-	if (cub->stripeh[x] <= cub->w_height)
-		y_start = (cub->w_height / 2 - cub->stripeh[x] / 2);
-	if (cub->stripeh[x] > cub->w_height)
-		y_end =	cub->w_height
-	else
-		y_end = y_start + cub->stripeh[x];
-	if (ray.hor)
-		x_off = (int)ray.inter.x % TILE_SIZE;
-	else
-		x_off = (int)ray.inter.y % TILE_SIZE;
-	x_off = (x_off * text->width) / TILE_SIZE;
-	if (cub->stripeh[x] > cub->w_height)
-		y_off = cub->stripeh[x] / 2 - cub->w_height / 2;
-	while (y_start < y_end)
-	{
-		my_mlx_pixel_put(&cub->img, x, y_start, get_pixel_color(text, x_off, (y_off * text->height) / cub->stripeh[x]));
-		y_start++;
-		y_off++;
-	}
-}
-
-void	draw_wall(t_cube *s, char *img_data)
-{
-	t_ray	ray;
-	int		pix;
-	double	angle;
-
-	pix = 0;
-	ft_bzero(img_data, cub->w_width * cub->w_height * 4);
-	draw_background(cub);
-	while (pix < cub->w_width)
-	{
-		angle = normalize_angle(s->pov + atan((pix - (cub->w_width / 2)) / cub->dstprojplane));
-		ray = raycast(cub, angle);
-		cub->raydst[pix] = ray.dst;
-		ray.dst *= cos(angle - cub->player.angle);
-		cub->stripeh[pix] = floor((TILE_SIZE / ray.dst) * cub->dstprojplane);
-		draw_stripe(pix, cub, ray, get_wall_text(cub, angle, ray.hor));
-		pix++;
-	}
-}*/
 
 void	draw_player_view(t_cube *s)
 {

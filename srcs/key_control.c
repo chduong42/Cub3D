@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:47:25 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/07 12:16:06 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/07 20:00:00 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,35 @@ void	wasd_keys(t_cube *s, float speed, float dist)
 	if (s->k.keyw == 1)
 	{
 		s->pos[1] = s->pos[1] - speed;
+		if (s->map[(int)(s->pos[1] - dist / 2)][(int)s->pos[0]] == '1')
+			s->pos[1] = s->pos[1] + speed;
+	}
+	if (s->k.keys == 1)
+	{
+		s->pos[1] = s->pos[1] + speed;
+		if (s->map[(int)(s->pos[1] + dist / 2)][(int)s->pos[0]] == '1')
+			s->pos[1] = s->pos[1] - speed;
+	}
+	if (s->k.keya == 1)
+	{
+		s->pos[0] = s->pos[0] - speed;
+		if (s->map[(int)s->pos[1]][(int)(s->pos[0] - dist / 2)] == '1')
+			s->pos[0] = s->pos[0] + speed;
+	}
+	if (s->k.keyd == 1)
+	{
+		s->pos[0] = s->pos[0] + speed;
+		if (s->map[(int)s->pos[1]][(int)(s->pos[0] + dist / 2)] == '1')
+			s->pos[0] = s->pos[0] - speed;
+	}
+}
+
+void	wasd_keys_2(t_cube *s, float speed, float dist)
+{
+	if (s->k.keyw == 1)
+	{
+		s->pos[0] += cos() * speed;
+		s->pos[1] += sin() * speed;
 		if (s->map[(int)(s->pos[1] - dist / 2)][(int)s->pos[0]] == '1')
 			s->pos[1] = s->pos[1] + speed;
 	}

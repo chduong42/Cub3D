@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/07 16:11:12 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/07 16:53:56 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@
 # include <X11/keysym.h>
 
 //	MACRO
-# define TITLE "My Cub3D"
-# define TILE_SIZE 32
+# define TILE 32
 # define WIDTH 2560
 # define HEIGHT 1440
 # define FOV 60
