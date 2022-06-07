@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/07 14:47:03 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/07 16:11:12 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 //	MACRO
 # define TITLE "My Cub3D"
 # define TILE_SIZE 32
-# define HEIGHT 1440
 # define WIDTH 2560
+# define HEIGHT 1440
 # define FOV 60
 # define PI 3.14159265358979323846
 
@@ -98,20 +98,12 @@ typedef struct s_cube
 	int			map_l;
 	int			map_h;
 	int			pov;
-	float		pos[2];//position personnage : pos[0] = x   pos[1] = y
+	float		pos[2];
 	float		dist;
 	int			walldir;
 	t_keys		k;
 	t_ray		rays[FOV];
 }				t_cube;
-
-typedef struct s_gnl
-{
-	int		ret;
-	int		bean;
-	int		size;
-	char	c;
-}			t_gnl;
 
 //	PARSING
 int		check_each_elem(char *l, int *tab, int *count);

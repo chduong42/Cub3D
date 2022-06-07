@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 14:18:43 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/06 20:59:01 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/07 16:07:14 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,28 +74,14 @@ t_point	vert_inter(t_cube *s, double angle)
 	return (p);
 }
 
-t_ray	new_ray(t_cube *s, float angle, t_point inter, bool hor)
+t_ray	new_ray(float angle, t_point inter, float dist, bool hor)
 {
 	t_ray	ray;
 
 	ray.angle = angle;
 	ray.inter = inter;
-	ray.dist = dist_ab(s->pos[0], s->pos[1], inter.x, inter.y);
+	ray.dist = dist;
 	ray.hit_hor = hor;
-	if (hor)
-	{
-		if (isfaceup(angle))
-			ray.texture = s->no;
-		else
-			ray.texture = s->so;
-	}
-	else
-	{
-		if (isfaceright(angle))
-			ray.texture = s->ea;
-		else
-			ray.texture = s->we;
-	}
 	return (ray);
 }
 
@@ -103,11 +89,15 @@ t_ray	raycast(t_cube *s, double angle)
 {
 	t_point		hor_inter;
 	t_point		ver_inter;
+	float		hor_dist;
+	float		ver_dist;
 
 	hor_inter = horiz_inter(s, angle);
 	ver_inter = vert_inter(s, angle);
+	hor_dist = dist_ab(s->pos[0], s->pos[1], hor_inter.x, hor_inter.y);
+	ver_dist = dist_ab(s->pos[0], s->pos[1], ver_inter.x, ver_inter.y);
 	if (hor_dist < ver_dist)
-		return (new_ray(s, angle, hor_inter, 1));
+		return (new_ray(angle, hor_inter, hor_dist, 1));
 	else
-		return (new_ray(s, angle, ver_inter, 0));
+		return (new_ray(angle, ver_inter, ver_dist, 0));
 }
