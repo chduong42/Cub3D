@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/02 21:10:02 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/07 12:46:23 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,29 @@ float	verti_zero_ninety(t_cube *s, float radian, float *pos)
 	return (x1 / cos(radian));
 }
 
-float	zero_ninety(t_cube*s, int deg, float *pos)
+float	zero_ninety(t_cube*s, float radian, float *pos)
 {
 	float	len;
 	float	len2;
 
-	if (deg == 90)
-		return (hori_zero_ninety(s, rad(deg), pos));
-	else if (deg == 0)
-		return (verti_zero_ninety(s, rad(deg), pos));
-	len = hori_zero_ninety(s, rad(deg), pos);
-	len2 = verti_zero_ninety(s, rad(deg), pos);
+	if (radian == rad(90))
+	{
+		s->walldir = 1;
+		return (hori_zero_ninety(s, radian, pos));
+	}
+	else if (radian == rad(0))
+	{
+		s->walldir = 3;
+		return (verti_zero_ninety(s, radian, pos));
+	}
+	len = hori_zero_ninety(s, radian, pos);
+	len2 = verti_zero_ninety(s, radian, pos);
 	if (len < len2)
+	{
+		s->walldir = 1;
 		return (len);
+	}
+	s->walldir = 3;
 	return (len2);
 }
 /////////////////////////////////////////////////////////////////////////
@@ -153,17 +163,24 @@ float	verti_noe(t_cube *s, float radian, float *pos)
 	return (y1 / cos(radian));
 }
 
-float	ninety_one_eighty(t_cube*s, int deg, float *pos)
+float	ninety_one_eighty(t_cube*s, float radian, float *pos)
 {
 	float	len;
 	float	len2;
 
-	if (deg == 90)
-		return (verti_noe(s, rad(deg), pos));
-	len = hori_noe(s, rad(deg), pos);
-	len2 = verti_noe(s, rad(deg), pos);
+	if (radian == rad(90))
+	{
+		s->walldir = 4;
+		return (verti_noe(s, radian, pos));
+	}
+	len = hori_noe(s, radian, pos);
+	len2 = verti_noe(s, radian, pos);
 	if (len < len2)
+	{
+		s->walldir = 1;
 		return (len);
+	}
+	s->walldir = 4;
 	return (len2);
 }
 
@@ -231,17 +248,24 @@ float	verti_oets(t_cube *s, float radian, float *pos)
 	return (x1 / cos(radian));
 }
 
-float	one_eighty_two_seventy(t_cube*s, int deg, float *pos)
+float	one_eighty_two_seventy(t_cube*s, float radian, float *pos)
 {
 	float	len;
 	float	len2;
 
-	if (deg == 90)
-		return (hori_oets(s, rad(deg), pos));
-	len = hori_oets(s, rad(deg), pos);
-	len2 = verti_oets(s, rad(deg), pos);
+	if (radian == rad(90))
+	{
+		s->walldir = 2;
+		return (hori_oets(s, radian, pos));
+	}
+	len = hori_oets(s, radian, pos);
+	len2 = verti_oets(s, radian, pos);
 	if (len < len2)
+	{
+		s->walldir = 2;
 		return (len);
+	}
+	s->walldir = 4;
 	return (len2);
 }
 
@@ -309,21 +333,25 @@ float	hori_tsts(t_cube *s, float radian, float *pos)
 	return (y1 / cos(radian));
 }
 
-float	two_seventy_three_sixty(t_cube*s, int deg, float *pos)
+float	two_seventy_three_sixty(t_cube*s, float radian, float *pos)
 {
 	float	len;
 	float	len2;
 
-	len = hori_tsts(s, rad(deg), pos);
-	len2 = verti_tsts(s, rad(deg), pos);
+	len = hori_tsts(s, radian, pos);
+	len2 = verti_tsts(s, radian, pos);
 	if (len < len2)
+	{
+		s->walldir = 2;
 		return (len);
+	}
+	s->walldir = 3;
 	return (len2);
 }
 
 //////////////////////////////////////////////////////////////////
 
-float	wall_intersections(t_cube *s, int deg)
+float	wall_intersections(t_cube *s, float deg)
 {
 	float	len;
 	float	pos[2];
@@ -332,12 +360,45 @@ float	wall_intersections(t_cube *s, int deg)
 	pos[0] = s->pos[0];
 	pos[1] = s->pos[1];
 	if (deg >= 0 && deg <= 90)
-		len = zero_ninety(s, deg, pos);
+		len = zero_ninety(s, rad(deg), pos); // OK Here
 	else if (deg > 90 && deg <= 180)
-		len = ninety_one_eighty(s, deg - 90, pos);
+		len = ninety_one_eighty(s, rad(deg - 90), pos);
 	else if (deg > 180 && deg <= 270)
-		len = one_eighty_two_seventy(s, deg - 180, pos);
+		len = one_eighty_two_seventy(s, rad(deg - 180), pos);
 	else
-		len = two_seventy_three_sixty(s, deg - 270, pos);
+		len = two_seventy_three_sixty(s, rad(deg - 270), pos);
+//	printf("WALL:%d\n", s->walldir);
 	return (len);
 }
+
+void	balayage(t_cube *s, float deg)
+{
+	int		i;
+	float	gap;
+	float	ray;
+
+	i = 0;
+	gap = (float)60 / (float)WIDTH;
+	ray = deg + 30;
+	if (ray > 359)
+		ray = ray - 360;
+	while (i < WIDTH)
+	{
+		s->dist = wall_intersections(s, ray);
+											// RAY CASTING
+//		printf("dist:%f\n", s->dist);
+//		printf("wall:%d\n", s->walldir);
+		ray = ray - gap;
+		if (ray < 0)
+			ray = ray + 360;
+		i++;
+	}
+//	printf("POV:%d\n", s->pov);
+//	printf("DIST:%f\n", s->dist);
+}
+
+
+
+
+
+

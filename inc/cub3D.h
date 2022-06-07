@@ -31,8 +31,8 @@
 //	MACRO
 # define TITLE "My Cub3D"
 # define TILE_SIZE 32
-# define LENGTH 1280
-# define HEIGHT 1024
+# define HEIGHT 1440
+# define WIDTH 2560
 # define FOV 60
 # define PI 3.14159265358979323846
 
@@ -98,8 +98,9 @@ typedef struct s_cube
 	int			map_l;
 	int			map_h;
 	int			pov;
-	float		dist;
 	float		pos[2];//position personnage : pos[0] = x   pos[1] = y
+	float		dist;
+	int			walldir;
 	t_keys		k;
 	t_ray		rays[FOV];
 }				t_cube;
@@ -137,7 +138,7 @@ int		write_error(char *message);
 float	rad(float degree);
 float	dist_ab(float x1, float y1, float x2, float y2);
 float	normalize_angle(float angle);
-float	wall_intersections(t_cube *s, int deg);
+float	wall_intersections(t_cube *s, float deg);
 
 //	DISPLAY
 int		create_trgb(int t, int r, int g, int b);
@@ -147,6 +148,7 @@ void	my_mlx_pixel_put(t_cube *s, int x, int y, int color);
 t_uint	get_pixel_color(t_cube *s, int x, int y);
 
 //	RAYCASTING
+void	balayage(t_cube *s, float deg);
 int		isfacedown(double angle);
 int		isfaceup(double angle);
 int		isfaceright(double angle);
