@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 16:49:48 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:15:17 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,19 +382,16 @@ float	two_seventy_three_sixty(t_cube*s, float radian, float *pos)
 float	wall_intersections(t_cube *s, float deg)
 {
 	float	len;
-	float	pos[2];
 
 	len = 0;
-	pos[0] = s->pos[0];
-	pos[1] = s->pos[1];
 	if (deg > 0 && deg <= 90)
-		len = zero_ninety(s, rad(deg), pos);
+		len = zero_ninety(s, rad(deg), s->pos);
 	else if (deg > 90 && deg <= 180)
-		len = ninety_one_eighty(s, rad(deg - 90), pos);
+		len = ninety_one_eighty(s, rad(deg - 90), s->pos);
 	else if (deg > 180 && deg <= 270)
-		len = one_eighty_two_seventy(s, rad(deg - 180), pos);
+		len = one_eighty_two_seventy(s, rad(deg - 180), s->pos);
 	else
-		len = two_seventy_three_sixty(s, rad(deg - 270), pos);
+		len = two_seventy_three_sixty(s, rad(deg - 270), s->pos);
 	return (len);
 }
 
@@ -456,7 +453,10 @@ void	balayage(t_cube *s, float deg)
 
    while (column < WIDTH)
 	{
-		s->dist = wall_intersections(s, ray);
+		if (ray >= deg)
+			s->dist = wall_intersections(s, ray) * cos(rad(ray - deg));
+		else
+			s->dist = wall_intersections(s, ray) * cos(rad(deg - ray));
 		raycasting(s, column);
 		ray = ray - gap;
 		if (ray < 0)
