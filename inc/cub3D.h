@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
 /*   Updated: 2022/06/08 17:07:12 by chduong          ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +30,6 @@
 # include <X11/keysym.h>
 
 //	MACRO
-# define TILE 32
 # define WIDTH 1280
 # define HEIGHT 720
 # define FOV 60
@@ -97,8 +97,9 @@ typedef struct s_cube
 	int			ceiling;
 
 	int			pov;
+	float		hitpoint[2]; // X = 0    Y = 1
 	float		dist;
-	int			walldir;
+	int			walldir; // 1: Nord  / 2: Sud / 3:East / 4:West
 	t_point		pos;
 	t_keys		k;
 	t_ray		rays[FOV];
@@ -132,6 +133,7 @@ float	modulo_2pi(float deg);
 float	wall_intersections(t_cube *s, float deg);
 
 //	DISPLAY
+void	draw_background(t_cube *s);
 int		create_trgb(int t, int r, int g, int b);
 void	draw_minimap(t_cube *s);
 void	draw_player_view(t_cube *s);

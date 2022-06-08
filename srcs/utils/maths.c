@@ -14,7 +14,7 @@
 
 float	rad(float degree)
 {
-	return (degree * PI / 180);
+	return (degree * (float)PI / (float)180);
 }
 
 float	dist_ab(float x1, float y1, float x2, float y2)

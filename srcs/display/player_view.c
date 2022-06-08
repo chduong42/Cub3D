@@ -12,7 +12,7 @@
 
 #include "cub3D.h"
 
-static void	draw_background(t_cube *s)
+void	draw_background(t_cube *s)
 {
 	int	x;
 	int	y;
