@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 12:10:43 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:28:57 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,11 +400,12 @@ void	raycasting(t_cube *s, int column)
 	begin = (HEIGHT / 2) - (size_slice / 2);
 	if (begin < 0)
 		begin = 0;
-	while (i < HEIGHT && i < size_slice)
-	{
-		my_mlx_pixel_put(s, column, begin + i, color);
-		i++;
-	}
+	while (i < HEIGHT && i < begin)
+		my_mlx_pixel_put(s, column, i++, s->ceiling);
+	while (i < HEIGHT && i < (begin + size_slice))
+		my_mlx_pixel_put(s, column, i++, color);
+	while (i < HEIGHT)
+		my_mlx_pixel_put(s, column, i++, s->floor);
 }
 
 void	balayage(t_cube *s, float deg)
@@ -418,7 +419,6 @@ void	balayage(t_cube *s, float deg)
 	ray = deg + 30;
 	if (ray > 359)
 		ray = ray - 360;
-	draw_background(s);
 	while (column < WIDTH)
 	{
 		s->dist = wall_intersections(s, ray);
@@ -429,9 +429,10 @@ void	balayage(t_cube *s, float deg)
 		column++;
 	}
 	draw_minimap(s);
-	printf("\n\nPOV:%d\n", s->pov);
-	s->dist = wall_intersections(s, (float)s->pov);
-	printf("DIST:%f\n", s->dist);
+	
+//	printf("\n\nPOV:%d\n", s->pov);
+//	s->dist = wall_intersections(s, (float)s->pov);
+//	printf("DIST:%f\n", s->dist);
 }
 
 

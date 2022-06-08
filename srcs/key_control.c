@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:47:25 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 10:19:41 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:14:41 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	keys_effects(t_cube *s)
 	if (s->k.keyw == 1 || s->k.keya == 1 || s->k.keys == 1 || s->k.keyd == 1)
 		wasd_keys(s, speed, dist);
 	if (s->k.keyl == 1)
-		s->pov = s->pov + 1;
+		s->pov = s->pov + 3;
 	if (s->k.keyr == 1)
-		s->pov = s->pov - 1;
+		s->pov = s->pov - 3;
 	if (s->pov < 0)
 		s->pov = 360 + s->pov;
 	if (s->pov > 359)
