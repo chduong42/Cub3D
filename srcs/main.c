@@ -48,7 +48,7 @@ int	main(int ac, char **av)
 		free_all(&s);
 		return (1);
 	}
-	s.win = mlx_new_window(s.mlx, WIDTH, HEIGHT, TITLE);
+	s.win = mlx_new_window(s.mlx, WIDTH, HEIGHT, "Cub3D");
 	s.img = mlx_new_image(s.mlx, WIDTH, HEIGHT);
 	s.addr = mlx_get_data_addr(s.img, &s.bpp, &s.sizeline, &s.endian);
 //	draw_player_view(&s);

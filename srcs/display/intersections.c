@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 17:15:17 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/08 17:04:51 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ int	wall_above(t_cube *s, float y, float x)
 	return (0);
 }
 
-float	hori_zero_ninety(t_cube *s, float radian, float *pos)
+float	hori_zero_ninety(t_cube *s, float radian, t_point pos)
 {
 	float	y1;
 	float	x1;
 	float	xa;
 
-	y1 = pos[1] - (int)pos[1];
+	y1 = pos.y - (int)pos.y;
 	x1 = y1 / tanf(radian);
 	xa = 1 / tanf(radian);
-	while (wall_above(s, (pos[1] - y1), (pos[0]) + x1) == 0)
+	while (wall_above(s, (pos.y - y1), (pos.x) + x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
@@ -59,6 +59,7 @@ int	wall_right(t_cube *s, float y, float x)
 	return (0);
 }
 
+
 float	verti_zero_ninety(t_cube *s, float radian, float *pos, float *hit2)
 {
 	float	x1;
@@ -78,7 +79,7 @@ float	verti_zero_ninety(t_cube *s, float radian, float *pos, float *hit2)
 	return (x1 / cos(radian));
 }
 
-float	zero_ninety(t_cube*s, float radian, float *pos)
+float	zero_ninety(t_cube*s, float radian, t_point pos)
 {
 	float	len;
 	float	len2;
@@ -123,10 +124,10 @@ float	hori_noe(t_cube *s, float radian, float *pos, float *hit2)
 	float	x1;
 	float	xa;
 
-	y1 = pos[1] - (int)pos[1];
+	y1 = pos.y - (int)pos.y;
 	x1 = tanf(radian) * y1;
 	xa = tanf(radian) * 1;
-	while (wall_above_noe(s, pos[1] - y1, pos[0] - x1) == 0)
+	while (wall_above_noe(s, pos.y - y1, pos.x - x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
@@ -150,7 +151,7 @@ int	wall_left_noe(t_cube *s, float y, float x)
 	return (0);
 }
 
-float	verti_noe(t_cube *s, float radian, float *pos)
+float	verti_noe(t_cube *s, float radian, t_point pos)
 {
 	float	x1;
 	float	y1;
@@ -169,7 +170,7 @@ float	verti_noe(t_cube *s, float radian, float *pos)
 	return (y1 / cos(radian));
 }
 
-float	ninety_one_eighty(t_cube*s, float radian, float *pos)
+float	ninety_one_eighty(t_cube*s, float radian, t_point pos)
 {
 	float	len;
 	float	len2;
@@ -209,16 +210,16 @@ int	wall_under_oets(t_cube *s, float y, float x)
 	return (0);
 }
 
-float	hori_oets(t_cube *s, float radian, float *pos)
+float	hori_oets(t_cube *s, float radian, t_point pos)
 {
 	float	y1;
 	float	x1;
 	float	xa;
 
-	y1 = 1 - (pos[1] - (int)pos[1]);
+	y1 = 1 - (pos.y - (int)pos.y);
 	x1 = y1 / tanf(radian);
 	xa = 1 / tanf(radian);
-	while (wall_under_oets(s, pos[1] + y1, pos[0] - x1) == 0)
+	while (wall_under_oets(s, pos.y + y1, pos.x - x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
@@ -261,7 +262,7 @@ float	verti_oets(t_cube *s, float radian, float *pos, float *hit2)
 	return (x1 / cos(radian));
 }
 
-float	one_eighty_two_seventy(t_cube*s, float radian, float *pos)
+float	one_eighty_two_seventy(t_cube*s, float radian, t_point pos)
 {
 	float	len;
 	float	len2;
@@ -301,7 +302,7 @@ int	wall_right_tsts(t_cube *s, float y, float x)
 	return (0);
 }
 
-float	verti_tsts(t_cube *s, float radian, float *pos)
+float	verti_tsts(t_cube *s, float radian, t_point pos)
 {
 	float	x1;
 	float	y1;
@@ -340,7 +341,7 @@ float	hori_tsts(t_cube *s, float radian, float *pos, float *hit2)
 	float	x1;
 	float	xa;
 
-	y1 = 1 - (pos[1] - (int)pos[1]);
+	y1 = 1 - (pos.y - (int)pos.y);
 	x1 = y1 * tanf(radian);
 	xa = tanf(radian);
 	while (wall_under_tsts(s, pos[1] + y1, pos[0] + x1) == 0)
@@ -353,7 +354,7 @@ float	hori_tsts(t_cube *s, float radian, float *pos, float *hit2)
 	return (y1 / cos(radian));
 }
 
-float	two_seventy_three_sixty(t_cube*s, float radian, float *pos)
+float	two_seventy_three_sixty(t_cube*s, float radian, t_point pos)
 {
 	float	len;
 	float	len2;
@@ -472,9 +473,3 @@ void	balayage(t_cube *s, float deg)
 	printf("DIST:%f\n", s->dist);
 	*/
 }
-
-
-
-
-
-
