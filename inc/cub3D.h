@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/07 16:53:56 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/08 17:07:12 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 
 //	MACRO
 # define TILE 32
-# define WIDTH 2560
-# define HEIGHT 1440
+# define WIDTH 1280
+# define HEIGHT 720
 # define FOV 60
 # define PI 3.14159265358979323846
 
@@ -59,8 +59,8 @@ typedef struct s_keys
 
 typedef struct s_point
 {
-	double		x;
-	double		y;
+	float		x;
+	float		y;
 }				t_point;
 
 typedef struct s_ray
@@ -83,9 +83,12 @@ typedef struct s_cube
 	int			endian;
 	int			width;
 	int			height;
+	int			mnm_pix;
 
 	char		**file;
 	char		**map;
+	int			map_l;
+	int			map_h;
 	void		*no;
 	void		*so;
 	void		*we;
@@ -93,13 +96,10 @@ typedef struct s_cube
 	int			floor;
 	int			ceiling;
 
-	int			mnm_pix;
-	int			map_l;
-	int			map_h;
 	int			pov;
-	float		pos[2];
 	float		dist;
 	int			walldir;
+	t_point		pos;
 	t_keys		k;
 	t_ray		rays[FOV];
 }				t_cube;
@@ -128,7 +128,7 @@ int		write_error(char *message);
 //	MATHS UTILS
 float	rad(float degree);
 float	dist_ab(float x1, float y1, float x2, float y2);
-float	normalize_angle(float angle);
+float	modulo_2pi(float deg);
 float	wall_intersections(t_cube *s, float deg);
 
 //	DISPLAY
