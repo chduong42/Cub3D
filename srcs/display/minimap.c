@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:42:47 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 14:56:21 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/08 11:42:30 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	put_big_pixel(t_cube *s, int x, int y, int color)
 	}
 }
 
-static void	draw_background(t_cube *s)
+static void	draw_back(t_cube *s)
 {
 	int	x;	
 	int	y;	
@@ -113,7 +113,7 @@ void	draw_minimap(t_cube *s)
 	radian = rad(s->pov);
 	px = 10 + s->pos[0] * s->mnm_pix;
 	py = 10 + s->pos[1] * s->mnm_pix;
-	draw_background(s);
+	draw_back(s);
 	draw_player(s);
 	draw_pov(s, px + dst * cos(radian), py - dst * sin(radian));
 }

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/07 17:25:40 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/08 12:10:43 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	wall_right(t_cube *s, float y, float x)
 	int	posx;
 
 	posy = (int)y;
-	posx = (int)x;
+	posx = (int)(x + 0.5);
 	if (posy < 0 || posx >= s->map_l)
 		return (1);
 	if (s->map[posy][posx] == '1')
@@ -64,8 +64,8 @@ float	verti_zero_ninety(t_cube *s, float radian, float *pos)
 	float	ya;
 
 	x1 = 1 - (pos[0] - (int)pos[0]);
-	y1 = x1 * tan(radian);
-	ya = 1 * tan(radian);
+	y1 = x1 * tanf(radian);
+	ya = tanf(radian);
 	while (wall_right(s, (pos[1] - y1), (pos[0]) + x1) == 0)
 	{
 		y1 = y1 + ya;
@@ -91,6 +91,8 @@ float	zero_ninety(t_cube*s, float radian, float *pos)
 	}
 	len = hori_zero_ninety(s, radian, pos);
 	len2 = verti_zero_ninety(s, radian, pos);
+	printf("hori:%f\n", len);
+	printf("verti:%f\n", len2);
 	if (len < len2)
 	{
 		s->walldir = 1;
@@ -153,8 +155,8 @@ float	verti_noe(t_cube *s, float radian, float *pos)
 	float	ya;
 
 	x1 = pos[0] - (int)pos[0];
-	y1 = x1 / tan(radian);
-	ya = 1 / tan(radian);
+	y1 = x1 / tanf(radian);
+	ya = 1 / tanf(radian);
 	while (wall_left_noe(s, pos[1] - y1, pos[0] - x1) == 0)
 	{
 		y1 = y1 + ya;
@@ -238,8 +240,8 @@ float	verti_oets(t_cube *s, float radian, float *pos)
 	float	ya;
 
 	x1 = pos[0] - (int)pos[0];
-	y1 = x1 * tan(radian);
-	ya = 1 * tan(radian);
+	y1 = x1 * tanf(radian);
+	ya = 1 * tanf(radian);
 	while (wall_left_oets(s, pos[1] + y1, pos[0] - x1) == 0)
 	{
 		y1 = y1 + ya;
@@ -277,7 +279,7 @@ int	wall_right_tsts(t_cube *s, float y, float x)
 	int	posx;
 
 	posy = (int)y;
-	posx = (int)x + 0.5;
+	posx = (int)(x + 0.5);
 	if (posy >= s->map_h || posx >= s->map_l)
 		return (1);
 	if (s->map[posy][posx] == '1')
@@ -292,8 +294,8 @@ float	verti_tsts(t_cube *s, float radian, float *pos)
 	float	ya;
 
 	x1 = 1 - (pos[0] - (int)pos[0]);
-	y1 = x1 / tan(radian);
-	ya = 1 / tan(radian);
+	y1 = x1 / tanf(radian);
+	ya = 1 / tanf(radian);
 	while (wall_right_tsts(s, pos[1] + y1, pos[0] + x1) == 0)
 	{
 		y1 = y1 + ya;
@@ -307,7 +309,7 @@ int	wall_under_tsts(t_cube *s, float y, float x)
 	int	posy;
 	int	posx;
 
-	posy = (int)y + 0.5;
+	posy = (int)(y + 0.5);
 	posx = (int)x;
 	if (posy >= s->map_h || posx >= s->map_l)
 		return (1);
@@ -324,7 +326,7 @@ float	hori_tsts(t_cube *s, float radian, float *pos)
 
 	y1 = 1 - (pos[1] - (int)pos[1]);
 	x1 = y1 * tanf(radian);
-	xa = 1 * tanf(radian);
+	xa = tanf(radian);
 	while (wall_under_tsts(s, pos[1] + y1, pos[0] + x1) == 0)
 	{
 		y1 = y1 + 1;
@@ -340,6 +342,8 @@ float	two_seventy_three_sixty(t_cube*s, float radian, float *pos)
 
 	len = hori_tsts(s, radian, pos);
 	len2 = verti_tsts(s, radian, pos);
+	printf("hori:%f\n", len);
+	printf("verti:%f\n", len2);
 	if (len < len2)
 	{
 		s->walldir = 2;
@@ -378,27 +382,29 @@ void	raycasting(t_cube *s, int column)
 	int		size_slice;
 	int		color;
 	int		begin;
+	int		i;
 
+	i = 0;
 	if (s->walldir == 1) // Nord
 		color = 0x00000F00;
-	if (s->walldir == 2) // Sud
+	if (s->walldir == 2) // Sud : vert
 		color = 0x0000F000;
 	if (s->walldir == 3) // East
 		color = 0x00FF0000;
-	if (s->walldir == 4) //West
+	if (s->walldir == 4) //West : rge
 		color = 0x000000FF;
-	resolution_dist = WIDTH / 2 / tanf(rad(30));
+	
 	pixel_dist = s->dist * 64;
+	resolution_dist = WIDTH / 2 / tanf(rad(30));
 	size_slice = (int)((float)64 / pixel_dist * resolution_dist);
-//	printf("dist to proj plane:%f\n", resolution_dist);
-//	printf("pixel dist:%f\n", pixel_dist);
-//	printf("size slice:%d\n", size_slice);
-	begin = 360 - size_slice / 2;
-	for (int i = 0; i < size_slice; i++)
+	begin = (HEIGHT / 2) - (size_slice / 2);
+	if (begin < 0)
+		begin = 0;
+	while (i < HEIGHT && i < size_slice)
+	{
 		my_mlx_pixel_put(s, column, begin + i, color);
-
-//	my_mlx_pixel_put(t_cube *s, int x, int y, int color)
-
+		i++;
+	}
 }
 
 void	balayage(t_cube *s, float deg)
@@ -416,17 +422,16 @@ void	balayage(t_cube *s, float deg)
 	while (column < WIDTH)
 	{
 		s->dist = wall_intersections(s, ray);
-//		printf("dist:%f\n", s->dist);
-//		printf("wall:%d\n", s->walldir);
 		raycasting(s, column);
-											// RAY CASTING
 		ray = ray - gap;
 		if (ray < 0)
 			ray = ray + 360;
 		column++;
 	}
-//	printf("POV:%d\n", s->pov);
-//	printf("DIST:%f\n", s->dist);
+	draw_minimap(s);
+	printf("\n\nPOV:%d\n", s->pov);
+	s->dist = wall_intersections(s, (float)s->pov);
+	printf("DIST:%f\n", s->dist);
 }
 
 

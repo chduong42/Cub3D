@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:37:07 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/03 14:55:03 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/08 10:56:36 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 float	rad(float degree)
 {
-	return (degree * PI / 180);
+	return (degree * (float)PI / (float)180);
 }
 
 float	normalize_angle(float angle)
