@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 11:39:55 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/08 14:58:19 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define TILE_SIZE 32
 # define WIDTH 1280
 # define HEIGHT 720
+//# define WIDTH 2560
+//# define HEIGHT 1440
 # define FOV 60
 # define PI 3.14159265358979323846
 
@@ -99,6 +101,7 @@ typedef struct s_cube
 	int			map_h;
 	int			pov;
 	float		pos[2];
+	float		hitpoint[2]; // X = 0    Y = 1
 	float		dist;
 	int			walldir; // 1: Nord  / 2: Sud / 3:East / 4:West
 	t_keys		k;

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:42:47 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 11:42:30 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/08 16:24:39 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	draw_player(t_cube *s)
 
 	size = 10;
 	if (s->map_l > 30 || s->map_h > 30)
-		size = 5;
+		size = 2;
 	px = 10 + s->pos[0] * s->mnm_pix;
 	py = 10 + s->pos[1] * s->mnm_pix;
 	i = px - (s->mnm_pix / size);
