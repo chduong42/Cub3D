@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/06/09 15:42:20 by chduong          ###   ########.fr        #
+#    Updated: 2022/06/09 15:45:44 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,12 +71,11 @@ C3D_SRC		=	main.c		data_collect.c		key_control.c\
 					player_position.c	parsing.c		create_map.c\
 					check_each_elem.c	check_elems.c	check_map.c}\
 				${addprefix utils/,\
-					utils.c			maths.c}\
+					utils.c				maths.c}\
 				${addprefix raycasting/,\
-					facing.c}\
+					intersections.c		facing.c}\
 				${addprefix display/,\
-					player_view.c		minimap.c		pixel_utils.c\
-					intersections.c}\
+					player_view.c		minimap.c		pixel_utils.c}
 					
 #########################################
 #            OBJECT FILES    	        #
