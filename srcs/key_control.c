@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:47:25 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 18:48:25 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 18:53:01 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,6 @@ int	keyrelease(int key, t_cube *s)
 		s->k.keyl = 0;
 	if (key == RIGHT)
 		s->k.keyr = 0;
-	printf("----RELEASE-----\n");
-	printf("W: %d\n", s->k.keyw);
-	printf("A: %d\n", s->k.keya);
-	printf("S: %d\n", s->k.keys);
-	printf("D: %d\n", s->k.keyd);
-	printf("LEFT: %d\n", s->k.keyl);
-	printf("RIGHT: %d\n", s->k.keyr);
-	printf("-------------\n");
 	return (0);
 }
 
@@ -105,13 +97,5 @@ int	keypress(int key, t_cube *s)
 		s->k.keyl = 1;
 	if (key == RIGHT)
 		s->k.keyr = 1;
-	printf("----PRESS-----\n");
-	printf("W: %d\n", s->k.keyw);
-	printf("A: %d\n", s->k.keya);
-	printf("S: %d\n", s->k.keys);
-	printf("D: %d\n", s->k.keyd);
-	printf("LEFT: %d\n", s->k.keyl);
-	printf("RIGHT: %d\n", s->k.keyr);
-	printf("-------------\n");
 	return (0);
 }
