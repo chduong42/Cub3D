@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:42:47 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 14:40:12 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:43:34 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	draw_back_minimap(t_cube *s)
 		{
 			if (s->map[y][x] == '1')
 				put_big_pixel(s, 10 + x * s->mnm_pix,
-					10 + y * s->mnm_pix, 0x00278727);
+					10 + y * s->mnm_pix, 0x00000F00);
 			else if (!ft_isspace(s->map[y][x]))
 				put_big_pixel(s, 10 + x * s->mnm_pix,
 					10 + y * s->mnm_pix, 0x00A7C553);

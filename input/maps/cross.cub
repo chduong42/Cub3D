@@ -1,13 +1,13 @@
 NO ./input/sprites/texture1.xpm
 SO ./input/sprites/texture2.xpm
-WE ./input/sprites/texture3.xpm
+WE ./input/sprites/texture5.xpm
 EA ./input/sprites/texture4.xpm
 C 100,200,255                
 F 20,255,50
 
                11111111111111
+               100000N0000001
                10000000000001
-               100000S0000001
                10000000000001
                10000000000001
                10000000000001
