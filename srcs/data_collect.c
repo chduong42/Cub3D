@@ -6,11 +6,16 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:22:33 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 22:51:17 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 23:02:26 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+static int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
 
 static int	get_rgb(char *l)
 {
@@ -56,10 +61,10 @@ int	data_collect(t_cube *s)
 
 	i = 0;
 	numb = 0;
-	s->mnm_pix = (int)(300 / s->map_l);
+	s->mnm_pix = (int)(300 / s->map.w);
 	s->dist_project = WIDTH / 2 / tanf(rad(30));
-	if (s->map_l < s->map_h)
-		s->mnm_pix = (int)(300 / s->map_h);
+	if (s->map.w < s->map.h)
+		s->mnm_pix = (int)(300 / s->map.h);
 	while (s->file[i] && numb < 6)
 	{
 		j = 0;

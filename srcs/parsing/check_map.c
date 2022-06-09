@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:43:35 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/09 15:54:34 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 23:35:46 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static int	around_space_ok(t_cube *s, int x, int y)
 		res = res + one_or_space(s->maps[y - 1][x]);
 	if (y < s->map.h - 1)
 		res = res + one_or_space(s->maps[y + 1][x]);
-//////	Diags ? usefull ? or not /
 	if (x > 0 && y > 0)
 		res = res + one_or_space(s->maps[y - 1][x - 1]);
 	if (x < s->map.w - 1 && y > 0)

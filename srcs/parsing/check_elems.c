@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:36:48 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/09 15:53:43 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 23:35:36 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static int	all_elems(int *tab)
 	}
 	return (1);
 }
-
 
 int	check_elems(t_cube *s)
 {

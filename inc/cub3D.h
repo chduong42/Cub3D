@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 22:49:32 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 23:33:54 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_cube
 	int			ceiling;
 
 	int			pov;
-	int			walldir; // 1: Nord  / 2: Sud / 3:East / 4:West
+	int			walldir;
 	float		dist;
 	t_point		hit;
 	t_point		pos;
@@ -117,29 +117,22 @@ void	keys_effects(t_cube *s);
 
 //	UTILS
 int		cmp(char *str, char *l);
+int		write_error(char *message);
+char	*get_fn(char *l);
 void	free_all(t_cube *s);
 void	free_array(char **str);
-char	*get_fn(char *l);
-int		write_error(char *message);
 
-//	MATHS UTILS
+//	TRIGONOMETRY
 float	rad(float degree);
-float	dist_ab(float x1, float y1, float x2, float y2);
 float	modulo_2pi(float deg);
-float	wall_intersections(t_cube *s, float deg);
+float	ft_0_to_90(t_cube*s, float radian, t_point pos);
+float	ft_90_to_180(t_cube*s, float radian, t_point pos);
+float	ft_180_to_270(t_cube*s, float radian, t_point pos);
+float	ft_270_to_360(t_cube*s, float radian, t_point pos);
 
 //	DISPLAY
-void	draw_background(t_cube *s);
-int		create_trgb(int t, int r, int g, int b);
 void	draw_minimap(t_cube *s);
 void	my_mlx_pixel_put(t_cube *s, int x, int y, int color);
-t_uint	get_pixel_color(t_cube *s, int x, int y);
-
-//	RAYCASTING
 void	balayage(t_cube *s, float deg);
-int		isfacedown(double angle);
-int		isfaceup(double angle);
-int		isfaceright(double angle);
-int		isfaceleft(double angle);
 
 #endif

@@ -6,11 +6,25 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:00:27 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/01 17:11:10 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 23:30:54 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+float	rad(float degree)
+{
+	return (degree * (float)PI / (float)180);
+}
+
+float	modulo_2pi(float deg)
+{
+	if (deg < 0)
+		deg += 360;
+	else if (deg > 359)
+		deg -= 360;
+	return (deg);
+}
 
 char	*get_fn(char *l)
 {

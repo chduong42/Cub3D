@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:42:47 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 22:50:27 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 22:58:11 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	draw_back_minimap(t_cube *s)
 			if (s->maps[y][x] == '1')
 				put_big_pixel(s, 10 + x * s->mnm_pix,
 					10 + y * s->mnm_pix, 0x00000F00);
-			else if (!ft_isspace(s->map[y][x]))
+			else if (!ft_isspace(s->maps[y][x]))
 				put_big_pixel(s, 10 + x * s->mnm_pix,
 					10 + y * s->mnm_pix, 0x00A7C553);
 			x++;
@@ -93,7 +93,8 @@ static void	draw_pov(t_cube *s, float px, float py)
 			if (px < 5 + s->map.w * s->mnm_pix && px > 15
 				&& py < s->map.h * s->mnm_pix && py > 15)
 			{
-				if (s->maps[(j - 10) / s->mnm_pix][(i - 10) / s->mnm_pix] != ' ')
+				if (s->maps[(j - 10) / s->mnm_pix][(i - 10)
+					/ s->mnm_pix] != ' ')
 					my_mlx_pixel_put(s, i, j, 0x00FF0000);
 			}
 			j++;
@@ -111,8 +112,8 @@ void	draw_minimap(t_cube *s)
 
 	dst = 30;
 	radian = rad(s->pov);
-	px = 10 + s->pos[0] * s->mnm_pix;
-	py = 10 + s->pos[1] * s->mnm_pix;
+	px = 10 + s->pos.x * s->mnm_pix;
+	py = 10 + s->pos.y * s->mnm_pix;
 	draw_back_minimap(s);
 	draw_player(s);
 	draw_pov(s, px + dst * cos(radian), py - dst * sin(radian));
