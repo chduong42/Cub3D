@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:47:25 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 15:53:43 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 17:12:38 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 static void	choose_pos(t_cube *s, t_point new, float dist)
 {
-	if (s->maps[(int)new.y][(int)(new.x - dist / 2)] != '1')
+	if (s->maps[(int)new.y][(int)(new.x + dist)] != '1'
+		&& s->maps[(int)new.y][(int)(new.x - dist)] != '1')
 		s->pos.x = new.x;
-	if (s->maps[(int)(new.y + dist / 2)][(int)new.x] != '1')
+	if (s->maps[(int)(new.y + dist)][(int)new.x] != '1'
+		&& s->maps[(int)(new.y - dist)][(int)new.x] != '1')
 		s->pos.y = new.y;
 }
 
@@ -54,7 +56,7 @@ static void	keys_effects(t_cube *s)
 	float	dist;
 
 	speed = 0.2;
-	dist = 0.1;
+	dist = 0.15;
 	wasd_keys(s, s->pos, speed, dist);
 	if (s->k.keyl == 1)
 		s->pov = modulo_2pi(s->pov + 3);
