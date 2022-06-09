@@ -63,6 +63,12 @@ typedef struct s_point
 	float		y;
 }				t_point;
 
+typedef struct s_dim
+{
+	int			w;
+	int			h;
+}				t_dim;
+
 typedef struct s_cube
 {
 	void		*mlx;
@@ -77,9 +83,8 @@ typedef struct s_cube
 	int			mnm_pix;
 
 	char		**file;
-	char		**map;
-	int			map_l;
-	int			map_h;
+	char		**maps;
+	t_dim		map;
 	void		*no;
 	void		*so;
 	void		*we;

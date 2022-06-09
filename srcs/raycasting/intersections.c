@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 15:41:38 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 15:57:32 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	wall_above(t_cube *s, float y, float x)
 
 	posy = (int)(y - 0.5);
 	posx = (int)(x);
-	if (posy < 0 || posx >= s->map_l)
+	if (posy < 0 || posx >= s->map.w)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
@@ -52,9 +52,9 @@ int	wall_right(t_cube *s, float y, float x)
 
 	posy = (int)y;
 	posx = (int)(x + 0.5);
-	if (posy < 0 || posx >= s->map_l)
+	if (posy < 0 || posx >= s->map.w)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
@@ -112,7 +112,7 @@ int	wall_above_noe(t_cube *s, float y, float x)
 	posx = (int)x;
 	if (posy < 0 || posx < 0)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
@@ -145,7 +145,7 @@ int	wall_left_noe(t_cube *s, float y, float x)
 	posx = (int)(x - 0.5);
 	if (posy < 0 || posx < 0)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
@@ -202,9 +202,9 @@ int	wall_under_oets(t_cube *s, float y, float x)
 
 	posy = (int)(y + 0.5);
 	posx = (int)x;
-	if (posy >= s->map_h || posx < 0)
+	if (posy >= s->map.h || posx < 0)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
@@ -235,9 +235,9 @@ int	wall_left_oets(t_cube *s, float y, float x)
 
 	posy = (int)y;
 	posx = (int)(x - 0.5);
-	if (posy >= s->map_h || posx < 0)
+	if (posy >= s->map.h || posx < 0)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
@@ -294,9 +294,9 @@ int	wall_right_tsts(t_cube *s, float y, float x)
 
 	posy = (int)y;
 	posx = (int)(x + 0.5);
-	if (posy >= s->map_h || posx >= s->map_l)
+	if (posy >= s->map.h || posx >= s->map.w)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
@@ -327,9 +327,9 @@ int	wall_under_tsts(t_cube *s, float y, float x)
 
 	posy = (int)(y + 0.5);
 	posx = (int)x;
-	if (posy >= s->map_h || posx >= s->map_l)
+	if (posy >= s->map.h || posx >= s->map.w)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
@@ -402,13 +402,12 @@ void	raycasting(t_cube *s, int column)
 	int		size_slice;
 	int		color;
 	int		begin;
-	int		miniheight;
-	int		miniwidth;
+	t_dim	mini;
 	int		i;
 
 	i = 0;
-	miniwidth = s->mnm_pix * s->map_l;
-	miniheight = s->mnm_pix * s->map_h;
+	mini.w = s->mnm_pix * s->map.w;
+	mini.h = s->mnm_pix * s->map.h;
 	if (s->walldir == 1) // Nord
 		color = 0x00000F00;
 	if (s->walldir == 2) // Sud : vert
@@ -417,7 +416,6 @@ void	raycasting(t_cube *s, int column)
 		color = 0x00FF0000;
 	if (s->walldir == 4) //West : rge
 		color = 0x000000FF;
-
 	pixel_dist = s->dist * 64;
 	resolution_dist = WIDTH / 2 / tanf(rad(30));
 	size_slice = (int)((float)64 / pixel_dist * resolution_dist);
@@ -426,7 +424,7 @@ void	raycasting(t_cube *s, int column)
 		begin = 0;
 	while (i < HEIGHT)
 	{
-		if (!(i > 10 && i < miniheight + 10 && column > 10 && column < miniwidth + 10))
+		if (!(i > 10 && i < mini.h + 10 && column > 10 && column < mini.w + 10))
 		{
 			if (i < begin)
 				my_mlx_pixel_put(s, column, i, s->ceiling);

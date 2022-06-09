@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:42:47 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 18:40:24 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 15:54:34 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ static void	draw_back(t_cube *s)
 	int	y;	
 
 	y = 0;
-	while (y < s->map_h)
+	while (y < s->map.h)
 	{
 		x = 0;
-		while (x < s->map_l)
+		while (x < s->map.w)
 		{
-			if (s->map[y][x] == '1')
+			if (s->maps[y][x] == '1')
 				put_big_pixel(s, 10 + x * s->mnm_pix,
 					10 + y * s->mnm_pix, 0x00278727);
-			else if (!ft_isspace(s->map[y][x]))
+			else if (!ft_isspace(s->maps[y][x]))
 				put_big_pixel(s, 10 + x * s->mnm_pix,
 					10 + y * s->mnm_pix, 0x00A7C553);
 			x++;
@@ -62,7 +62,7 @@ static void	draw_player(t_cube *s)
 	int	size;
 
 	size = 10;
-	if (s->map_l > 30 || s->map_h > 30)
+	if (s->map.w > 30 || s->map.h > 30)
 		size = 2;
 	px = 10 + s->pos.x * s->mnm_pix;
 	py = 10 + s->pos.y * s->mnm_pix;
@@ -90,10 +90,10 @@ static void	draw_pov(t_cube *s, float px, float py)
 		j = py - 2;
 		while (j <= py + 2)
 		{
-			if (px < 5 + s->map_l * s->mnm_pix && px > 15
-				&& py < s->map_h * s->mnm_pix && py > 15)
+			if (px < 5 + s->map.w * s->mnm_pix && px > 15
+				&& py < s->map.h * s->mnm_pix && py > 15)
 			{
-				if (s->map[(j - 10) / s->mnm_pix][(i - 10) / s->mnm_pix] != ' ')
+				if (s->maps[(j - 10) / s->mnm_pix][(i - 10) / s->mnm_pix] != ' ')
 					my_mlx_pixel_put(s, i, j, 0x00FF0000);
 			}
 			j++;

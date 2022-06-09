@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:47:25 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 18:30:03 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 15:53:43 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	choose_pos(t_cube *s, t_point new, float dist)
 {
-	if (s->map[(int)new.y][(int)(new.x - dist / 2)] != '1')
+	if (s->maps[(int)new.y][(int)(new.x - dist / 2)] != '1')
 		s->pos.x = new.x;
-	if (s->map[(int)(new.y + dist / 2)][(int)new.x] != '1')
+	if (s->maps[(int)(new.y + dist / 2)][(int)new.x] != '1')
 		s->pos.y = new.y;
 }
 

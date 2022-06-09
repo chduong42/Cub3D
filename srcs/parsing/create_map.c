@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 23:44:44 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/06 17:06:19 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 15:54:34 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,22 @@ int	create_map(t_cube *s, int i)
 	y = 0;
 	while (s->file[i] && is_empty(s->file[i]))
 		i++;
-	s->map_l = what_len_max(s, i);
-	s->map_h = hm_lines(s, i);
-	if (!s->map_h)
-		return (write_error("No map\n"));
-	if (s->map_l > 50 || s->map_h > 50)
-		return (write_error("Maximum map size : 50x50\n"));
-	s->map = malloc(sizeof(char *) * (s->map_h + 1));
-	if (!s->map)
+	s->map.w = what_len_max(s, i);
+	s->map.h = hm_lines(s, i);
+	if (!s->map.h)
+		return (write_error("No maps\n"));
+	if (s->map.w > 50 || s->map.h > 50)
+		return (write_error("Maximum maps size : 50x50\n"));
+	s->maps = malloc(sizeof(char *) * (s->map.h + 1));
+	if (!s->maps)
 		return (write_error("Malloc: memory allocation failed\n"));
-	while (y < s->map_h)
+	while (y < s->map.h)
 	{
-		s->map[y] = dup_with_space(s->file[i++], s->map_l);
-		if (!s->map[y])
+		s->maps[y] = dup_with_space(s->file[i++], s->map.w);
+		if (!s->maps[y])
 			return (write_error("Malloc: memory allocation failed\n"));
 		y++;
 	}
-	s->map[y] = NULL;
+	s->maps[y] = NULL;
 	return (1);
 }
