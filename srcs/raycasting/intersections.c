@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 15:57:32 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 22:51:03 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,45 +395,55 @@ float	wall_intersections(t_cube *s, float deg)
 	return (len);
 }
 
+int		get_pixel_bitmap(t_cube *s, int y)
+{
+	int		x;
+	char	*dst;
+	int		bpp;
+	int		sizeline;
+
+	if (s->walldir == 1 || s->walldir == 2)
+		x = (int)(s->hitpoint[0] * 64) % 64;
+	else
+		x = (int)(s->hitpoint[1] * 64) % 64;
+	if (s->walldir == 1)
+		dst = mlx_get_data_addr(s->no, &bpp, &sizeline, &s->endian);
+	else if (s->walldir == 2)
+		dst = mlx_get_data_addr(s->so, &bpp, &sizeline, &s->endian);
+	else if (s->walldir == 3)
+		dst = mlx_get_data_addr(s->ea, &bpp, &sizeline, &s->endian);
+	else
+		dst = mlx_get_data_addr(s->we, &bpp, &sizeline, &s->endian);
+	dst = dst + (y * sizeline + x * bpp / 8);
+	return (*(unsigned int *)dst);
+}
+
 void	raycasting(t_cube *s, int column)
 {
-	float	resolution_dist;
-	float	pixel_dist;
 	int		size_slice;
 	int		color;
 	int		begin;
-	t_dim	mini;
-	int		i;
+	int		y;
 
-	i = 0;
-	mini.w = s->mnm_pix * s->map.w;
-	mini.h = s->mnm_pix * s->map.h;
-	if (s->walldir == 1) // Nord
-		color = 0x00000F00;
-	if (s->walldir == 2) // Sud : vert
-		color = 0x0000F000;
-	if (s->walldir == 3) // East
-		color = 0x00FF0000;
-	if (s->walldir == 4) //West : rge
-		color = 0x000000FF;
-	pixel_dist = s->dist * 64;
-	resolution_dist = WIDTH / 2 / tanf(rad(30));
-	size_slice = (int)((float)64 / pixel_dist * resolution_dist);
-	begin = (HEIGHT / 2) - (size_slice / 2);
-	if (begin < 0)
-		begin = 0;
-	while (i < HEIGHT)
+	y = 0;
+	size_slice = 64 / (s->dist * 64) * s->dist_project;
+	begin = (HEIGHT - size_slice) / 2;
+	while (y < HEIGHT)
 	{
-		if (!(i > 10 && i < mini.h + 10 && column > 10 && column < mini.w + 10))
+		if (!(y >= 10 && y < (s->mnm_pix * s->map_h + 10)
+				&& column >= 10 && column < (s->mnm_pix * s->map_l + 10)))
 		{
-			if (i < begin)
-				my_mlx_pixel_put(s, column, i, s->ceiling);
-			else if (i < begin + size_slice)
-				my_mlx_pixel_put(s, column, i, color);
+			if (y < (HEIGHT - size_slice) / 2)
+				my_mlx_pixel_put(s, column, y, s->ceiling);
+			else if (y < (HEIGHT + size_slice) / 2)
+			{
+				color = get_pixel_bitmap(s, ((y - begin) * 64 / size_slice));
+				my_mlx_pixel_put(s, column, y, color);
+			}
 			else
-				my_mlx_pixel_put(s, column, i, s->floor);
+				my_mlx_pixel_put(s, column, y, s->floor);
 		}
-		i++;
+		y++;
 	}
 }
 
@@ -448,8 +458,7 @@ void	balayage(t_cube *s, float deg)
 	ray = deg + 30;
 	if (ray > 359)
 		ray = ray - 360;
-
-   while (column < WIDTH)
+	while (column < WIDTH)
 	{
 		if (ray >= deg)
 			s->dist = wall_intersections(s, ray) * cos(rad(ray - deg));
@@ -462,11 +471,4 @@ void	balayage(t_cube *s, float deg)
 		column++;
 	}
 	draw_minimap(s);
-	/*
-	printf("\n\nPOV:%d\n", s->pov);
-	s->dist = wall_intersections(s, (float)s->pov);
-	printf("hpX:%f\n", s->hit.x);
-	printf("hpY:%f\n", s->hit.y);
-	printf("DIST:%f\n", s->dist);
-	*/
 }

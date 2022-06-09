@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:42:47 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 15:54:34 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 22:50:27 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	put_big_pixel(t_cube *s, int x, int y, int color)
 	}
 }
 
-static void	draw_back(t_cube *s)
+static void	draw_back_minimap(t_cube *s)
 {
 	int	x;	
 	int	y;	
@@ -43,8 +43,8 @@ static void	draw_back(t_cube *s)
 		{
 			if (s->maps[y][x] == '1')
 				put_big_pixel(s, 10 + x * s->mnm_pix,
-					10 + y * s->mnm_pix, 0x00278727);
-			else if (!ft_isspace(s->maps[y][x]))
+					10 + y * s->mnm_pix, 0x00000F00);
+			else if (!ft_isspace(s->map[y][x]))
 				put_big_pixel(s, 10 + x * s->mnm_pix,
 					10 + y * s->mnm_pix, 0x00A7C553);
 			x++;
@@ -111,9 +111,9 @@ void	draw_minimap(t_cube *s)
 
 	dst = 30;
 	radian = rad(s->pov);
-	px = 10 + s->pos.x * s->mnm_pix;
-	py = 10 + s->pos.y * s->mnm_pix;
-	draw_back(s);
+	px = 10 + s->pos[0] * s->mnm_pix;
+	py = 10 + s->pos[1] * s->mnm_pix;
+	draw_back_minimap(s);
 	draw_player(s);
 	draw_pov(s, px + dst * cos(radian), py - dst * sin(radian));
 }

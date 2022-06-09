@@ -6,8 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 16:10:40 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 17:07:12 by chduong          ###   ########.fr       */
-
+/*   Updated: 2022/06/09 22:49:32 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +79,7 @@ typedef struct s_cube
 	int			endian;
 	int			width;
 	int			height;
+	int			dist_project;
 	int			mnm_pix;
 
 	char		**file;
