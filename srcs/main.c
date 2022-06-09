@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 08:58:22 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 16:50:14 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/09 14:40:42 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	main(int ac, char **av)
 	s.win = mlx_new_window(s.mlx, WIDTH, HEIGHT, TITLE);
 	s.img = mlx_new_image(s.mlx, WIDTH, HEIGHT);
 	s.addr = mlx_get_data_addr(s.img, &s.bpp, &s.sizeline, &s.endian);
-//	draw_player_view(&s);
 	draw_minimap(&s);
 	balayage(&s, (float)s.pov);
 	mlx_put_image_to_window(s.mlx, s.win, s.img, 0, 0);

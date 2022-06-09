@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/08 17:15:17 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/09 16:04:15 by jvermeer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,6 +395,53 @@ float	wall_intersections(t_cube *s, float deg)
 	return (len);
 }
 
+int		get_pixel_bitmap(t_cube *s, int x, int y)
+{
+	int		sizeline;
+	int		color;
+	int		bpp;
+	int		endian;
+	char	*test;
+	char	*dst;
+
+	test = mlx_get_data_addr(s->no, &bpp, &sizeline, &endian);
+	dst = test + (y * sizeline + x * bpp / 8);
+	color = *(unsigned int *)dst;
+	return (color);
+}
+
+void	texture_mapping(t_cube *s, int column, int *y, int size_slice, int begin)
+{
+	int		color;
+	int		pixelx;
+	int		offset;
+	char	*test;
+
+	(void)s;
+	(void)color;
+	(void)test;
+	(void)size_slice;
+
+	color = 0x00000F00;
+	pixelx = s->hitpoint[0] * 64;
+	offset = pixelx % 64;
+
+	if (s->walldir == 1)
+	{
+		while (*y < HEIGHT && *y < begin + size_slice)
+		{
+//			color = get_pixel_bitmap(s, offset, ((*y - begin) * 64 / size_slice));
+//			if (!(*y > 10 && *y < s->mnm_pix * s->map_h + 10 && column > 10 && column < s->mnm_pix * s->map_l + 10))
+			if (*y - begin > 0)
+			{
+				color = get_pixel_bitmap(s, offset, ((*y - begin) * 64 / size_slice));
+				my_mlx_pixel_put(s, column, *y, color);
+			}
+			(*y)++;
+		}
+	}
+}
+
 void	raycasting(t_cube *s, int column)
 {
 	float	resolution_dist;
@@ -404,9 +451,9 @@ void	raycasting(t_cube *s, int column)
 	int		begin;
 	int		miniheight;
 	int		miniwidth;
-	int		i;
+	int		y;
 
-	i = 0;
+	y = 0;
 	miniwidth = s->mnm_pix * s->map_l;
 	miniheight = s->mnm_pix * s->map_h;
 	if (s->walldir == 1) // Nord
@@ -422,20 +469,25 @@ void	raycasting(t_cube *s, int column)
 	resolution_dist = WIDTH / 2 / tanf(rad(30));
 	size_slice = (int)((float)64 / pixel_dist * resolution_dist);
 	begin = (HEIGHT / 2) - (size_slice / 2);
-	if (begin < 0)
-		begin = 0;
-	while (i < HEIGHT)
+//	if (begin < 0)
+//		begin = 0;
+	while (y < HEIGHT)
 	{
-		if (!(i > 10 && i < miniheight + 10 && column > 10 && column < miniwidth + 10))
+		if (!(y > 10 && y < miniheight + 10 && column > 10 && column < miniwidth + 10))
 		{
-			if (i < begin)
-				my_mlx_pixel_put(s, column, i, s->ceiling);
-			else if (i < begin + size_slice)
-				my_mlx_pixel_put(s, column, i, color);
-			else
-				my_mlx_pixel_put(s, column, i, s->floor);
+			if (y < begin && begin >= 0)
+				my_mlx_pixel_put(s, column, y, s->ceiling);
+			else if (y < begin + size_slice)
+			{
+				if (s->walldir == 1)
+					texture_mapping(s, column, &y, size_slice, begin);
+				else
+					my_mlx_pixel_put(s, column, y, color);
+			}
+			else if (y < HEIGHT)
+				my_mlx_pixel_put(s, column, y, s->floor);
 		}
-		i++;
+		y++;
 	}
 }
 
