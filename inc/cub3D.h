@@ -113,6 +113,7 @@ void	get_player_position(t_cube *s);
 //	KEY CONTROL
 int		keypress(int key, t_cube *s);
 int		keyrelease(int key, t_cube *s);
+void	keys_effects(t_cube *s);
 
 //	UTILS
 int		cmp(char *str, char *l);
@@ -131,7 +132,6 @@ float	wall_intersections(t_cube *s, float deg);
 void	draw_background(t_cube *s);
 int		create_trgb(int t, int r, int g, int b);
 void	draw_minimap(t_cube *s);
-void	draw_player_view(t_cube *s);
 void	my_mlx_pixel_put(t_cube *s, int x, int y, int color);
 t_uint	get_pixel_color(t_cube *s, int x, int y);
 

@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:35:31 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/07 18:00:16 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 18:47:06 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,4 @@ void	draw_background(t_cube *s)
 		}
 		++y;
 	}
-}
-
-void	draw_player_view(t_cube *s)
-{
-	draw_background(s);
 }

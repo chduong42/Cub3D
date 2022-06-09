@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:47:25 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 17:12:38 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 18:48:25 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	wasd_keys(t_cube *s, t_point pos, float speed, float dist)
 	}
 }
 
-static void	keys_effects(t_cube *s)
+void	keys_effects(t_cube *s)
 {
 	float	speed;
 	float	dist;
@@ -78,6 +78,14 @@ int	keyrelease(int key, t_cube *s)
 		s->k.keyl = 0;
 	if (key == RIGHT)
 		s->k.keyr = 0;
+	printf("----RELEASE-----\n");
+	printf("W: %d\n", s->k.keyw);
+	printf("A: %d\n", s->k.keya);
+	printf("S: %d\n", s->k.keys);
+	printf("D: %d\n", s->k.keyd);
+	printf("LEFT: %d\n", s->k.keyl);
+	printf("RIGHT: %d\n", s->k.keyr);
+	printf("-------------\n");
 	return (0);
 }
 
@@ -97,8 +105,13 @@ int	keypress(int key, t_cube *s)
 		s->k.keyl = 1;
 	if (key == RIGHT)
 		s->k.keyr = 1;
-	keys_effects(s);
-	balayage(s, (float)s->pov);
-	mlx_put_image_to_window(s->mlx, s->win, s->img, 0, 0);
+	printf("----PRESS-----\n");
+	printf("W: %d\n", s->k.keyw);
+	printf("A: %d\n", s->k.keya);
+	printf("S: %d\n", s->k.keys);
+	printf("D: %d\n", s->k.keyd);
+	printf("LEFT: %d\n", s->k.keyl);
+	printf("RIGHT: %d\n", s->k.keyr);
+	printf("-------------\n");
 	return (0);
 }
