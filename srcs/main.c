@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 08:58:22 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 14:40:42 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/09 22:49:58 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	free_all(t_cube *s)
 		mlx_destroy_image(s->mlx, s->ea);
 	if (s->file)
 		free_array(s->file);
-	if (s->map)
-		free_array(s->map);
+	if (s->maps)
+		free_array(s->maps);
 	if (s->img)
 		mlx_destroy_image(s->mlx, s->img);
 	if (s->win)
@@ -35,6 +35,14 @@ void	free_all(t_cube *s)
 		mlx_destroy_display(s->mlx);
 		free(s->mlx);
 	}
+}
+
+int	display(t_cube *s)
+{
+	keys_effects(s);
+	balayage(s, (float)s->pov);
+	mlx_put_image_to_window(s->mlx, s->win, s->img, 0, 0);
+	return (0);
 }
 
 int	main(int ac, char **av)
@@ -48,12 +56,10 @@ int	main(int ac, char **av)
 		free_all(&s);
 		return (1);
 	}
-	s.win = mlx_new_window(s.mlx, WIDTH, HEIGHT, TITLE);
+	s.win = mlx_new_window(s.mlx, WIDTH, HEIGHT, "Cub3D");
 	s.img = mlx_new_image(s.mlx, WIDTH, HEIGHT);
 	s.addr = mlx_get_data_addr(s.img, &s.bpp, &s.sizeline, &s.endian);
-	draw_minimap(&s);
-	balayage(&s, (float)s.pov);
-	mlx_put_image_to_window(s.mlx, s.win, s.img, 0, 0);
+	mlx_loop_hook(s.mlx, &display, &s);
 	mlx_hook(s.win, KeyPress, KeyPressMask, keypress, (void *)&s);
 	mlx_hook(s.win, KeyRelease, KeyReleaseMask, keyrelease, (void *)&s);
 	mlx_hook(s.win, ClientMessage, LeaveWindowMask, mlx_loop_end, s.mlx);

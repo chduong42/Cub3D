@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 09:46:00 by jvermeer          #+#    #+#             */
-/*   Updated: 2022/06/09 19:07:02 by jvermeer         ###   ########.fr       */
+/*   Updated: 2022/06/09 22:51:03 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,29 @@ int	wall_above(t_cube *s, float y, float x)
 
 	posy = (int)(y - 0.5);
 	posx = (int)(x);
-	if (posy < 0 || posx >= s->map_l)
+	if (posy < 0 || posx >= s->map.w)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
 
-float	hori_zero_ninety(t_cube *s, float radian, float *pos)
+float	hori_zero_ninety(t_cube *s, float radian, t_point pos)
 {
 	float	y1;
 	float	x1;
 	float	xa;
 
-	y1 = pos[1] - (int)pos[1];
+	y1 = pos.y - (int)pos.y;
 	x1 = y1 / tanf(radian);
 	xa = 1 / tanf(radian);
-	while (wall_above(s, (pos[1] - y1), (pos[0]) + x1) == 0)
+	while (wall_above(s, (pos.y - y1), (pos.x) + x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
 	}
-	s->hitpoint[0] = pos[0] + x1;
-	s->hitpoint[1] = pos[1] - y1;
+	s->hit.x = pos.x + x1;
+	s->hit.y = pos.y - y1;
 	return (x1 / cos(radian));
 }
 
@@ -52,37 +52,37 @@ int	wall_right(t_cube *s, float y, float x)
 
 	posy = (int)y;
 	posx = (int)(x + 0.5);
-	if (posy < 0 || posx >= s->map_l)
+	if (posy < 0 || posx >= s->map.w)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
 
-float	verti_zero_ninety(t_cube *s, float radian, float *pos, float *hit2)
+float	verti_zero_ninety(t_cube *s, float radian, t_point pos, t_point *hit)
 {
 	float	x1;
 	float	y1;
 	float	ya;
 
-	x1 = 1 - (pos[0] - (int)pos[0]);
+	x1 = 1 - (pos.x - (int)pos.x);
 	y1 = x1 * tanf(radian);
 	ya = tanf(radian);
-	while (wall_right(s, (pos[1] - y1), (pos[0]) + x1) == 0)
+	while (wall_right(s, (pos.y - y1), (pos.x) + x1) == 0)
 	{
 		y1 = y1 + ya;
 		x1 = x1 + 1;
 	}
-	*hit2 = pos[0] + x1;
-	*(hit2 + 1) = pos[1] - y1;
+	hit->x = pos.x + x1;
+	hit->y = pos.y - y1;
 	return (x1 / cos(radian));
 }
 
-float	zero_ninety(t_cube*s, float radian, float *pos)
+float	zero_ninety(t_cube*s, float radian, t_point pos)
 {
 	float	len;
 	float	len2;
-	float	hit2[2];
+	t_point	hit;
 
 	if (radian == rad(90))
 	{
@@ -90,14 +90,14 @@ float	zero_ninety(t_cube*s, float radian, float *pos)
 		return (hori_zero_ninety(s, radian, pos));
 	}
 	len = hori_zero_ninety(s, radian, pos);
-	len2 = verti_zero_ninety(s, radian, pos, hit2);
+	len2 = verti_zero_ninety(s, radian, pos, &hit);
 	if (len < len2)
 	{
 		s->walldir = 1;
 		return (len);
 	}
-	s->hitpoint[0] = hit2[0];
-	s->hitpoint[1] = hit2[1];
+	s->hit.x = hit.x;
+	s->hit.y = hit.y;
 	s->walldir = 3;
 	return (len2);
 }
@@ -112,27 +112,27 @@ int	wall_above_noe(t_cube *s, float y, float x)
 	posx = (int)x;
 	if (posy < 0 || posx < 0)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
 
-float	hori_noe(t_cube *s, float radian, float *pos, float *hit2)
+float	hori_noe(t_cube *s, float radian, t_point pos, t_point *hit)
 {
 	float	y1;
 	float	x1;
 	float	xa;
 
-	y1 = pos[1] - (int)pos[1];
+	y1 = pos.y - (int)pos.y;
 	x1 = tanf(radian) * y1;
 	xa = tanf(radian) * 1;
-	while (wall_above_noe(s, pos[1] - y1, pos[0] - x1) == 0)
+	while (wall_above_noe(s, pos.y - y1, pos.x - x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
 	}
-	*hit2 = pos[0] - x1;
-	*(hit2 + 1) = pos[1] - y1;
+	hit->x = pos.x - x1;
+	hit->y = pos.y - y1;
 	return (y1 / cos(radian));
 }
 
@@ -145,47 +145,47 @@ int	wall_left_noe(t_cube *s, float y, float x)
 	posx = (int)(x - 0.5);
 	if (posy < 0 || posx < 0)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
 
-float	verti_noe(t_cube *s, float radian, float *pos)
+float	verti_noe(t_cube *s, float radian, t_point pos)
 {
 	float	x1;
 	float	y1;
 	float	ya;
 
-	x1 = pos[0] - (int)pos[0];
+	x1 = pos.x - (int)pos.x;
 	y1 = x1 / tanf(radian);
 	ya = 1 / tanf(radian);
-	while (wall_left_noe(s, pos[1] - y1, pos[0] - x1) == 0)
+	while (wall_left_noe(s, pos.y - y1, pos.x - x1) == 0)
 	{
 		y1 = y1 + ya;
 		x1 = x1 + 1;
 	}
-	s->hitpoint[0] = pos[0] - x1;
-	s->hitpoint[1] = pos[1] - y1;
+	s->hit.x = pos.x - x1;
+	s->hit.y = pos.y - y1;
 	return (y1 / cos(radian));
 }
 
-float	ninety_one_eighty(t_cube*s, float radian, float *pos)
+float	ninety_one_eighty(t_cube*s, float radian, t_point pos)
 {
 	float	len;
 	float	len2;
-	float	hit2[2];
+	t_point	hit;
 
 	if (radian == rad(90))
 	{
 		s->walldir = 4;
 		return (verti_noe(s, radian, pos));
 	}
-	len = hori_noe(s, radian, pos, hit2);
+	len = hori_noe(s, radian, pos, &hit);
 	len2 = verti_noe(s, radian, pos);
 	if (len < len2)
 	{
-		s->hitpoint[0] = hit2[0];
-		s->hitpoint[1] = hit2[1];
+		s->hit.x = hit.x;
+		s->hit.y = hit.y;
 		s->walldir = 1;
 		return (len);
 	}
@@ -202,29 +202,29 @@ int	wall_under_oets(t_cube *s, float y, float x)
 
 	posy = (int)(y + 0.5);
 	posx = (int)x;
-	if (posy >= s->map_h || posx < 0)
+	if (posy >= s->map.h || posx < 0)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
 
-float	hori_oets(t_cube *s, float radian, float *pos)
+float	hori_oets(t_cube *s, float radian, t_point pos)
 {
 	float	y1;
 	float	x1;
 	float	xa;
 
-	y1 = 1 - (pos[1] - (int)pos[1]);
+	y1 = 1 - (pos.y - (int)pos.y);
 	x1 = y1 / tanf(radian);
 	xa = 1 / tanf(radian);
-	while (wall_under_oets(s, pos[1] + y1, pos[0] - x1) == 0)
+	while (wall_under_oets(s, pos.y + y1, pos.x - x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
 	}
-	s->hitpoint[0] = pos[0] - x1;
-	s->hitpoint[1] = pos[1] + y1;
+	s->hit.x = pos.x - x1;
+	s->hit.y = pos.y + y1;
 	return (x1 / cos(radian));
 }
 
@@ -235,37 +235,37 @@ int	wall_left_oets(t_cube *s, float y, float x)
 
 	posy = (int)y;
 	posx = (int)(x - 0.5);
-	if (posy >= s->map_h || posx < 0)
+	if (posy >= s->map.h || posx < 0)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
 
-float	verti_oets(t_cube *s, float radian, float *pos, float *hit2)
+float	verti_oets(t_cube *s, float radian, t_point pos, t_point *hit)
 {
 	float	x1;
 	float	y1;
 	float	ya;
 
-	x1 = pos[0] - (int)pos[0];
+	x1 = pos.x - (int)pos.x;
 	y1 = x1 * tanf(radian);
 	ya = 1 * tanf(radian);
-	while (wall_left_oets(s, pos[1] + y1, pos[0] - x1) == 0)
+	while (wall_left_oets(s, pos.y + y1, pos.x - x1) == 0)
 	{
 		y1 = y1 + ya;
 		x1 = x1 + 1;
 	}
-	*hit2 = pos[0] - x1;
-	*(hit2 + 1) = pos[1] + y1;
+	hit->x = pos.x - x1;
+	hit->y = pos.y + y1;
 	return (x1 / cos(radian));
 }
 
-float	one_eighty_two_seventy(t_cube*s, float radian, float *pos)
+float	one_eighty_two_seventy(t_cube*s, float radian, t_point pos)
 {
 	float	len;
 	float	len2;
-	float	hit2[2];
+	t_point	hit;
 
 	if (radian == rad(90))
 	{
@@ -273,14 +273,14 @@ float	one_eighty_two_seventy(t_cube*s, float radian, float *pos)
 		return (hori_oets(s, radian, pos));
 	}
 	len = hori_oets(s, radian, pos);
-	len2 = verti_oets(s, radian, pos, hit2);
+	len2 = verti_oets(s, radian, pos, &hit);
 	if (len < len2)
 	{
 		s->walldir = 2;
 		return (len);
 	}
-	s->hitpoint[0] = hit2[0];
-	s->hitpoint[1] = hit2[1];
+	s->hit.x = hit.x;
+	s->hit.y = hit.y;
 	s->walldir = 4;
 	return (len2);
 }
@@ -294,29 +294,29 @@ int	wall_right_tsts(t_cube *s, float y, float x)
 
 	posy = (int)y;
 	posx = (int)(x + 0.5);
-	if (posy >= s->map_h || posx >= s->map_l)
+	if (posy >= s->map.h || posx >= s->map.w)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
 
-float	verti_tsts(t_cube *s, float radian, float *pos)
+float	verti_tsts(t_cube *s, float radian, t_point pos)
 {
 	float	x1;
 	float	y1;
 	float	ya;
 
-	x1 = 1 - (pos[0] - (int)pos[0]);
+	x1 = 1 - (pos.x - (int)pos.x);
 	y1 = x1 / tanf(radian);
 	ya = 1 / tanf(radian);
-	while (wall_right_tsts(s, pos[1] + y1, pos[0] + x1) == 0)
+	while (wall_right_tsts(s, pos.y + y1, pos.x + x1) == 0)
 	{
 		y1 = y1 + ya;
 		x1 = x1 + 1;
 	}
-	s->hitpoint[0] = pos[0] + x1;
-	s->hitpoint[1] = pos[1] + y1;
+	s->hit.x = pos.x + x1;
+	s->hit.y = pos.y + y1;
 	return (y1 / cos(radian));
 }
 
@@ -327,49 +327,49 @@ int	wall_under_tsts(t_cube *s, float y, float x)
 
 	posy = (int)(y + 0.5);
 	posx = (int)x;
-	if (posy >= s->map_h || posx >= s->map_l)
+	if (posy >= s->map.h || posx >= s->map.w)
 		return (1);
-	if (s->map[posy][posx] == '1')
+	if (s->maps[posy][posx] == '1')
 		return (1);
 	return (0);
 }
 
-float	hori_tsts(t_cube *s, float radian, float *pos, float *hit2)
+float	hori_tsts(t_cube *s, float radian, t_point pos, t_point *hit)
 {
 	float	y1;
 	float	x1;
 	float	xa;
 
-	y1 = 1 - (pos[1] - (int)pos[1]);
+	y1 = 1 - (pos.y - (int)pos.y);
 	x1 = y1 * tanf(radian);
 	xa = tanf(radian);
-	while (wall_under_tsts(s, pos[1] + y1, pos[0] + x1) == 0)
+	while (wall_under_tsts(s, pos.y + y1, pos.x + x1) == 0)
 	{
 		y1 = y1 + 1;
 		x1 = x1 + xa;
 	}
-	*hit2 = pos[0] + x1;
-	*(hit2 + 1) = pos[1] + y1;
+	hit->x = pos.x + x1;
+	hit->y = pos.y + y1;
 	return (y1 / cos(radian));
 }
 
-float	two_seventy_three_sixty(t_cube*s, float radian, float *pos)
+float	two_seventy_three_sixty(t_cube*s, float radian, t_point pos)
 {
 	float	len;
 	float	len2;
-	float	hit2[2];
+	t_point	hit;
 
 	if (radian == rad(0))
 	{
 		s->walldir = 3;
 		return (verti_tsts(s, radian, pos));
 	}
-	len = hori_tsts(s, radian, pos, hit2);
+	len = hori_tsts(s, radian, pos, &hit);
 	len2 = verti_tsts(s, radian, pos);
 	if (len < len2)
 	{
-		s->hitpoint[0] = hit2[0];
-		s->hitpoint[1] = hit2[1];
+		s->hit.x = hit.x;
+		s->hit.y = hit.y;
 		s->walldir = 2;
 		return (len);
 	}

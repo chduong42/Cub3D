@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setting_player.c                                   :+:      :+:    :+:   */
+/*   player_position.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 15:09:55 by chduong           #+#    #+#             */
-/*   Updated: 2022/05/30 13:09:16 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 15:54:34 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ void	get_player_position(t_cube *s)
 	int		y;
 
 	y = 0;
-	while (y < s->map_h)
+	while (y < s->map.h)
 	{
 		x = 0;
-		while (x < s->map_l)
+		while (x < s->map.w)
 		{
-			if (s->map[y][x] == 'N' || s->map[y][x] == 'S'
-				|| s->map[y][x] == 'E' || s->map[y][x] == 'W')
+			if (s->maps[y][x] == 'N' || s->maps[y][x] == 'S'
+				|| s->maps[y][x] == 'E' || s->maps[y][x] == 'W')
 			{
-				get_pov(s, s->map[y][x]);
-				s->pos[0] = (float)x + 0.5;
-				s->pos[1] = (float)y + 0.5;
+				get_pov(s, s->maps[y][x]);
+				s->pos.x = (float)x + 0.5;
+				s->pos.y = (float)y + 0.5;
 				return ;
 			}
 			x++;

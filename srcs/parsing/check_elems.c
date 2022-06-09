@@ -6,7 +6,7 @@
 /*   By: chduong <chduong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 06:36:48 by chduong           #+#    #+#             */
-/*   Updated: 2022/06/06 17:06:43 by chduong          ###   ########.fr       */
+/*   Updated: 2022/06/09 15:53:43 by chduong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,22 @@ int	valid_char(t_cube *s)
 
 	y = 0;
 	nb_player = 0;
-	while (s->map[y])
+	while (s->maps[y])
 	{
 		x = 0;
-		while (s->map[y][x])
+		while (s->maps[y][x])
 		{
-			if (is_valid_char(s->map[y][x]))
-				return (write_error("Invalid character(s) in the map\n"));
-			if (s->map[y][x] == 'N' || s->map[y][x] == 'S'
-					|| s->map[y][x] == 'E' || s->map[y][x] == 'W')
+			if (is_valid_char(s->maps[y][x]))
+				return (write_error("Invalid character(s) in the maps\n"));
+			if (s->maps[y][x] == 'N' || s->maps[y][x] == 'S'
+					|| s->maps[y][x] == 'E' || s->maps[y][x] == 'W')
 				++nb_player;
 			x++;
 		}
 		y++;
 	}
 	if (nb_player != 1)
-		return (write_error("Missing or too many players in the map\n"));
+		return (write_error("Missing or too many players in the maps\n"));
 	return (1);
 }
 
