@@ -63,15 +63,6 @@ typedef struct s_point
 	float		y;
 }				t_point;
 
-typedef struct s_ray
-{
-	float		angle;
-	float		dist;
-	bool		hit_hor;
-	void		*texture;
-	t_point		inter;
-}				t_ray;
-
 typedef struct s_cube
 {
 	void		*mlx;
@@ -97,12 +88,11 @@ typedef struct s_cube
 	int			ceiling;
 
 	int			pov;
-	float		hitpoint[2]; // X = 0    Y = 1
-	float		dist;
 	int			walldir; // 1: Nord  / 2: Sud / 3:East / 4:West
+	float		dist;
+	t_point		hit;
 	t_point		pos;
 	t_keys		k;
-	t_ray		rays[FOV];
 }				t_cube;
 
 //	PARSING

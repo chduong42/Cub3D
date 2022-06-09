@@ -6,7 +6,7 @@
 #    By: chduong <chduong@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 18:48:08 by kennyduong        #+#    #+#              #
-#    Updated: 2022/06/08 17:03:55 by chduong          ###   ########.fr        #
+#    Updated: 2022/06/09 15:42:20 by chduong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ C3D_OBJ		:=	$(addprefix $(OBJ_DIR), $(C3D_OBJ))
 #########################################
 $(C3D): $(MLX) $(LFT) $(OBJ_DIR) $(C3D_OBJ)
 	@echo "> $(CYAN)Generate objects$(END) : \t\t[$(GREEN)OK$(END)]"
-	@$(CC) -o $@ $(C3D_OBJ) $(LIBFT) $(MLX) $(LINK)
+	@$(CC) $(DEBUG) -o $@ $(C3D_OBJ) $(LIBFT) $(MLX) $(LINK)
 	@echo "> $(WHITE)$(BOLD)Cube3D Compilation$(END) : \t\t[$(YELLOW)COMPLETE$(END)]"
 
 $(LFT):
@@ -102,7 +102,7 @@ $(MLX):
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c
 	@${MKDIR} ${@D}
-	@${CC} ${CFLAGS} ${INC} -c $< -o $@ 
+	@${CC} ${CFLAGS} $(DEBUG) ${INC} -c $< -o $@ 
 
 $(OBJ_DIR):
 	@$(MKDIR) $(OBJ_DIR)
